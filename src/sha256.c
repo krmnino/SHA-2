@@ -256,14 +256,12 @@ int sha256_delete(sha256* s){
 }
 
 
-int sha256_display(sha256* s){
+int sha256_stringify(sha256* s, char* out_buffer){
     union{
         uint32_t integer;
         uint8_t array[4];
     } u32_buff;
-    uint8_t lower_nibble;
-    uint8_t upper_nibble;
-    char hex_str[3];
+    size_t out_buffer_idx;
 
     // Validate input
     if(s == NULL){
@@ -276,35 +274,13 @@ int sha256_display(sha256* s){
         return -1;
     }    
 
-    memset(hex_str, 0, sizeof(hex_str));
+    out_buffer_idx = 0;
     for(size_t i = 0; i < SHA256_HASH_U32WORDS; i++){
         u32_buff.integer = s->hash[i];
         for(size_t j = 0; j < sizeof(uint32_t); j++){
-            printf("%02x", u32_buff.array[j]);
+            sprintf((char*)&out_buffer[out_buffer_idx], "%02x", u32_buff.array[j]);
+            out_buffer_idx += 2;
         }
     }
-    printf("\n");
-    return 0;
-}
-
-
-int main(int argc, char* argv[]){
-    int ret;
-    sha256* s;    
-    
-    s = sha256_init();
-    if(s == NULL){
-        return -1;
-    }
-
-    // Loop through all the elements in argv
-    for(size_t i = 1; i < argc; i++){
-        sha256_chain(s, argv[i], strlen(argv[i]));
-    }
-    sha256_end(s);
-    
-    sha256_display(s);
-    sha256_delete(s);
-
     return 0;
 }
