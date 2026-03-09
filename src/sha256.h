@@ -39,7 +39,7 @@ static uint32_t SHA256_K[] = {
 
 
 #define CALCULATE_SHA256_k(input_bitlen) \
-        (SHA256_CHUNK_BITSIZE - (((input_bitlen) + 1 + 64) % SHA256_CHUNK_BITSIZE))
+        (SHA256_CHUNK_BITSIZE - ((input_bitlen + 1 + (sizeof(uint64_t) * 8)) % SHA256_CHUNK_BITSIZE))
 
 
 typedef struct sha256 sha256;
@@ -51,7 +51,6 @@ struct sha256{
             uint8_t buffer_u8[SHA256_CHUNK_BYTESIZE];
         };
     };
-    
     uint32_t hash[SHA256_HASH_U32WORDS];
     uint64_t data_bytelen;
     bool big_endian;
