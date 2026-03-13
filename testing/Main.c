@@ -253,6 +253,116 @@ int sha256_test(){
         counter++;
         printf("PASSED #%ld\n", counter);
     }
+
+    // Test 5
+    {
+        int ret;
+        sha256* s;
+        char* input_string;
+        uint8_t* hex_input_string;
+        char* output_hash;
+        size_t input_len;
+        
+        input_string = "5a86b737eaea8ee976a0a24da63e7ed7eefad18a101c1211e2b3650c5187c2a8a650547208251f6d4237e661c7bf4c77f335390394c37fa1a9f9be836ac28509";
+        output_hash  = "42e61e174fbb3897d6dd6cef3dd2802fe67b331953b06114a65c772859dfc1aa";
+        input_len = strlen(input_string);
+        hex_input_string = (uint8_t*)calloc((input_len / 2), sizeof(uint8_t));
+        char_str_2_hex_str(input_string, input_len, hex_input_string, (input_len / 2), input_len, NO_SKIP, false);
+
+        s = sha256_init();
+        if(s == NULL){
+            return -1;
+        }
+        
+        ret = sha256_chain(s, hex_input_string, (input_len / 2));
+        if(s == NULL){
+            return -1;
+        }
+
+        ret = sha256_end(s);
+        if(s == NULL){
+            return -1;
+        }
+        
+        char* buff;
+        buff = (char*)calloc(SHA256_HASH_BYTESIZE * 2, sizeof(char));
+        sha256_stringify(s, buff);
+        
+        if(strcmp(buff, output_hash) != 0){
+            printf("!!! ERROR !!!\n");
+            printf("Input data    : %s\n", input_string);
+            printf("Output hash   : %s\n", buff);
+            printf("Expected hash : %s\n", output_hash);
+            printf("!!! ERROR !!!\n");
+            return -1;
+        }
+        
+        sha256_delete(s);
+        counter++;
+        printf("PASSED #%ld\n", counter);
+    }
+
+    // Test 6
+    {
+        int ret;
+        sha256* s;
+        char* input_string;
+        uint8_t* hex_input_string;
+        char* output_hash;
+        size_t input_len;
+        
+        input_string = "5f664be0c0f3d2fc9a1a7ed6b515ef9c52ad1c7fb3acf2c2de943e109f91cc12"
+                       "ccadd041cc4386f95ab616cf8762ba25fed322fc8c351809e00c600a8f26e25a"
+                       "5bcd0bc3b44170947f65b4f417b8ac769187c2ee4561978289cced04c036c37f"
+                       "942ec10f7fd4d7f6908e22ed6cfd0fb89330c2fde417b956643aaca53baab8a8"
+                       "ff38bdcd35e60547159b26618e1b29128a35ebd2733fc4adf6bf6796076b09fd"
+                       "2554c6a4df5e40ae97f389f986f843ad00000515f9c001aec9c4e47e2c60fea7"
+                       "8de8a33c8423d1539dfe125c5b7ea4b17cf8d86e7f84b88264afec06b370dfce"
+                       "bf5e1d3e2c1f005faf248b321593964587852b830c7231504fe947d6a385f399"
+                       "441cfc52df3914fa55cdba25bd215f91a80fc8ffa872b34113dbbd9504868331"
+                       "a38c081fa659574b186169db590f48be67fe75885b6c877d37ec16ebde5ad7be"
+                       "6414084e88670f7b7f485efcf44599f44cbbfbc62e48f62b438319823aeb3767"
+                       "101ec6868e4c85b113ea623193ab9a5ae0ac226328ee4674bf0a90ff1f20eb54"
+                       "2e110870bfee01165ab03c2240299319aa3ab1045247bf7f34e8410d96e13aae"
+                       "465597b42336cad2de00b67602a7cb5832cd7253b239ab752a85f452a6166e9d"
+                       "e0523bf9c20c2a0c274396d5";
+        output_hash  = "044d823532092c22a4b48181cfb2c796e1f5b98bcd713a21f70b5afcceef1d73";
+        input_len = strlen(input_string);
+        hex_input_string = (uint8_t*)calloc((input_len / 2), sizeof(uint8_t));
+        char_str_2_hex_str(input_string, input_len, hex_input_string, (input_len / 2), input_len, NO_SKIP, false);
+
+        s = sha256_init();
+        if(s == NULL){
+            return -1;
+        }
+        
+        ret = sha256_chain(s, hex_input_string, (input_len / 2));
+        if(s == NULL){
+            return -1;
+        }
+
+        ret = sha256_end(s);
+        if(s == NULL){
+            return -1;
+        }
+        
+        char* buff;
+        buff = (char*)calloc(SHA256_HASH_BYTESIZE * 2, sizeof(char));
+        sha256_stringify(s, buff);
+        
+        if(strcmp(buff, output_hash) != 0){
+            printf("!!! ERROR !!!\n");
+            printf("Input data    : %s\n", input_string);
+            printf("Output hash   : %s\n", buff);
+            printf("Expected hash : %s\n", output_hash);
+            printf("!!! ERROR !!!\n");
+            return -1;
+        }
+        
+        sha256_delete(s);
+        counter++;
+        printf("PASSED #%ld\n", counter);
+    }
 }
 
 int main(int argc, char* argv[]){

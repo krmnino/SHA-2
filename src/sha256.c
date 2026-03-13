@@ -123,7 +123,7 @@ int sha256_process(sha256* s){
 }
 
 
-int sha256_chain(sha256* s, uint8_t* input_data, uint64_t input_datalen){
+int sha256_chain(sha256* s, uint8_t* input_data, uint64_t input_bytelen){
     uint32_t bytes_to_move;
     uint8_t* curr_input_data;
 
@@ -140,24 +140,24 @@ int sha256_chain(sha256* s, uint8_t* input_data, uint64_t input_datalen){
     // Process input data in 64-byte (512-bit) chunks 
     curr_input_data = input_data;
     while(true){
-        if(input_datalen == 0){
-            break;
-        }
         if(s->buffer_idx == SHA256_CHUNK_BYTESIZE){
             sha256_process(s);
             memset(s->buffer_u8, 0, SHA256_CHUNK_BYTESIZE);
             s->buffer_idx = 0;
             continue;
         }
+        if(input_bytelen == 0){
+            break;
+        }
         bytes_to_move = SHA256_CHUNK_BYTESIZE - s->buffer_idx;
-        if(bytes_to_move > input_datalen){
-            bytes_to_move = input_datalen;
+        if(bytes_to_move > input_bytelen){
+            bytes_to_move = input_bytelen;
         }
         memcpy((void*)(s->buffer_u8 + s->buffer_idx), (void*)curr_input_data, bytes_to_move);
         curr_input_data += bytes_to_move; 
         s->buffer_idx += bytes_to_move;
         s->data_bytelen += bytes_to_move;
-        input_datalen -= bytes_to_move;
+        input_bytelen -= bytes_to_move;
     }
     return 0;
 }
