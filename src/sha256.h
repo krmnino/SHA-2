@@ -32,8 +32,10 @@ SOFTWARE.
 #include <stdlib.h>
 #include <string.h>
 
+
 #define ROTR_U32(data, n_bits) \
         ((data << ((sizeof(uint32_t) * 8) - n_bits)) | (data >> n_bits))
+
 
 #define SWAP_ENDIANESS_U32(data) \
         (((data & 0x000000ff) << 24) |  \
@@ -41,6 +43,7 @@ SOFTWARE.
          ((data & 0x00ff0000) >> 8 ) |  \
          ((data & 0xff000000) >> 24))
 
+         
 static uint32_t SHA256_INIT_HASH[] = {
     0x6a09e667,
     0xbb67ae85,
