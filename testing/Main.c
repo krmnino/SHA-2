@@ -1,4 +1,4 @@
-#include "../src/sha256.h"
+#include "../src/sha2.h"
 
 #define NO_SKIP 0
 #define SKIP 1

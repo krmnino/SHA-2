@@ -23,7 +23,7 @@ SOFTWARE.
 */
 
 
-#include "sha256.h"
+#include "sha2.h"
 
 
 sha256* sha256_init(){
