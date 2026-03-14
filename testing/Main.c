@@ -94,7 +94,7 @@ int sha256_test(){
         
         char* buff;
         buff = (char*)calloc(SHA256_HASH_BYTESIZE * 2, sizeof(char));
-        sha256_stringify(s, buff);
+        sha256_stringify_hash(s, buff);
         
         if(strcmp(buff, output_hash) != 0){
             printf("!!! ERROR !!!\n");
@@ -142,7 +142,7 @@ int sha256_test(){
         
         char* buff;
         buff = (char*)calloc(SHA256_HASH_BYTESIZE * 2, sizeof(char));
-        sha256_stringify(s, buff);
+        sha256_stringify_hash(s, buff);
         
         if(strcmp(buff, output_hash) != 0){
             printf("!!! ERROR !!!\n");
@@ -190,7 +190,7 @@ int sha256_test(){
         
         char* buff;
         buff = (char*)calloc(SHA256_HASH_BYTESIZE * 2, sizeof(char));
-        sha256_stringify(s, buff);
+        sha256_stringify_hash(s, buff);
         
         if(strcmp(buff, output_hash) != 0){
             printf("!!! ERROR !!!\n");
@@ -238,7 +238,7 @@ int sha256_test(){
         
         char* buff;
         buff = (char*)calloc(SHA256_HASH_BYTESIZE * 2, sizeof(char));
-        sha256_stringify(s, buff);
+        sha256_stringify_hash(s, buff);
         
         if(strcmp(buff, output_hash) != 0){
             printf("!!! ERROR !!!\n");
@@ -286,7 +286,7 @@ int sha256_test(){
         
         char* buff;
         buff = (char*)calloc(SHA256_HASH_BYTESIZE * 2, sizeof(char));
-        sha256_stringify(s, buff);
+        sha256_stringify_hash(s, buff);
         
         if(strcmp(buff, output_hash) != 0){
             printf("!!! ERROR !!!\n");
@@ -348,7 +348,7 @@ int sha256_test(){
         
         char* buff;
         buff = (char*)calloc(SHA256_HASH_BYTESIZE * 2, sizeof(char));
-        sha256_stringify(s, buff);
+        sha256_stringify_hash(s, buff);
         
         if(strcmp(buff, output_hash) != 0){
             printf("!!! ERROR !!!\n");

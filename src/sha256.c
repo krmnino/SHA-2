@@ -205,10 +205,8 @@ int sha256_end(sha256* s){
     }
 
     // Append data length in big endian form
-    if(s->big_endian){
-        be_u64_dest.integer = s->data_bytelen * 8;
-    }
-    else{
+    be_u64_dest.integer = s->data_bytelen * 8;
+    if(!s->big_endian){
         be_u64_src.integer = s->data_bytelen * 8;
         for(size_t i = 0; i < sizeof(uint64_t); i++){
             be_u64_dest.array[i] = be_u64_src.array[sizeof(uint64_t) - i - 1];
@@ -245,7 +243,7 @@ int sha256_delete(sha256* s){
 }
 
 
-int sha256_stringify(sha256* s, char* out_buffer){
+int sha256_stringify_hash(sha256* s, char* out_buffer){
     union{
         uint32_t integer;
         uint8_t array[4];
