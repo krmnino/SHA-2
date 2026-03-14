@@ -26,18 +26,6 @@ SOFTWARE.
 #include "sha256.h"
 
 
-uint32_t rightrotate(uint32_t data, uint64_t n_bits){
-    uint32_t shifted;
-    uint32_t rotated;
-    uint32_t combined;
-    
-    shifted = data >> n_bits;
-    rotated = data << ((sizeof(uint32_t) * 8) - n_bits);
-    combined = rotated | shifted;
-    return combined;
-}
-
-
 sha256* sha256_init(){
     sha256* s;
     uint32_t endianess;
@@ -80,14 +68,6 @@ int sha256_process(sha256* s){
             uint32_t h;
         };
     } loc;
-    union{
-        uint32_t integer;
-        uint8_t array[4];
-    } be_u32_src;
-    union{
-        uint32_t integer;
-        uint8_t array[4];
-    } be_u32_dest;
     uint32_t s0;
     uint32_t s1;
     uint32_t ss0;
@@ -106,18 +86,14 @@ int sha256_process(sha256* s){
     // If in little-endian system, we need to convert the word to big-endian form
     if(!s->big_endian){
         for(size_t i = 0; i < (N_SHA256_Ks / 4); i++){
-            be_u32_src.integer = s->w0_15[i];
-            for(size_t j = 0; j < sizeof(uint32_t); j++){
-                be_u32_dest.array[j] = be_u32_src.array[sizeof(uint32_t) - j - 1];
-            }
-            s->w0_15[i] = be_u32_dest.integer;
+            s->w0_15[i] = SWAP_ENDIANESS_U32(s->w0_15[i]);
         }
     }
 
     // Extend first 16 words to the remaining 48 words
     for(size_t i = 16; i < N_SHA256_Ks; i++){
-        s0 = rightrotate(s->w0_63[i - 15], 7) ^ rightrotate(s->w0_63[i - 15], 18) ^ (s->w0_63[i - 15] >> 3);
-        s1 = rightrotate(s->w0_63[i - 2], 17) ^ rightrotate(s->w0_63[i - 2], 19) ^ (s->w0_63[i - 2] >> 10);
+        s0 = ROTR_U32(s->w0_63[i - 15], 7) ^ ROTR_U32(s->w0_63[i - 15], 18) ^ (s->w0_63[i - 15] >> 3);
+        s1 = ROTR_U32(s->w0_63[i - 2], 17) ^ ROTR_U32(s->w0_63[i - 2], 19) ^ (s->w0_63[i - 2] >> 10);
         s->w0_63[i] = s->w0_63[i - 16] + s0 + s->w0_63[i - 7] + s1;
     }
     // Copy current hash value into letters array
@@ -125,10 +101,10 @@ int sha256_process(sha256* s){
     
     // Compression function
     for(size_t i = 0; i < N_SHA256_Ks; i++){
-        ss1 = rightrotate(loc.e, 6) ^ rightrotate(loc.e, 11) ^ rightrotate(loc.e, 25);
+        ss1 = ROTR_U32(loc.e, 6) ^ ROTR_U32(loc.e, 11) ^ ROTR_U32(loc.e, 25);
         ch = (loc.e & loc.f) ^ ((~loc.e) & loc.g);
         temp1 = loc.h + ss1 + ch + SHA256_K[i] + s->w0_63[i];
-        ss0 = rightrotate(loc.a, 2) ^ rightrotate(loc.a, 13) ^ rightrotate(loc.a, 22);
+        ss0 = ROTR_U32(loc.a, 2) ^ ROTR_U32(loc.a, 13) ^ ROTR_U32(loc.a, 22);
         maj = (loc.a & loc.b) ^ (loc.a & loc.c) ^ (loc.b & loc.c);
         temp2 = ss0 + maj;
         loc.h = loc.g;
@@ -198,14 +174,6 @@ int sha256_end(sha256* s){
         uint64_t integer;
         uint8_t array[8];
     } be_u64_dest;
-    union{
-        uint32_t integer;
-        uint8_t array[4];
-    } be_u32_src;
-    union{
-        uint32_t integer;
-        uint8_t array[4];
-    } be_u32_dest;
     
     // Validate input
     if(s == NULL){
@@ -256,11 +224,7 @@ int sha256_end(sha256* s){
     // If in a litte endian system, convert final hash to big endian form
     if(!s->big_endian){
         for(size_t i = 0; i < SHA256_HASH_U32WORDS; i++){
-            be_u32_src.integer = s->hash[i];
-            for(size_t j = 0; j < sizeof(uint32_t); j++){
-                be_u32_dest.array[j] = be_u32_src.array[sizeof(uint32_t) - j - 1];
-            }
-            s->hash[i] = be_u32_dest.integer;
+            s->hash[i] = SWAP_ENDIANESS_U32(s->hash[i]);
         }
         s->done = true;
     }

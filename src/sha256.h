@@ -32,6 +32,14 @@ SOFTWARE.
 #include <stdlib.h>
 #include <string.h>
 
+#define ROTR_U32(data, n_bits) \
+        ((data << ((sizeof(uint32_t) * 8) - n_bits)) | (data >> n_bits))
+
+#define SWAP_ENDIANESS_U32(data) \
+        (((data & 0x000000ff) << 24) |  \
+         ((data & 0x0000ff00) << 8 ) |  \
+         ((data & 0x00ff0000) >> 8 ) |  \
+         ((data & 0xff000000) >> 24))
 
 static uint32_t SHA256_INIT_HASH[] = {
     0x6a09e667,
@@ -60,7 +68,8 @@ static uint32_t SHA256_K[] = {
     0x19a4c116, 0x1e376c08, 0x2748774c, 0x34b0bcb5, 0x391c0cb3, 0x4ed8aa4a, 0x5b9cca4f, 0x682e6ff3,
     0x748f82ee, 0x78a5636f, 0x84c87814, 0x8cc70208, 0x90befffa, 0xa4506ceb, 0xbef9a3f7, 0xc67178f2
 };
-#define N_SHA256_Ks (sizeof(SHA256_K) / sizeof(uint32_t))
+#define N_SHA256_Ks \
+        (sizeof(SHA256_K) / sizeof(uint32_t))
 
 
 #define CALCULATE_SHA256_k(input_bitlen) \
