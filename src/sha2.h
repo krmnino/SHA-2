@@ -23,8 +23,8 @@ SOFTWARE.
 */
 
 
-#ifndef SHA256H
-#define SHA256H
+#ifndef SHA2H
+#define SHA2H
 
 #include <stdbool.h>
 #include <stdint.h>
@@ -42,6 +42,24 @@ SOFTWARE.
          ((data & 0x0000ff00) << 8 ) |  \
          ((data & 0x00ff0000) >> 8 ) |  \
          ((data & 0xff000000) >> 24))
+
+         
+static uint32_t SHA224_INIT_HASH[] = {
+    0xc1059ed8,
+    0x367cd507,
+    0x3070dd17,
+    0xf70e5939,
+    0xffc00b31,
+    0x68581511,
+    0x64f98fa7,
+    0xbefa4fa4
+};
+#define SHA224_HASH_BYTESIZE_INTERNAL (sizeof(SHA224_INIT_HASH))
+#define SHA224_HASH_BYTESIZE (SHA224_HASH_BYTESIZE_INTERNAL - 1)
+#define SHA224_HASH_BITSIZE (SHA224_HASH_BYTESIZE_INTERNAL * 8)
+#define SHA224_HASH_U32WORDS (SHA224_HASH_BYTESIZE_INTERNAL / sizeof(uint32_t))
+#define SHA224_CHUNK_BITSIZE (SHA224_HASH_BITSIZE * 2)
+#define SHA224_CHUNK_BYTESIZE (SHA224_CHUNK_BITSIZE / 8)
 
          
 static uint32_t SHA256_INIT_HASH[] = {
@@ -77,6 +95,30 @@ static uint32_t SHA256_K[] = {
 
 #define CALCULATE_SHA256_k(input_bitlen) \
         (SHA256_CHUNK_BITSIZE - ((input_bitlen + 1 + (sizeof(uint64_t) * 8)) % SHA256_CHUNK_BITSIZE))
+
+
+typedef struct sha224 sha224;
+struct sha224{
+    struct {
+        union{
+            uint32_t w0_63[N_SHA256_Ks];
+            uint32_t w0_15[N_SHA256_Ks / 4];
+            uint8_t buffer_u8[SHA224_CHUNK_BYTESIZE];
+        };
+    };
+    uint32_t hash[SHA224_HASH_U32WORDS];
+    uint64_t data_bytelen;
+    bool big_endian;
+    bool done;
+    uint8_t buffer_idx;
+};
+
+
+sha224* sha224_init();
+int sha224_chain(sha224*, uint8_t*, uint64_t);
+int sha224_end(sha224*);
+int sha224_delete(sha224*);
+int sha224_stringify_hash(sha224*, char*);
 
 
 typedef struct sha256 sha256;
