@@ -43,41 +43,6 @@ SOFTWARE.
          ((data & 0x00ff0000) >> 8 ) |  \
          ((data & 0xff000000) >> 24))
 
-         
-static uint32_t SHA224_INIT_HASH[] = {
-    0xc1059ed8,
-    0x367cd507,
-    0x3070dd17,
-    0xf70e5939,
-    0xffc00b31,
-    0x68581511,
-    0x64f98fa7,
-    0xbefa4fa4
-};
-#define SHA224_HASH_BYTESIZE_INTERNAL (sizeof(SHA224_INIT_HASH))
-#define SHA224_HASH_BYTESIZE (SHA224_HASH_BYTESIZE_INTERNAL - 1)
-#define SHA224_HASH_BITSIZE (SHA224_HASH_BYTESIZE_INTERNAL * 8)
-#define SHA224_HASH_U32WORDS (SHA224_HASH_BYTESIZE_INTERNAL / sizeof(uint32_t))
-#define SHA224_CHUNK_BITSIZE (SHA224_HASH_BITSIZE * 2)
-#define SHA224_CHUNK_BYTESIZE (SHA224_CHUNK_BITSIZE / 8)
-
-         
-static uint32_t SHA256_INIT_HASH[] = {
-    0x6a09e667,
-    0xbb67ae85,
-    0x3c6ef372,
-    0xa54ff53a,
-    0x510e527f,
-    0x9b05688c,
-    0x1f83d9ab,
-    0x5be0cd19,
-};
-#define SHA256_HASH_BYTESIZE (sizeof(SHA256_INIT_HASH))
-#define SHA256_HASH_BITSIZE (SHA256_HASH_BYTESIZE * 8)
-#define SHA256_HASH_U32WORDS (SHA256_HASH_BYTESIZE / sizeof(uint32_t))
-#define SHA256_CHUNK_BITSIZE (SHA256_HASH_BITSIZE * 2)
-#define SHA256_CHUNK_BYTESIZE (SHA256_CHUNK_BITSIZE / 8)
-
 
 static uint32_t SHA256_K[] = {
     0x428a2f98, 0x71374491, 0xb5c0fbcf, 0xe9b5dba5, 0x3956c25b, 0x59f111f1, 0x923f82a4, 0xab1c5ed5,
@@ -95,6 +60,27 @@ static uint32_t SHA256_K[] = {
 
 #define CALCULATE_SHA256_k(input_bitlen) \
         (SHA256_CHUNK_BITSIZE - ((input_bitlen + 1 + (sizeof(uint64_t) * 8)) % SHA256_CHUNK_BITSIZE))
+
+
+/*===================================================================*/
+/*                              SHA-224                              */
+/*===================================================================*/
+static uint32_t SHA224_INIT_HASH[] = {
+    0xc1059ed8,
+    0x367cd507,
+    0x3070dd17,
+    0xf70e5939,
+    0xffc00b31,
+    0x68581511,
+    0x64f98fa7,
+    0xbefa4fa4
+};
+#define SHA224_HASH_BYTESIZE_INTERNAL (sizeof(SHA224_INIT_HASH))
+#define SHA224_HASH_BYTESIZE (SHA224_HASH_BYTESIZE_INTERNAL - 1)
+#define SHA224_HASH_BITSIZE (SHA224_HASH_BYTESIZE_INTERNAL * 8)
+#define SHA224_HASH_U32WORDS (SHA224_HASH_BYTESIZE_INTERNAL / sizeof(uint32_t))
+#define SHA224_CHUNK_BITSIZE (SHA224_HASH_BITSIZE * 2)
+#define SHA224_CHUNK_BYTESIZE (SHA224_CHUNK_BITSIZE / 8)
 
 
 typedef struct sha224 sha224;
@@ -119,6 +105,26 @@ int sha224_chain(sha224*, uint8_t*, uint64_t);
 int sha224_end(sha224*);
 int sha224_delete(sha224*);
 int sha224_stringify_hash(sha224*, char*);
+
+
+/*===================================================================*/
+/*                              SHA-256                              */
+/*===================================================================*/
+static uint32_t SHA256_INIT_HASH[] = {
+    0x6a09e667,
+    0xbb67ae85,
+    0x3c6ef372,
+    0xa54ff53a,
+    0x510e527f,
+    0x9b05688c,
+    0x1f83d9ab,
+    0x5be0cd19,
+};
+#define SHA256_HASH_BYTESIZE (sizeof(SHA256_INIT_HASH))
+#define SHA256_HASH_BITSIZE (SHA256_HASH_BYTESIZE * 8)
+#define SHA256_HASH_U32WORDS (SHA256_HASH_BYTESIZE / sizeof(uint32_t))
+#define SHA256_CHUNK_BITSIZE (SHA256_HASH_BITSIZE * 2)
+#define SHA256_CHUNK_BYTESIZE (SHA256_CHUNK_BITSIZE / 8)
 
 
 typedef struct sha256 sha256;
