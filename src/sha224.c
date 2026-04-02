@@ -28,8 +28,6 @@ SOFTWARE.
 
 sha224* sha224_init(){
     sha224* s;
-    uint32_t endianess;
-    uint8_t* endianess_ptr;
 
     // Allocate sha224 instance
     s = (sha224*)calloc(1, sizeof(sha224));
@@ -37,19 +35,9 @@ sha224* sha224_init(){
         printf("ERROR: Could not allocate memory for sha224 instance.\n");
         return NULL;
     }
-    // Initialize hash array
-    memcpy((void*)s->hash, (void*)SHA224_INIT_HASH, SHA224_HASH_BYTESIZE_INTERNAL);
 
-    // Figure out endianess
-    endianess = 0x01;
-    endianess_ptr = (uint8_t*)&endianess;
-    if(endianess_ptr[3] == 0x01){
-        s->big_endian = true;
-    }
-    else{
-        s->big_endian = false;
-    }
-    
+    // Initialize hash array
+    memcpy((void*)s->hash, (void*)SHA224_INIT_HASH, SHA224_HASH_BYTESIZE_INTERNAL);    
     return s;
 }
 
@@ -84,7 +72,7 @@ int sha224_process(sha224* s){
     }
 
     // If in little-endian system, we need to convert the word to big-endian form
-    if(!s->big_endian){
+    if(IS_LITTLE_ENDIAN()){
         for(size_t i = 0; i < (N_SHA256_Ks / 4); i++){
             s->w0_15[i] = SWAP_ENDIANESS_U32(s->w0_15[i]);
         }
@@ -206,7 +194,7 @@ int sha224_end(sha224* s){
 
     // Append data length in big endian form
     be_u64_dest.integer = s->data_bytelen * 8;
-    if(!s->big_endian){
+    if(IS_LITTLE_ENDIAN()){
         be_u64_src.integer = s->data_bytelen * 8;
         for(size_t i = 0; i < sizeof(uint64_t); i++){
             be_u64_dest.array[i] = be_u64_src.array[sizeof(uint64_t) - i - 1];
@@ -220,13 +208,12 @@ int sha224_end(sha224* s){
     sha224_process(s);
 
     // If in a litte endian system, convert final hash to big endian form
-    if(!s->big_endian){
+    if(IS_LITTLE_ENDIAN()){
         for(size_t i = 0; i < SHA224_HASH_U32WORDS; i++){
             s->hash[i] = SWAP_ENDIANESS_U32(s->hash[i]);
         }
         s->done = true;
     }
-
     return 0;
 }
 
@@ -246,7 +233,7 @@ int sha224_delete(sha224* s){
 int sha224_stringify_hash(sha224* s, char* out_buffer){
     union{
         uint32_t integer;
-        uint8_t array[4];
+        uint8_t array[sizeof(uint32_t)];
     } u32_buff;
     size_t out_buffer_idx;
 

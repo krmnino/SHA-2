@@ -28,8 +28,6 @@ SOFTWARE.
 
 sha256* sha256_init(){
     sha256* s;
-    uint32_t endianess;
-    uint8_t* endianess_ptr;
 
     // Allocate sha256 instance
     s = (sha256*)calloc(1, sizeof(sha256));
@@ -37,19 +35,9 @@ sha256* sha256_init(){
         printf("ERROR: Could not allocate memory for sha256 instance.\n");
         return NULL;
     }
-    // Initialize hash array
-    memcpy((void*)s->hash, (void*)SHA256_INIT_HASH, SHA256_HASH_BYTESIZE);
 
-    // Figure out endianess
-    endianess = 0x01;
-    endianess_ptr = (uint8_t*)&endianess;
-    if(endianess_ptr[3] == 0x01){
-        s->big_endian = true;
-    }
-    else{
-        s->big_endian = false;
-    }
-    
+    // Initialize hash array
+    memcpy((void*)s->hash, (void*)SHA256_INIT_HASH, SHA256_HASH_BYTESIZE);    
     return s;
 }
 
@@ -84,7 +72,7 @@ int sha256_process(sha256* s){
     }
 
     // If in little-endian system, we need to convert the word to big-endian form
-    if(!s->big_endian){
+    if(IS_LITTLE_ENDIAN()){
         for(size_t i = 0; i < (N_SHA256_Ks / 4); i++){
             s->w0_15[i] = SWAP_ENDIANESS_U32(s->w0_15[i]);
         }
@@ -166,14 +154,7 @@ int sha256_chain(sha256* s, uint8_t* input_data, uint64_t input_bytelen){
 
 int sha256_end(sha256* s){
     uint32_t k;
-    union{
-        uint64_t integer;
-        uint8_t array[8];
-    } be_u64_src;
-    union{
-        uint64_t integer;
-        uint8_t array[8];
-    } be_u64_dest;
+    uint8_t* data_bytelen_ptr;
     
     // Validate input
     if(s == NULL){
@@ -205,28 +186,25 @@ int sha256_end(sha256* s){
     }
 
     // Append data length in big endian form
-    be_u64_dest.integer = s->data_bytelen * 8;
-    if(!s->big_endian){
-        be_u64_src.integer = s->data_bytelen * 8;
-        for(size_t i = 0; i < sizeof(uint64_t); i++){
-            be_u64_dest.array[i] = be_u64_src.array[sizeof(uint64_t) - i - 1];
-        }
-    }    
+    s->data_bytelen = s->data_bytelen * 8;
+    if(IS_LITTLE_ENDIAN()){
+        s->data_bytelen = SWAP_ENDIANESS_U64(s->data_bytelen);
+    }
+    data_bytelen_ptr = (uint8_t*)&s->data_bytelen;
     for(size_t i = 0; i < sizeof(uint64_t); i++){
-        s->buffer_u8[s->buffer_idx++] = be_u64_dest.array[i];
+        s->buffer_u8[s->buffer_idx++] = *(data_bytelen_ptr + i);
     }
 
     // Process the last chunk
     sha256_process(s);
 
     // If in a litte endian system, convert final hash to big endian form
-    if(!s->big_endian){
+    if(IS_LITTLE_ENDIAN()){
         for(size_t i = 0; i < SHA256_HASH_U32WORDS; i++){
             s->hash[i] = SWAP_ENDIANESS_U32(s->hash[i]);
         }
         s->done = true;
     }
-
     return 0;
 }
 
@@ -246,7 +224,7 @@ int sha256_delete(sha256* s){
 int sha256_stringify_hash(sha256* s, char* out_buffer){
     union{
         uint32_t integer;
-        uint8_t array[4];
+        uint8_t array[sizeof(uint32_t)];
     } u32_buff;
     size_t out_buffer_idx;
 
