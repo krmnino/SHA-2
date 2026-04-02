@@ -170,10 +170,10 @@ int sha512_end(sha512* s){
     }
 
     // Calculate k value such that:
-    // (L * 8) + 1 + k + 128) mod 512
+    // (L * 8) + 1 + k + 128) mod 1024
     // where L = data length in bytes
     s->buffer_u8[s->buffer_idx++] = 0x80;
-    if((s->data_bytelen % 512) < (SHA512_CHUNK_BYTESIZE - sizeof(__uint128_t))){
+    if((s->data_bytelen % 128) < (SHA512_CHUNK_BYTESIZE - sizeof(__uint128_t))){
         // There is room in the current chunk for padding and length
         k = (CALCULATE_SHA512_k(s->data_bytelen * 8) + 1) / 8;
         for(uint8_t i = s->buffer_idx; i < (s->buffer_idx + k); i++){
