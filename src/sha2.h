@@ -33,8 +33,13 @@ SOFTWARE.
 #include <string.h>
 
 
+static const int ENDIAN = 1;
+#define IS_LITTLE_ENDIAN() ((*(uint8_t*)&ENDIAN) == 0x01)
+
+
 #define ROTR_U32(data, n_bits) \
         ((data << ((sizeof(uint32_t) * 8) - n_bits)) | (data >> n_bits))
+
 
 #define ROTR_U64(data, n_bits) \
         ((data << ((sizeof(uint64_t) * 8) - n_bits)) | (data >> n_bits))
@@ -45,6 +50,17 @@ SOFTWARE.
          ((data & 0x0000ff00) << 8 ) |  \
          ((data & 0x00ff0000) >> 8 ) |  \
          ((data & 0xff000000) >> 24))
+
+
+#define SWAP_ENDIANESS_U64(data) \
+        (((data & 0x00000000000000ff) << 56) |  \
+         ((data & 0x000000000000ff00) << 40) |  \
+         ((data & 0x0000000000ff0000) << 24) |  \
+         ((data & 0x00000000ff000000) << 8 ) |  \
+         ((data & 0x000000ff00000000) >> 8 ) |  \
+         ((data & 0x0000ff0000000000) >> 24) |  \
+         ((data & 0x00ff000000000000) >> 40) |  \
+         ((data & 0xff00000000000000) >> 56))
 
 
 static uint32_t SHA256_K[] = {
@@ -82,8 +98,13 @@ static uint64_t SHA512_K[] = {
 #define N_SHA512_Ks \
         (sizeof(SHA512_K) / sizeof(uint64_t))
 
+
 #define CALCULATE_SHA256_k(input_bitlen) \
         (SHA256_CHUNK_BITSIZE - ((input_bitlen + 1 + (sizeof(uint64_t) * 8)) % SHA256_CHUNK_BITSIZE))
+
+        
+#define CALCULATE_SHA512_k(input_bitlen) \
+        (SHA512_CHUNK_BITSIZE - ((input_bitlen + 1 + (sizeof(__uint128_t) * 8)) % SHA512_CHUNK_BITSIZE))
 
 
 /*===================================================================*/
@@ -116,7 +137,6 @@ struct sha224{
     };
     uint32_t hash[SHA224_HASH_U32WORDS];
     uint64_t data_bytelen;
-    bool big_endian;
     bool done;
     uint8_t buffer_idx;
 };
@@ -158,7 +178,6 @@ struct sha256{
     };
     uint32_t hash[SHA256_HASH_U32WORDS];
     uint64_t data_bytelen;
-    bool big_endian;
     bool done;
     uint8_t buffer_idx;
 };
@@ -200,11 +219,16 @@ struct sha512{
     };
     uint64_t hash[SHA512_HASH_U64WORDS];
     __uint128_t data_bytelen;
-    bool big_endian;
     bool done;
     uint8_t buffer_idx;
 };
 
+
+sha512* sha512_init();
+int sha512_chain(sha512*, uint8_t*, uint64_t);
+int sha512_end(sha512*);
+int sha512_delete(sha512*);
+int sha512_stringify_hash(sha512*, char*);
 
 
 #endif
