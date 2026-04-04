@@ -106,6 +106,8 @@ int sha256_test(){
         }
         
         sha256_delete(s);
+        free(hex_input_string);
+        free(buff);
         counter++;
         printf("PASSED #%ld\n", counter);
     }
@@ -154,6 +156,8 @@ int sha256_test(){
         }
         
         sha256_delete(s);
+        free(hex_input_string);
+        free(buff);
         counter++;
         printf("PASSED #%ld\n", counter);
     }
@@ -202,6 +206,8 @@ int sha256_test(){
         }
         
         sha256_delete(s);
+        free(hex_input_string);
+        free(buff);
         counter++;
         printf("PASSED #%ld\n", counter);
     }
@@ -250,6 +256,8 @@ int sha256_test(){
         }
         
         sha256_delete(s);
+        free(hex_input_string);
+        free(buff);
         counter++;
         printf("PASSED #%ld\n", counter);
     }
@@ -298,6 +306,8 @@ int sha256_test(){
         }
         
         sha256_delete(s);
+        free(hex_input_string);
+        free(buff);
         counter++;
         printf("PASSED #%ld\n", counter);
     }
@@ -360,6 +370,8 @@ int sha256_test(){
         }
         
         sha256_delete(s);
+        free(hex_input_string);
+        free(buff);
         counter++;
         printf("PASSED #%ld\n", counter);
     }
@@ -415,6 +427,8 @@ int sha224_test(){
         }
         
         sha224_delete(s);
+        free(hex_input_string);
+        free(buff);
         counter++;
         printf("PASSED #%ld\n", counter);
     }
@@ -463,6 +477,8 @@ int sha224_test(){
         }
         
         sha224_delete(s);
+        free(hex_input_string);
+        free(buff);
         counter++;
         printf("PASSED #%ld\n", counter);
     }
@@ -511,6 +527,8 @@ int sha224_test(){
         }
         
         sha224_delete(s);
+        free(hex_input_string);
+        free(buff);
         counter++;
         printf("PASSED #%ld\n", counter);
     }
@@ -559,6 +577,8 @@ int sha224_test(){
         }
         
         sha224_delete(s);
+        free(hex_input_string);
+        free(buff);
         counter++;
         printf("PASSED #%ld\n", counter);
     }
@@ -607,6 +627,8 @@ int sha224_test(){
         }
         
         sha224_delete(s);
+        free(hex_input_string);
+        free(buff);
         counter++;
         printf("PASSED #%ld\n", counter);
     }
@@ -669,6 +691,8 @@ int sha224_test(){
         }
         
         sha224_delete(s);
+        free(hex_input_string);
+        free(buff);
         counter++;
         printf("PASSED #%ld\n", counter);
     }
@@ -724,6 +748,8 @@ int sha512_test(){
         }
         
         sha512_delete(s);
+        free(hex_input_string);
+        free(buff);
         counter++;
         printf("PASSED #%ld\n", counter);
     }
@@ -772,6 +798,8 @@ int sha512_test(){
         }
         
         sha512_delete(s);
+        free(hex_input_string);
+        free(buff);
         counter++;
         printf("PASSED #%ld\n", counter);
     }
@@ -820,6 +848,8 @@ int sha512_test(){
         }
         
         sha512_delete(s);
+        free(hex_input_string);
+        free(buff);
         counter++;
         printf("PASSED #%ld\n", counter);
     }
@@ -868,6 +898,8 @@ int sha512_test(){
         }
         
         sha512_delete(s);
+        free(hex_input_string);
+        free(buff);
         counter++;
         printf("PASSED #%ld\n", counter);
     }
@@ -917,6 +949,8 @@ int sha512_test(){
         }
         
         sha512_delete(s);
+        free(hex_input_string);
+        free(buff);
         counter++;
         printf("PASSED #%ld\n", counter);
     }
@@ -980,6 +1014,8 @@ int sha512_test(){
         }
         
         sha512_delete(s);
+        free(hex_input_string);
+        free(buff);
         counter++;
         printf("PASSED #%ld\n", counter);
     }
