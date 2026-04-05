@@ -93,7 +93,7 @@ int sha256_test(){
         }
         
         char* buff;
-        buff = (char*)calloc(SHA256_HASH_BYTESIZE * 2 + 1, sizeof(char));
+        buff = (char*)calloc(((SHA256_HASH_BYTESIZE * 2)) + 1, sizeof(char));
         sha256_stringify_hash(s, buff);
         
         if(strcmp(buff, output_hash) != 0){
@@ -143,7 +143,7 @@ int sha256_test(){
         }
         
         char* buff;
-        buff = (char*)calloc(SHA256_HASH_BYTESIZE * 2 + 1, sizeof(char));
+        buff = (char*)calloc((SHA256_HASH_BYTESIZE * 2) + 1, sizeof(char));
         sha256_stringify_hash(s, buff);
         
         if(strcmp(buff, output_hash) != 0){
@@ -193,7 +193,7 @@ int sha256_test(){
         }
         
         char* buff;
-        buff = (char*)calloc(SHA256_HASH_BYTESIZE * 2 + 1, sizeof(char));
+        buff = (char*)calloc((SHA256_HASH_BYTESIZE * 2) + 1, sizeof(char));
         sha256_stringify_hash(s, buff);
         
         if(strcmp(buff, output_hash) != 0){
@@ -243,7 +243,7 @@ int sha256_test(){
         }
         
         char* buff;
-        buff = (char*)calloc(SHA256_HASH_BYTESIZE * 2 + 1, sizeof(char));
+        buff = (char*)calloc((SHA256_HASH_BYTESIZE * 2) + 1, sizeof(char));
         sha256_stringify_hash(s, buff);
         
         if(strcmp(buff, output_hash) != 0){
@@ -293,7 +293,7 @@ int sha256_test(){
         }
         
         char* buff;
-        buff = (char*)calloc(SHA256_HASH_BYTESIZE * 2 + 1, sizeof(char));
+        buff = (char*)calloc((SHA256_HASH_BYTESIZE * 2) + 1, sizeof(char));
         sha256_stringify_hash(s, buff);
         
         if(strcmp(buff, output_hash) != 0){
@@ -357,7 +357,7 @@ int sha256_test(){
         }
         
         char* buff;
-        buff = (char*)calloc(SHA256_HASH_BYTESIZE * 2 + 1, sizeof(char));
+        buff = (char*)calloc((SHA256_HASH_BYTESIZE * 2) + 1, sizeof(char));
         sha256_stringify_hash(s, buff);
         
         if(strcmp(buff, output_hash) != 0){
@@ -414,7 +414,7 @@ int sha224_test(){
             return -1;
         }
         
-        buff = (char*)calloc(SHA224_HASH_BYTESIZE * 2 + 1, sizeof(char));
+        buff = (char*)calloc((SHA224_HASH_BYTESIZE * 2) + 1, sizeof(char));
         sha224_stringify_hash(s, buff);
         
         if(strcmp(buff, output_hash) != 0){
@@ -464,7 +464,7 @@ int sha224_test(){
             return -1;
         }
         
-        buff = (char*)calloc(SHA224_HASH_BYTESIZE * 2 + 1, sizeof(char));
+        buff = (char*)calloc((SHA224_HASH_BYTESIZE * 2) + 1, sizeof(char));
         sha224_stringify_hash(s, buff);
         
         if(strcmp(buff, output_hash) != 0){
@@ -514,7 +514,7 @@ int sha224_test(){
             return -1;
         }
         
-        buff = (char*)calloc(SHA224_HASH_BYTESIZE * 2 + 1, sizeof(char));
+        buff = (char*)calloc((SHA224_HASH_BYTESIZE * 2) + 1, sizeof(char));
         sha224_stringify_hash(s, buff);
         
         if(strcmp(buff, output_hash) != 0){
@@ -564,7 +564,7 @@ int sha224_test(){
             return -1;
         }
         
-        buff = (char*)calloc(SHA224_HASH_BYTESIZE * 2 + 1, sizeof(char));
+        buff = (char*)calloc((SHA224_HASH_BYTESIZE * 2) + 1, sizeof(char));
         sha224_stringify_hash(s, buff);
         
         if(strcmp(buff, output_hash) != 0){
@@ -614,7 +614,7 @@ int sha224_test(){
             return -1;
         }
         
-        buff = (char*)calloc(SHA224_HASH_BYTESIZE * 2 + 1, sizeof(char));
+        buff = (char*)calloc((SHA224_HASH_BYTESIZE * 2) + 1, sizeof(char));
         sha224_stringify_hash(s, buff);
         
         if(strcmp(buff, output_hash) != 0){
@@ -678,7 +678,7 @@ int sha224_test(){
             return -1;
         }
         
-        buff = (char*)calloc(SHA224_HASH_BYTESIZE * 2 + 1, sizeof(char));
+        buff = (char*)calloc((SHA224_HASH_BYTESIZE * 2) + 1, sizeof(char));
         sha224_stringify_hash(s, buff);
         
         if(strcmp(buff, output_hash) != 0){
@@ -708,6 +708,7 @@ int sha512_test(){
     {
         int ret;
         sha512* s;
+        char* buff;
         char* input_string;
         uint8_t* hex_input_string;
         char* output_hash;
@@ -734,8 +735,7 @@ int sha512_test(){
             return -1;
         }
         
-        char* buff;
-        buff = (char*)calloc(SHA512_HASH_BYTESIZE * 2, sizeof(char));
+        buff = (char*)calloc((SHA512_HASH_BYTESIZE * 2) + 1, sizeof(char));
         sha512_stringify_hash(s, buff);
         
         if(strcmp(buff, output_hash) != 0){
@@ -758,6 +758,7 @@ int sha512_test(){
     {
         int ret;
         sha512* s;
+        char* buff;
         char* input_string;
         uint8_t* hex_input_string;
         char* output_hash;
@@ -784,8 +785,7 @@ int sha512_test(){
             return -1;
         }
         
-        char* buff;
-        buff = (char*)calloc(SHA512_HASH_BYTESIZE * 2, sizeof(char));
+        buff = (char*)calloc((SHA512_HASH_BYTESIZE * 2) + 1, sizeof(char));
         sha512_stringify_hash(s, buff);
         
         if(strcmp(buff, output_hash) != 0){
@@ -808,6 +808,7 @@ int sha512_test(){
     {
         int ret;
         sha512* s;
+        char* buff;
         char* input_string;
         uint8_t* hex_input_string;
         char* output_hash;
@@ -834,8 +835,7 @@ int sha512_test(){
             return -1;
         }
         
-        char* buff;
-        buff = (char*)calloc(SHA512_HASH_BYTESIZE * 2, sizeof(char));
+        buff = (char*)calloc((SHA512_HASH_BYTESIZE * 2) + 1, sizeof(char));
         sha512_stringify_hash(s, buff);
         
         if(strcmp(buff, output_hash) != 0){
@@ -858,6 +858,7 @@ int sha512_test(){
     {
         int ret;
         sha512* s;
+        char* buff;
         char* input_string;
         uint8_t* hex_input_string;
         char* output_hash;
@@ -884,8 +885,7 @@ int sha512_test(){
             return -1;
         }
         
-        char* buff;
-        buff = (char*)calloc(SHA512_HASH_BYTESIZE * 2, sizeof(char));
+        buff = (char*)calloc((SHA512_HASH_BYTESIZE * 2) + 1, sizeof(char));
         sha512_stringify_hash(s, buff);
         
         if(strcmp(buff, output_hash) != 0){
@@ -908,6 +908,7 @@ int sha512_test(){
     {
         int ret;
         sha512* s;
+        char* buff;
         char* input_string;
         uint8_t* hex_input_string;
         char* output_hash;
@@ -935,8 +936,7 @@ int sha512_test(){
             return -1;
         }
         
-        char* buff;
-        buff = (char*)calloc(SHA512_HASH_BYTESIZE * 2, sizeof(char));
+        buff = (char*)calloc((SHA512_HASH_BYTESIZE * 2) + 1, sizeof(char));
         sha512_stringify_hash(s, buff);
         
         if(strcmp(buff, output_hash) != 0){
@@ -959,6 +959,7 @@ int sha512_test(){
     {
         int ret;
         sha512* s;
+        char* buff;
         char* input_string;
         uint8_t* hex_input_string;
         char* output_hash;
@@ -1000,8 +1001,7 @@ int sha512_test(){
             return -1;
         }
         
-        char* buff;
-        buff = (char*)calloc(SHA512_HASH_BYTESIZE * 2, sizeof(char));
+        buff = (char*)calloc((SHA512_HASH_BYTESIZE * 2) + 1, sizeof(char));
         sha512_stringify_hash(s, buff);
         
         if(strcmp(buff, output_hash) != 0){
@@ -1023,9 +1023,333 @@ int sha512_test(){
 }
 
 
+int sha384_test(){
+    size_t counter;
+
+    counter = 0;
+    // Test 1
+    {
+        int ret;
+        sha384* s;
+        char* buff;
+        char* input_string;
+        uint8_t* hex_input_string;
+        char* output_hash;
+        size_t input_len;
+        
+        input_string = "";
+        output_hash  = "38b060a751ac96384cd9327eb1b1e36a21fdb71114be07434c0cc7bf63f6e1da274edebfe76f65fbd51ad2f14898b95b";
+        input_len = strlen(input_string);
+        hex_input_string = (uint8_t*)calloc((input_len / 2), sizeof(uint8_t));
+        char_str_2_hex_str(input_string, input_len, hex_input_string, (input_len / 2), input_len, NO_SKIP, false);
+
+        s = sha384_init();
+        if(s == NULL){
+            return -1;
+        }
+        
+        ret = sha384_chain(s, hex_input_string, (input_len / 2));
+        if(s == NULL){
+            return -1;
+        }
+
+        ret = sha384_end(s);
+        if(s == NULL){
+            return -1;
+        }
+        
+        buff = (char*)calloc((SHA384_HASH_BYTESIZE * 2) + 1, sizeof(char));
+        sha384_stringify_hash(s, buff);
+        
+        if(strcmp(buff, output_hash) != 0){
+            printf("!!! ERROR !!!\n");
+            printf("Input data    : %s\n", input_string);
+            printf("Output hash   : %s\n", buff);
+            printf("Expected hash : %s\n", output_hash);
+            printf("!!! ERROR !!!\n");
+            return -1;
+        }
+        
+        sha384_delete(s);
+        free(hex_input_string);
+        free(buff);
+        counter++;
+        printf("PASSED #%ld\n", counter);
+    }
+
+    // Test 2
+    {
+        int ret;
+        sha384* s;
+        char* buff;
+        char* input_string;
+        uint8_t* hex_input_string;
+        char* output_hash;
+        size_t input_len;
+        
+        input_string = "20442e1c3f3c88919c39978b78";
+        output_hash  = "50bc95b036e0f54d833032a80d45c2ac38b3d29e9c7f72a2eb14781e9241d2a4b8e8dba6ee6f4c9e46a758d5712dbd39";
+        input_len = strlen(input_string);
+        hex_input_string = (uint8_t*)calloc((input_len / 2), sizeof(uint8_t));
+        char_str_2_hex_str(input_string, input_len, hex_input_string, (input_len / 2), input_len, NO_SKIP, false);
+
+        s = sha384_init();
+        if(s == NULL){
+            return -1;
+        }
+        
+        ret = sha384_chain(s, hex_input_string, (input_len / 2));
+        if(s == NULL){
+            return -1;
+        }
+
+        ret = sha384_end(s);
+        if(s == NULL){
+            return -1;
+        }
+        
+        buff = (char*)calloc((SHA384_HASH_BYTESIZE * 2) + 1, sizeof(char));
+        sha384_stringify_hash(s, buff);
+        
+        if(strcmp(buff, output_hash) != 0){
+            printf("!!! ERROR !!!\n");
+            printf("Input data    : %s\n", input_string);
+            printf("Output hash   : %s\n", buff);
+            printf("Expected hash : %s\n", output_hash);
+            printf("!!! ERROR !!!\n");
+            return -1;
+        }
+        
+        sha384_delete(s);
+        free(hex_input_string);
+        free(buff);
+        counter++;
+        printf("PASSED #%ld\n", counter);
+    }
+
+    // Test 3
+    {
+        int ret;
+        sha384* s;
+        char* buff;
+        char* input_string;
+        uint8_t* hex_input_string;
+        char* output_hash;
+        size_t input_len;
+        
+        input_string = "7e80271bb5f2cc7ddae4158658e4e8d06e04a39385da0ecac1cb8e91d68a9bd21ddb7320e79d10e3110758";
+        output_hash  = "fa00bc0359a642dcb3559656094eb2fd4f63bc57f0d34abff26df5c54cc63dbeb4eac75905296e7fb69f871e134083f6";
+        input_len = strlen(input_string);
+        hex_input_string = (uint8_t*)calloc((input_len / 2), sizeof(uint8_t));
+        char_str_2_hex_str(input_string, input_len, hex_input_string, (input_len / 2), input_len, NO_SKIP, false);
+
+        s = sha384_init();
+        if(s == NULL){
+            return -1;
+        }
+        
+        ret = sha384_chain(s, hex_input_string, (input_len / 2));
+        if(s == NULL){
+            return -1;
+        }
+
+        ret = sha384_end(s);
+        if(s == NULL){
+            return -1;
+        }
+        
+        buff = (char*)calloc((SHA384_HASH_BYTESIZE * 2) + 1, sizeof(char));
+        sha384_stringify_hash(s, buff);
+        
+        if(strcmp(buff, output_hash) != 0){
+            printf("!!! ERROR !!!\n");
+            printf("Input data    : %s\n", input_string);
+            printf("Output hash   : %s\n", buff);
+            printf("Expected hash : %s\n", output_hash);
+            printf("!!! ERROR !!!\n");
+            return -1;
+        }
+        
+        sha384_delete(s);
+        free(hex_input_string);
+        free(buff);
+        counter++;
+        printf("PASSED #%ld\n", counter);
+    }
+
+    // Test 4
+    {
+        int ret;
+        sha384* s;
+        char* buff;
+        char* input_string;
+        uint8_t* hex_input_string;
+        char* output_hash;
+        size_t input_len;
+        
+        input_string = "93035d3a13ae1b06dd033e764aca0124961da79c366c6c756bc4bcc11850a3a8d120854f34290fff7c8d6d83531dbdd1e81cc4ed4246e00bd4113ef451334daa";
+        output_hash  = "8d46cc84b6c2deb206aa5c861798798751a26ee74b1daf3a557c41aebd65adc027559f7cd92b255b374c83bd55568b45";
+        input_len = strlen(input_string);
+        hex_input_string = (uint8_t*)calloc((input_len / 2), sizeof(uint8_t));
+        char_str_2_hex_str(input_string, input_len, hex_input_string, (input_len / 2), input_len, NO_SKIP, false);
+
+        s = sha384_init();
+        if(s == NULL){
+            return -1;
+        }
+        
+        ret = sha384_chain(s, hex_input_string, (input_len / 2));
+        if(s == NULL){
+            return -1;
+        }
+
+        ret = sha384_end(s);
+        if(s == NULL){
+            return -1;
+        }
+        
+        buff = (char*)calloc((SHA384_HASH_BYTESIZE * 2) + 1, sizeof(char));
+        sha384_stringify_hash(s, buff);
+        
+        if(strcmp(buff, output_hash) != 0){
+            printf("!!! ERROR !!!\n");
+            printf("Input data    : %s\n", input_string);
+            printf("Output hash   : %s\n", buff);
+            printf("Expected hash : %s\n", output_hash);
+            printf("!!! ERROR !!!\n");
+            return -1;
+        }
+        
+        sha384_delete(s);
+        free(hex_input_string);
+        free(buff);
+        counter++;
+        printf("PASSED #%ld\n", counter);
+    }
+
+    // Test 5
+    {
+        int ret;
+        sha384* s;
+        char* buff;
+        char* input_string;
+        uint8_t* hex_input_string;
+        char* output_hash;
+        size_t input_len;
+        
+        input_string = "3bf52cc5ee86b9a0190f390a5c0366a560b557000dbe5115fd9ee11630a62769011575f15881198f227876e8fe685a6939bc8b89fd48a34ec5e71e131462b288"
+			           "6794dffa68ccc6d564733e67ffef25e627c6f4b5460796e3bce67bf58ca6e8e555bc916a8531697ac948b90dc8616f25101db90b50c3d3dbc9e21e42ff387187";
+        output_hash  = "12b6cb35eda92ee37356ddee77781a17b3d90e563824a984faffc6fdd1693bd7626039635563cfc3b9a2b00f9c65eefd";
+        input_len = strlen(input_string);
+        hex_input_string = (uint8_t*)calloc((input_len / 2), sizeof(uint8_t));
+        char_str_2_hex_str(input_string, input_len, hex_input_string, (input_len / 2), input_len, NO_SKIP, false);
+
+        s = sha384_init();
+        if(s == NULL){
+            return -1;
+        }
+        
+        ret = sha384_chain(s, hex_input_string, (input_len / 2));
+        if(s == NULL){
+            return -1;
+        }
+
+        ret = sha384_end(s);
+        if(s == NULL){
+            return -1;
+        }
+        
+        buff = (char*)calloc((SHA384_HASH_BYTESIZE * 2) + 1, sizeof(char));
+        sha384_stringify_hash(s, buff);
+        
+        if(strcmp(buff, output_hash) != 0){
+            printf("!!! ERROR !!!\n");
+            printf("Input data    : %s\n", input_string);
+            printf("Output hash   : %s\n", buff);
+            printf("Expected hash : %s\n", output_hash);
+            printf("!!! ERROR !!!\n");
+            return -1;
+        }
+        
+        sha384_delete(s);
+        free(hex_input_string);
+        free(buff);
+        counter++;
+        printf("PASSED #%ld\n", counter);
+    }
+
+    // Test 6
+    {
+        int ret;
+        sha384* s;
+        char* buff;
+        char* input_string;
+        uint8_t* hex_input_string;
+        char* output_hash;
+        size_t input_len;
+        
+        input_string = "f6b1cf75b5cfa4ab323cf04ff13b7a591b23d06ed25f3c04c1baf4c8f7da913cf509c2a5053c4224ce4d0723268cbdf2277672b285c493731ea81799d353fa84"
+			           "97baed70c59a4c99b7b950a39470863a69667ff67c9ec981ddb41ffb3d63dd9d034bb79d9df1a95214083199e4efbd770a7a5f005ef5c877236674b6dd1322d0"
+			           "624487f6344a43970ec014cbbd114af2313b7b98d4d2779d1b477e925a6ab165dc2ec74133ac01b0cd6b6003c8df15f3072f3988863cbe3aeadea6575d7072a4"
+			           "9890de474120cbe478907d07ad6006c2b4e002971b3b8597bbb352cc8d2e4ed5bff234d007ad897d38b8d39f139c06a65fd63f8c3cd7b4fdb44febba93ab2b3f"
+			           "78dc31a42d5b23c1346aca95a29cfbe931975630901934b2fd39dae916f0f32becd73d8a5a3282f9952ecab00367cfd151adb14bc008ebfebff98621bf038ce1"
+			           "436ac04b363b8c6c828c3bb7de0568a7e7a0b6a573acc22b2218562a36eee0a9a41e22af6a7d2a64240d8573da7fb0b21df6cf05520ea1804d1db4cb22b9d5cb"
+			           "377acb7e9e004527a23810aca0dc8d3c1939633404357144699007ce2b6a558e2606238079cdc3fe25964429d824e98b03f0d9fb322918c09dfab6f9fa0b473c"
+			           "964a937da4eb8e31d5ad8ab42960abe804a49b2084f3803c12e22b1537a3921bb1cf813cc7628c08d90848133b97bb9b44dc106ba19a8fffefd0cde98a3b2074"
+			           "9f1c5686893ba7cb5a2ce70fb7d101ecea20a0a632262f535d4c043f99dad88e88b97b23927dc5c17fa3d070451664231ef8b397dea0477e84df38dd0f88a2b3"
+			           "932f56db8b30d03371f46afe8c6fcf870aedb1084e0fbfc98b10d18c924d6629e80551761c5daf6957a71c8135e32761d38603bf2a7b7f7c9b683714ca320c39"
+			           "b0c3d3bbec0b4aab5a4450c0e77b55f9a44c0f8419ed6edfdb6ed33d613e7d2b13f24373a4428941a2546d844b3e4197a3c63e21c36b763a74aa0bcffc7a9f47"
+			           "38190b66eb0a5472565fdb950934d383f87cf85cd1007ed48da4489146ec5bd548c0925c6a6c93889feb01bbc865f404ccf6a6ffebb16ff64fe5f34ce49e9a1c"
+			           "6a6f401dc96f2ec9a48249be30da8a6447bdaed0b8882fe8e2f472c881984265c7af7d70af1c0d7e8eab1a65ea9a7ee990587a98e18ca7f26d592fcdc3e03cf8"
+			           "8607b11fc47919ee84efdc799eadb9dcd04f701e0dc5bf5c189d90235280711dd10044f0b1913863afd4f8c3f31c22852e2bfa2ce53c606d0d47ff91d780c81c"
+			           "cd209fac1e69532336e4d40892eea02bd3727f8811f8706e71dfe3e1fae6283ca4f2281bb20b537742a7d913232b1d17e6af67fb3801d8a76feda4d962bc7bc6"
+			           "7efb4804167e1ea7fba46fab4ddb80929067194d026081602cfaaa42b80aa80282c56730f2ca9efb8863ff97b807b1e2f924ff46191c52e1d38d5c";
+        output_hash  = "70a597d1f470d69d7b7d495531c3182704dd60db5c73429fd7108c8ee22d86ed5822adfe6352f28f93023f46cc8d60bb";
+        input_len = strlen(input_string);
+        hex_input_string = (uint8_t*)calloc((input_len / 2), sizeof(uint8_t));
+        char_str_2_hex_str(input_string, input_len, hex_input_string, (input_len / 2), input_len, NO_SKIP, false);
+
+        s = sha384_init();
+        if(s == NULL){
+            return -1;
+        }
+        
+        ret = sha384_chain(s, hex_input_string, (input_len / 2));
+        if(s == NULL){
+            return -1;
+        }
+
+        ret = sha384_end(s);
+        if(s == NULL){
+            return -1;
+        }
+        
+        buff = (char*)calloc((SHA384_HASH_BYTESIZE * 2) + 1, sizeof(char));
+        sha384_stringify_hash(s, buff);
+        
+        if(strcmp(buff, output_hash) != 0){
+            printf("!!! ERROR !!!\n");
+            printf("Input data    : %s\n", input_string);
+            printf("Output hash   : %s\n", buff);
+            printf("Expected hash : %s\n", output_hash);
+            printf("!!! ERROR !!!\n");
+            return -1;
+        }
+        
+        sha384_delete(s);
+        free(hex_input_string);
+        free(buff);
+        counter++;
+        printf("PASSED #%ld\n", counter);
+    }
+    return 0;
+}
+
+
 int main(int argc, char* argv[]){
     sha256_test();
     sha224_test();
     sha512_test();
+    sha384_test();
     return 0;
 }

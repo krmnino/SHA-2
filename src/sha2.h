@@ -191,6 +191,48 @@ int sha256_stringify_hash(sha256*, char*);
 
 
 /*===================================================================*/
+/*                              SHA-384                              */
+/*===================================================================*/
+static uint64_t SHA384_INIT_HASH[] = {
+    0xcbbb9d5dc1059ed8,
+    0x629a292a367cd507,
+    0x9159015a3070dd17,
+    0x152fecd8f70e5939, 
+    0x67332667ffc00b31,
+    0x8eb44a8768581511,
+    0xdb0c2e0d64f98fa7,
+    0x47b5481dbefa4fa4
+};
+#define SHA384_HASH_BYTESIZE_INTERNAL (sizeof(SHA384_INIT_HASH))
+#define SHA384_HASH_BYTESIZE (SHA384_HASH_BYTESIZE_INTERNAL - (sizeof(uint64_t) * 2))
+#define SHA384_HASH_BITSIZE (SHA384_HASH_BYTESIZE_INTERNAL * 8)
+#define SHA384_HASH_U64WORDS (SHA384_HASH_BYTESIZE_INTERNAL / sizeof(uint64_t))
+#define SHA384_CHUNK_BITSIZE (SHA384_HASH_BITSIZE * 2)
+#define SHA384_CHUNK_BYTESIZE (SHA384_CHUNK_BITSIZE / 8)
+
+
+typedef struct sha384 sha384;
+struct sha384{
+    union{
+        uint64_t w0_80[N_SHA512_Ks];
+        uint64_t w0_15[N_SHA512_Ks / 4];
+        uint8_t buffer_u8[SHA384_CHUNK_BYTESIZE];
+    };
+    uint64_t hash[SHA384_HASH_U64WORDS];
+    __uint128_t data_bytelen;
+    bool done;
+    uint8_t buffer_idx;
+};
+
+
+sha384* sha384_init();
+int sha384_chain(sha384*, uint8_t*, uint64_t);
+int sha384_end(sha384*);
+int sha384_delete(sha384*);
+int sha384_stringify_hash(sha384*, char*);
+
+
+/*===================================================================*/
 /*                              SHA-512                              */
 /*===================================================================*/
 static uint64_t SHA512_INIT_HASH[] = {
