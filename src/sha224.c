@@ -212,8 +212,10 @@ int sha224_end(sha224* s){
         for(size_t i = 0; i < SHA224_HASH_U32WORDS; i++){
             s->hash[i] = SWAP_ENDIANESS_U32(s->hash[i]);
         }
-        s->done = true;
     }
+    // Trim last 32-bit value
+    s->hash[SHA224_HASH_U32WORDS - 1] = 0x0;
+    s->done = true;
     return 0;
 }
 

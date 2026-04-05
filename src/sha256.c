@@ -203,8 +203,8 @@ int sha256_end(sha256* s){
         for(size_t i = 0; i < SHA256_HASH_U32WORDS; i++){
             s->hash[i] = SWAP_ENDIANESS_U32(s->hash[i]);
         }
-        s->done = true;
     }
+    s->done = true;
     return 0;
 }
 
