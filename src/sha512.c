@@ -244,10 +244,13 @@ int sha512_stringify_hash(sha512* s, char* out_buffer){
         printf("ERROR: Pointer to sha512 instance is NULL.\n");
         return -1;
     }
-    
     if(!s->done){
         printf("ERROR: Hash processing is not complete.\n");
         return -1;
+    }
+    if(out_buffer == NULL){
+        printf("ERROR: Pointer to output buffer is NULL.\n");
+        return -1;    
     }    
 
     out_buffer_idx = 0;

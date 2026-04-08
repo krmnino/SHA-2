@@ -232,6 +232,24 @@ int sha224_delete(sha224* s){
 }
 
 
+int sha224_get_hash(sha224* s, uint8_t* out_buffer){
+    // Validate input
+    if(s == NULL){
+        printf("ERROR: Pointer to sha224 instance is NULL.\n");
+        return -1;
+    }
+    if(!s->done){
+        printf("ERROR: Hash processing is not complete.\n");
+        return -1;
+    }
+    if(out_buffer == NULL){
+        printf("ERROR: Pointer to output buffer is NULL.\n");
+        return -1;    
+    }    
+    return 0;
+}
+
+
 int sha224_stringify_hash(sha224* s, char* out_buffer){
     union{
         uint32_t integer;
@@ -244,11 +262,14 @@ int sha224_stringify_hash(sha224* s, char* out_buffer){
         printf("ERROR: Pointer to sha224 instance is NULL.\n");
         return -1;
     }
-    
     if(!s->done){
         printf("ERROR: Hash processing is not complete.\n");
         return -1;
     }    
+    if(out_buffer == NULL){
+        printf("ERROR: Pointer to output buffer is NULL.\n");
+        return -1;    
+    }
 
     out_buffer_idx = 0;
     for(size_t i = 0; i < (SHA224_HASH_U32WORDS - 1); i++){
