@@ -188,6 +188,7 @@ sha256* sha256_init();
 int sha256_chain(sha256*, uint8_t*, uint64_t);
 int sha256_end(sha256*);
 int sha256_delete(sha256*);
+int sha256_get_hash(sha256*, uint8_t*);
 int sha256_get_stringified_hash(sha256*, char*);
 
 

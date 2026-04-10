@@ -221,6 +221,39 @@ int sha256_delete(sha256* s){
 }
 
 
+int sha256_get_hash(sha256* s, uint8_t* out_buffer){
+    union{
+        uint32_t integer;
+        uint8_t array[sizeof(uint32_t)];
+    } u32_buff;
+    size_t out_buffer_idx;
+
+    // Validate input
+    if(s == NULL){
+        printf("ERROR: Pointer to sha256 instance is NULL.\n");
+        return -1;
+    }
+    if(!s->done){
+        printf("ERROR: Hash processing is not complete.\n");
+        return -1;
+    }
+    if(out_buffer == NULL){
+        printf("ERROR: Pointer to output buffer is NULL.\n");
+        return -1;    
+    }
+    
+    out_buffer_idx = 0;
+    for(size_t i = 0; i < SHA256_HASH_U32WORDS; i++){
+        u32_buff.integer = s->hash[i];
+        for(size_t j = 0; j < sizeof(uint32_t); j++){
+            out_buffer[out_buffer_idx] = u32_buff.array[j];
+            out_buffer_idx++;
+        }
+    }
+    return 0;
+}
+
+
 int sha256_get_stringified_hash(sha256* s, char* out_buffer){
     union{
         uint32_t integer;
