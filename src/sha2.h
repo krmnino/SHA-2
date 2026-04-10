@@ -146,7 +146,8 @@ sha224* sha224_init();
 int sha224_chain(sha224*, uint8_t*, uint64_t);
 int sha224_end(sha224*);
 int sha224_delete(sha224*);
-int sha224_stringify_hash(sha224*, char*);
+int sha224_get_hash(sha224*, uint8_t*);
+int sha224_get_stringified_hash(sha224*, char*);
 
 
 /*===================================================================*/
@@ -187,7 +188,7 @@ sha256* sha256_init();
 int sha256_chain(sha256*, uint8_t*, uint64_t);
 int sha256_end(sha256*);
 int sha256_delete(sha256*);
-int sha256_stringify_hash(sha256*, char*);
+int sha256_get_stringified_hash(sha256*, char*);
 
 
 /*===================================================================*/
@@ -229,7 +230,7 @@ sha384* sha384_init();
 int sha384_chain(sha384*, uint8_t*, uint64_t);
 int sha384_end(sha384*);
 int sha384_delete(sha384*);
-int sha384_stringify_hash(sha384*, char*);
+int sha384_get_stringified_hash(sha384*, char*);
 
 
 /*===================================================================*/
@@ -270,7 +271,7 @@ sha512* sha512_init();
 int sha512_chain(sha512*, uint8_t*, uint64_t);
 int sha512_end(sha512*);
 int sha512_delete(sha512*);
-int sha512_stringify_hash(sha512*, char*);
+int sha512_get_stringified_hash(sha512*, char*);
 
 
 #endif

@@ -232,7 +232,7 @@ int sha512_delete(sha512* s){
 }
 
 
-int sha512_stringify_hash(sha512* s, char* out_buffer){
+int sha512_get_stringified_hash(sha512* s, char* out_buffer){
     union{
         uint64_t integer;
         uint8_t array[sizeof(uint64_t)];

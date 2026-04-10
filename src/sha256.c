@@ -221,7 +221,7 @@ int sha256_delete(sha256* s){
 }
 
 
-int sha256_stringify_hash(sha256* s, char* out_buffer){
+int sha256_get_stringified_hash(sha256* s, char* out_buffer){
     union{
         uint32_t integer;
         uint8_t array[sizeof(uint32_t)];

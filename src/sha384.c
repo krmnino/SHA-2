@@ -235,7 +235,7 @@ int sha384_delete(sha384* s){
 }
 
 
-int sha384_stringify_hash(sha384* s, char* out_buffer){
+int sha384_get_stringified_hash(sha384* s, char* out_buffer){
     union{
         uint64_t integer;
         uint8_t array[sizeof(uint64_t)];
