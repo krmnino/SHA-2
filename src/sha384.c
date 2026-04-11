@@ -168,6 +168,10 @@ int sha384_end(sha384* s){
         printf("ERROR: Pointer to sha384 instance is NULL.\n");
         return -1;
     }
+    if(s->done){
+        printf("ERROR: Hash processing is already complete.\n");
+        return -1;    
+    }
 
     // Calculate k value such that:
     // (L * 8) + 1 + k + 128) mod 1024
