@@ -272,6 +272,7 @@ sha512* sha512_init();
 int sha512_chain(sha512*, uint8_t*, uint64_t);
 int sha512_end(sha512*);
 int sha512_delete(sha512*);
+int sha512_get_hash(sha512*, uint8_t*);
 int sha512_get_stringified_hash(sha512*, char*);
 
 
