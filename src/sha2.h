@@ -231,6 +231,7 @@ sha384* sha384_init();
 int sha384_chain(sha384*, uint8_t*, uint64_t);
 int sha384_end(sha384*);
 int sha384_delete(sha384*);
+int sha384_get_hash(sha384*, uint8_t*);
 int sha384_get_stringified_hash(sha384*, char*);
 
 
