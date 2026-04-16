@@ -1407,19 +1407,23 @@ int sha384_test(){
     counter = 0;
     // Test 1
     {
-        int ret;
         sha384* s;
-        char* output_hash;
         char* input_string;
-        uint8_t* hex_input_string;
         char* expected_hash;
+        char* output_hash;
+        uint8_t* hex_input_string;
+        uint8_t* hex_expected_hash;
+        uint8_t* hex_output_hash;
         size_t input_len;
+        int ret;
         
         input_string = "";
         expected_hash  = "38b060a751ac96384cd9327eb1b1e36a21fdb71114be07434c0cc7bf63f6e1da274edebfe76f65fbd51ad2f14898b95b";
         input_len = strlen(input_string);
         hex_input_string = (uint8_t*)calloc((input_len / 2), sizeof(uint8_t));
         char_str_2_hex_str(input_string, input_len, hex_input_string, (input_len / 2), input_len, NO_SKIP, false);
+        hex_expected_hash = (uint8_t*)calloc(SHA384_HASH_BYTESIZE, sizeof(uint8_t));
+        char_str_2_hex_str(expected_hash, (SHA384_HASH_BYTESIZE * 2), hex_expected_hash, SHA384_HASH_BYTESIZE, (SHA384_HASH_BYTESIZE * 2), NO_SKIP, false);
 
         s = sha384_init();
         if(s == NULL){
@@ -1447,9 +1451,26 @@ int sha384_test(){
             printf("!!! ERROR !!!\n");
             return -1;
         }
+
+        hex_output_hash = (uint8_t*)calloc(SHA384_HASH_BYTESIZE, sizeof(uint8_t));
+        sha384_get_hash(s, hex_output_hash);
         
+        for(size_t i = 0; i < SHA384_HASH_BYTESIZE; i++){
+            if(hex_expected_hash[i] != hex_output_hash[i]){
+                printf("!!! ERROR !!!\n");
+                printf("Input data       : %s\n", input_string);
+                printf("Hash bytte index : %ld\n", i);
+                printf("Output hash      : %x\n", hex_output_hash[i]);
+                printf("Expected hash    : %x\n", hex_expected_hash[i]);
+                printf("!!! ERROR !!!\n");
+                return -1;
+            }
+        }
+
         sha384_delete(s);
         free(hex_input_string);
+        free(hex_expected_hash);
+        free(hex_output_hash);
         free(output_hash);
         counter++;
         printf("PASSED #%ld\n", counter);
@@ -1457,19 +1478,23 @@ int sha384_test(){
 
     // Test 2
     {
-        int ret;
         sha384* s;
-        char* output_hash;
         char* input_string;
-        uint8_t* hex_input_string;
         char* expected_hash;
+        char* output_hash;
+        uint8_t* hex_input_string;
+        uint8_t* hex_expected_hash;
+        uint8_t* hex_output_hash;
         size_t input_len;
+        int ret;
         
         input_string = "20442e1c3f3c88919c39978b78";
         expected_hash  = "50bc95b036e0f54d833032a80d45c2ac38b3d29e9c7f72a2eb14781e9241d2a4b8e8dba6ee6f4c9e46a758d5712dbd39";
         input_len = strlen(input_string);
         hex_input_string = (uint8_t*)calloc((input_len / 2), sizeof(uint8_t));
         char_str_2_hex_str(input_string, input_len, hex_input_string, (input_len / 2), input_len, NO_SKIP, false);
+        hex_expected_hash = (uint8_t*)calloc(SHA384_HASH_BYTESIZE, sizeof(uint8_t));
+        char_str_2_hex_str(expected_hash, (SHA384_HASH_BYTESIZE * 2), hex_expected_hash, SHA384_HASH_BYTESIZE, (SHA384_HASH_BYTESIZE * 2), NO_SKIP, false);
 
         s = sha384_init();
         if(s == NULL){
@@ -1497,9 +1522,26 @@ int sha384_test(){
             printf("!!! ERROR !!!\n");
             return -1;
         }
+
+        hex_output_hash = (uint8_t*)calloc(SHA384_HASH_BYTESIZE, sizeof(uint8_t));
+        sha384_get_hash(s, hex_output_hash);
         
+        for(size_t i = 0; i < SHA384_HASH_BYTESIZE; i++){
+            if(hex_expected_hash[i] != hex_output_hash[i]){
+                printf("!!! ERROR !!!\n");
+                printf("Input data       : %s\n", input_string);
+                printf("Hash bytte index : %ld\n", i);
+                printf("Output hash      : %x\n", hex_output_hash[i]);
+                printf("Expected hash    : %x\n", hex_expected_hash[i]);
+                printf("!!! ERROR !!!\n");
+                return -1;
+            }
+        }
+
         sha384_delete(s);
         free(hex_input_string);
+        free(hex_expected_hash);
+        free(hex_output_hash);
         free(output_hash);
         counter++;
         printf("PASSED #%ld\n", counter);
@@ -1507,19 +1549,23 @@ int sha384_test(){
 
     // Test 3
     {
-        int ret;
         sha384* s;
-        char* output_hash;
         char* input_string;
-        uint8_t* hex_input_string;
         char* expected_hash;
+        char* output_hash;
+        uint8_t* hex_input_string;
+        uint8_t* hex_expected_hash;
+        uint8_t* hex_output_hash;
         size_t input_len;
+        int ret;
         
         input_string = "7e80271bb5f2cc7ddae4158658e4e8d06e04a39385da0ecac1cb8e91d68a9bd21ddb7320e79d10e3110758";
         expected_hash  = "fa00bc0359a642dcb3559656094eb2fd4f63bc57f0d34abff26df5c54cc63dbeb4eac75905296e7fb69f871e134083f6";
         input_len = strlen(input_string);
         hex_input_string = (uint8_t*)calloc((input_len / 2), sizeof(uint8_t));
         char_str_2_hex_str(input_string, input_len, hex_input_string, (input_len / 2), input_len, NO_SKIP, false);
+        hex_expected_hash = (uint8_t*)calloc(SHA384_HASH_BYTESIZE, sizeof(uint8_t));
+        char_str_2_hex_str(expected_hash, (SHA384_HASH_BYTESIZE * 2), hex_expected_hash, SHA384_HASH_BYTESIZE, (SHA384_HASH_BYTESIZE * 2), NO_SKIP, false);
 
         s = sha384_init();
         if(s == NULL){
@@ -1547,9 +1593,26 @@ int sha384_test(){
             printf("!!! ERROR !!!\n");
             return -1;
         }
+
+        hex_output_hash = (uint8_t*)calloc(SHA384_HASH_BYTESIZE, sizeof(uint8_t));
+        sha384_get_hash(s, hex_output_hash);
         
+        for(size_t i = 0; i < SHA384_HASH_BYTESIZE; i++){
+            if(hex_expected_hash[i] != hex_output_hash[i]){
+                printf("!!! ERROR !!!\n");
+                printf("Input data       : %s\n", input_string);
+                printf("Hash bytte index : %ld\n", i);
+                printf("Output hash      : %x\n", hex_output_hash[i]);
+                printf("Expected hash    : %x\n", hex_expected_hash[i]);
+                printf("!!! ERROR !!!\n");
+                return -1;
+            }
+        }
+
         sha384_delete(s);
         free(hex_input_string);
+        free(hex_expected_hash);
+        free(hex_output_hash);
         free(output_hash);
         counter++;
         printf("PASSED #%ld\n", counter);
@@ -1557,19 +1620,23 @@ int sha384_test(){
 
     // Test 4
     {
-        int ret;
         sha384* s;
-        char* output_hash;
         char* input_string;
-        uint8_t* hex_input_string;
         char* expected_hash;
+        char* output_hash;
+        uint8_t* hex_input_string;
+        uint8_t* hex_expected_hash;
+        uint8_t* hex_output_hash;
         size_t input_len;
+        int ret;
         
         input_string = "93035d3a13ae1b06dd033e764aca0124961da79c366c6c756bc4bcc11850a3a8d120854f34290fff7c8d6d83531dbdd1e81cc4ed4246e00bd4113ef451334daa";
         expected_hash  = "8d46cc84b6c2deb206aa5c861798798751a26ee74b1daf3a557c41aebd65adc027559f7cd92b255b374c83bd55568b45";
         input_len = strlen(input_string);
         hex_input_string = (uint8_t*)calloc((input_len / 2), sizeof(uint8_t));
         char_str_2_hex_str(input_string, input_len, hex_input_string, (input_len / 2), input_len, NO_SKIP, false);
+        hex_expected_hash = (uint8_t*)calloc(SHA384_HASH_BYTESIZE, sizeof(uint8_t));
+        char_str_2_hex_str(expected_hash, (SHA384_HASH_BYTESIZE * 2), hex_expected_hash, SHA384_HASH_BYTESIZE, (SHA384_HASH_BYTESIZE * 2), NO_SKIP, false);
 
         s = sha384_init();
         if(s == NULL){
@@ -1597,9 +1664,26 @@ int sha384_test(){
             printf("!!! ERROR !!!\n");
             return -1;
         }
+
+        hex_output_hash = (uint8_t*)calloc(SHA384_HASH_BYTESIZE, sizeof(uint8_t));
+        sha384_get_hash(s, hex_output_hash);
         
+        for(size_t i = 0; i < SHA384_HASH_BYTESIZE; i++){
+            if(hex_expected_hash[i] != hex_output_hash[i]){
+                printf("!!! ERROR !!!\n");
+                printf("Input data       : %s\n", input_string);
+                printf("Hash bytte index : %ld\n", i);
+                printf("Output hash      : %x\n", hex_output_hash[i]);
+                printf("Expected hash    : %x\n", hex_expected_hash[i]);
+                printf("!!! ERROR !!!\n");
+                return -1;
+            }
+        }
+
         sha384_delete(s);
         free(hex_input_string);
+        free(hex_expected_hash);
+        free(hex_output_hash);
         free(output_hash);
         counter++;
         printf("PASSED #%ld\n", counter);
@@ -1607,13 +1691,15 @@ int sha384_test(){
 
     // Test 5
     {
-        int ret;
         sha384* s;
-        char* output_hash;
         char* input_string;
-        uint8_t* hex_input_string;
         char* expected_hash;
+        char* output_hash;
+        uint8_t* hex_input_string;
+        uint8_t* hex_expected_hash;
+        uint8_t* hex_output_hash;
         size_t input_len;
+        int ret;
         
         input_string = "3bf52cc5ee86b9a0190f390a5c0366a560b557000dbe5115fd9ee11630a62769011575f15881198f227876e8fe685a6939bc8b89fd48a34ec5e71e131462b288"
 			           "6794dffa68ccc6d564733e67ffef25e627c6f4b5460796e3bce67bf58ca6e8e555bc916a8531697ac948b90dc8616f25101db90b50c3d3dbc9e21e42ff387187";
@@ -1621,6 +1707,8 @@ int sha384_test(){
         input_len = strlen(input_string);
         hex_input_string = (uint8_t*)calloc((input_len / 2), sizeof(uint8_t));
         char_str_2_hex_str(input_string, input_len, hex_input_string, (input_len / 2), input_len, NO_SKIP, false);
+        hex_expected_hash = (uint8_t*)calloc(SHA384_HASH_BYTESIZE, sizeof(uint8_t));
+        char_str_2_hex_str(expected_hash, (SHA384_HASH_BYTESIZE * 2), hex_expected_hash, SHA384_HASH_BYTESIZE, (SHA384_HASH_BYTESIZE * 2), NO_SKIP, false);
 
         s = sha384_init();
         if(s == NULL){
@@ -1648,9 +1736,26 @@ int sha384_test(){
             printf("!!! ERROR !!!\n");
             return -1;
         }
+
+        hex_output_hash = (uint8_t*)calloc(SHA384_HASH_BYTESIZE, sizeof(uint8_t));
+        sha384_get_hash(s, hex_output_hash);
         
+        for(size_t i = 0; i < SHA384_HASH_BYTESIZE; i++){
+            if(hex_expected_hash[i] != hex_output_hash[i]){
+                printf("!!! ERROR !!!\n");
+                printf("Input data       : %s\n", input_string);
+                printf("Hash bytte index : %ld\n", i);
+                printf("Output hash      : %x\n", hex_output_hash[i]);
+                printf("Expected hash    : %x\n", hex_expected_hash[i]);
+                printf("!!! ERROR !!!\n");
+                return -1;
+            }
+        }
+
         sha384_delete(s);
         free(hex_input_string);
+        free(hex_expected_hash);
+        free(hex_output_hash);
         free(output_hash);
         counter++;
         printf("PASSED #%ld\n", counter);
@@ -1658,13 +1763,15 @@ int sha384_test(){
 
     // Test 6
     {
-        int ret;
         sha384* s;
-        char* output_hash;
         char* input_string;
-        uint8_t* hex_input_string;
         char* expected_hash;
+        char* output_hash;
+        uint8_t* hex_input_string;
+        uint8_t* hex_expected_hash;
+        uint8_t* hex_output_hash;
         size_t input_len;
+        int ret;
         
         input_string = "f6b1cf75b5cfa4ab323cf04ff13b7a591b23d06ed25f3c04c1baf4c8f7da913cf509c2a5053c4224ce4d0723268cbdf2277672b285c493731ea81799d353fa84"
 			           "97baed70c59a4c99b7b950a39470863a69667ff67c9ec981ddb41ffb3d63dd9d034bb79d9df1a95214083199e4efbd770a7a5f005ef5c877236674b6dd1322d0"
@@ -1686,6 +1793,8 @@ int sha384_test(){
         input_len = strlen(input_string);
         hex_input_string = (uint8_t*)calloc((input_len / 2), sizeof(uint8_t));
         char_str_2_hex_str(input_string, input_len, hex_input_string, (input_len / 2), input_len, NO_SKIP, false);
+        hex_expected_hash = (uint8_t*)calloc(SHA384_HASH_BYTESIZE, sizeof(uint8_t));
+        char_str_2_hex_str(expected_hash, (SHA384_HASH_BYTESIZE * 2), hex_expected_hash, SHA384_HASH_BYTESIZE, (SHA384_HASH_BYTESIZE * 2), NO_SKIP, false);
 
         s = sha384_init();
         if(s == NULL){
@@ -1713,9 +1822,26 @@ int sha384_test(){
             printf("!!! ERROR !!!\n");
             return -1;
         }
+
+        hex_output_hash = (uint8_t*)calloc(SHA384_HASH_BYTESIZE, sizeof(uint8_t));
+        sha384_get_hash(s, hex_output_hash);
         
+        for(size_t i = 0; i < SHA384_HASH_BYTESIZE; i++){
+            if(hex_expected_hash[i] != hex_output_hash[i]){
+                printf("!!! ERROR !!!\n");
+                printf("Input data       : %s\n", input_string);
+                printf("Hash bytte index : %ld\n", i);
+                printf("Output hash      : %x\n", hex_output_hash[i]);
+                printf("Expected hash    : %x\n", hex_expected_hash[i]);
+                printf("!!! ERROR !!!\n");
+                return -1;
+            }
+        }
+
         sha384_delete(s);
         free(hex_input_string);
+        free(hex_expected_hash);
+        free(hex_output_hash);
         free(output_hash);
         counter++;
         printf("PASSED #%ld\n", counter);
