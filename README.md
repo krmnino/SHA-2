@@ -3,7 +3,6 @@
 An implementation of the family of cryptographic hash functions Secure Hash Standard (SHS) in C.
 
 The standard specifies seven approved hash algorithms:
-- SHA‑1 
 - SHA‑224
 - SHA‑256
 - SHA‑384
