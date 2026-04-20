@@ -2317,10 +2317,10 @@ int sha512_224_test(){
 
 
 int main(int argc, char* argv[]){
-    //sha256_test();
-    //sha224_test();
+    sha256_test();
+    sha224_test();
     sha512_test();
-    //sha384_test();
+    sha384_test();
     sha512_224_test();
     return 0;
 }
