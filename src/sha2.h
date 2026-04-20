@@ -100,11 +100,11 @@ static uint64_t SHA512_K[] = {
 
 
 #define CALCULATE_SHA256_k(input_bitlen) \
-        (SHA256_CHUNK_BITSIZE - ((input_bitlen + 1 + (sizeof(uint64_t) * 8)) % SHA256_CHUNK_BITSIZE))
+        ((SHA256_CHUNK_BYTESIZE * 8) - ((input_bitlen + 1 + (sizeof(uint64_t) * 8)) % (SHA256_CHUNK_BYTESIZE * 8)))
 
         
 #define CALCULATE_SHA512_k(input_bitlen) \
-        (SHA512_CHUNK_BITSIZE - ((input_bitlen + 1 + (sizeof(__uint128_t) * 8)) % SHA512_CHUNK_BITSIZE))
+        ((SHA512_CHUNK_BYTESIZE * 8) - ((input_bitlen + 1 + (sizeof(__uint128_t) * 8)) % (SHA512_CHUNK_BYTESIZE * 8)))
 
 
 /*===================================================================*/
@@ -122,10 +122,8 @@ static uint32_t SHA224_INIT_HASH[] = {
 };
 #define SHA224_HASH_BYTESIZE_INTERNAL (sizeof(SHA224_INIT_HASH))
 #define SHA224_HASH_BYTESIZE (SHA224_HASH_BYTESIZE_INTERNAL - sizeof(uint32_t))
-#define SHA224_HASH_BITSIZE (SHA224_HASH_BYTESIZE_INTERNAL * 8)
 #define SHA224_HASH_U32WORDS (SHA224_HASH_BYTESIZE_INTERNAL / sizeof(uint32_t))
-#define SHA224_CHUNK_BITSIZE (SHA224_HASH_BITSIZE * 2)
-#define SHA224_CHUNK_BYTESIZE (SHA224_CHUNK_BITSIZE / 8)
+#define SHA224_CHUNK_BYTESIZE (SHA224_HASH_BYTESIZE_INTERNAL * 2)
 
 
 typedef struct sha224 sha224;
@@ -164,10 +162,8 @@ static uint32_t SHA256_INIT_HASH[] = {
     0x5be0cd19,
 };
 #define SHA256_HASH_BYTESIZE (sizeof(SHA256_INIT_HASH))
-#define SHA256_HASH_BITSIZE (SHA256_HASH_BYTESIZE * 8)
 #define SHA256_HASH_U32WORDS (SHA256_HASH_BYTESIZE / sizeof(uint32_t))
-#define SHA256_CHUNK_BITSIZE (SHA256_HASH_BITSIZE * 2)
-#define SHA256_CHUNK_BYTESIZE (SHA256_CHUNK_BITSIZE / 8)
+#define SHA256_CHUNK_BYTESIZE (SHA256_HASH_BYTESIZE * 2)
 
 
 typedef struct sha256 sha256;
@@ -208,7 +204,7 @@ static uint64_t SHA384_INIT_HASH[] = {
 #define SHA384_HASH_BYTESIZE_INTERNAL (sizeof(SHA384_INIT_HASH))
 #define SHA384_HASH_BYTESIZE (SHA384_HASH_BYTESIZE_INTERNAL - (sizeof(uint64_t) * 2))
 #define SHA384_HASH_U64WORDS (SHA384_HASH_BYTESIZE_INTERNAL / sizeof(uint64_t))
-#define SHA384_CHUNK_BYTESIZE ((SHA384_HASH_BYTESIZE_INTERNAL * 2))
+#define SHA384_CHUNK_BYTESIZE (SHA384_HASH_BYTESIZE_INTERNAL * 2)
 
 
 typedef struct sha384 sha384;
@@ -247,10 +243,8 @@ static uint64_t SHA512_INIT_HASH[] = {
     0x5be0cd19137e2179
 };
 #define SHA512_HASH_BYTESIZE (sizeof(SHA512_INIT_HASH))
-#define SHA512_HASH_BITSIZE (SHA512_HASH_BYTESIZE * 8)
 #define SHA512_HASH_U64WORDS (SHA512_HASH_BYTESIZE / sizeof(uint64_t))
-#define SHA512_CHUNK_BITSIZE (SHA512_HASH_BITSIZE * 2)
-#define SHA512_CHUNK_BYTESIZE (SHA512_CHUNK_BITSIZE / 8)
+#define SHA512_CHUNK_BYTESIZE (SHA512_HASH_BYTESIZE * 2)
 
 
 typedef struct sha512 sha512;
@@ -282,7 +276,7 @@ static uint64_t SHA512_224_INIT_HASH[] = {
     0x8c3d37c819544da2,
     0x73e1996689dcd4d6,
     0x1dfab7ae32ff9c82,
-    0x679dd514582f9fcf, 
+    0x679dd514582f9fcf,
     0x0f6d2b697bd44da8,
     0x77e36f7304c48942,
     0x3f9d85a86a1d36c8,
