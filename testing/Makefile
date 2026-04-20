@@ -1,10 +1,11 @@
 BD = $(realpath ../bin)
 SD = $(realpath ../src)
 
-SRC_FILES = sha256.c	\
-			sha224.c	\
-			sha512.c	\
-			sha384.c
+SRC_FILES = sha224.c    	\
+            sha256.c    	\
+            sha384.c    	\
+            sha512.c		\
+            sha512_224.c
 SRC_PATHS = $(addprefix $(SD)/,$(SRC_FILES))
 
 TST_FILES = Main.c
