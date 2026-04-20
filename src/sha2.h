@@ -277,4 +277,45 @@ int sha512_get_hash(sha512*, uint8_t*);
 int sha512_get_stringified_hash(sha512*, char*);
 
 
+/*===================================================================*/
+/*                            SHA-512/224                            */
+/*===================================================================*/
+static uint64_t SHA512_224_INIT_HASH[] = {
+    0x8c3d37c819544da2,
+    0x73e1996689dcd4d6,
+    0x1dfab7ae32ff9c82,
+    0x679dd514582f9fcf, 
+    0x0f6d2b697bd44da8,
+    0x77e36f7304c48942,
+    0x3f9d85a86a1d36c8,
+    0x1112e6ad91d692a1
+};
+#define SHA512_224_HASH_BYTESIZE_INTERNAL (sizeof(SHA512_224_INIT_HASH))
+#define SHA512_224_HASH_BYTESIZE (SHA512_224_HASH_BYTESIZE_INTERNAL - (sizeof(uint32_t) * 9))
+#define SHA512_224_HASH_U64WORDS (SHA512_224_HASH_BYTESIZE_INTERNAL / sizeof(uint64_t))
+#define SHA512_224_CHUNK_BYTESIZE (SHA512_224_HASH_BYTESIZE_INTERNAL * 2)
+
+
+typedef struct sha512_224 sha512_224;
+struct sha512_224{
+    union{
+        uint64_t w0_80[N_SHA512_Ks];
+        uint64_t w0_15[N_SHA512_Ks / 4];
+        uint8_t buffer_u8[SHA512_224_CHUNK_BYTESIZE];
+    };
+    uint64_t hash[SHA512_224_HASH_U64WORDS];
+    __uint128_t data_bytelen;
+    bool done;
+    uint8_t buffer_idx;
+};
+
+
+sha512_224* sha512_224_init();
+int sha512_224_chain(sha512_224*, uint8_t*, uint64_t);
+int sha512_224_end(sha512_224*);
+int sha512_224_delete(sha512_224*);
+int sha512_224_get_hash(sha512_224*, uint8_t*);
+int sha512_224_get_stringified_hash(sha512_224*, char*);
+
+
 #endif

@@ -2,10 +2,11 @@ RD = $(realpath ../res)
 BD = $(realpath ../bin)
 SD = $(realpath ../src)
 
-SRC_FILES = sha224.c    \
-            sha256.c    \
-            sha384.c    \
-            sha512.c
+SRC_FILES = sha224.c    	\
+            sha256.c    	\
+            sha384.c    	\
+            sha512.c		\
+            sha512_224.c
 SRC_PATHS = $(addprefix $(SD)/,$(SRC_FILES))
 
 OBJ_FILES = $(patsubst %.c,%.o, $(SRC_FILES))
