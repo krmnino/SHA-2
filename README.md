@@ -35,7 +35,7 @@ Add the flags `-L$<path> -libSHA2 -Wl,-rpath,<path>` to the linker `gcc` command
 
 The file `testing/SHA2Example.c` is an integration example on how the `SHA2` library can be used within a C program.
 
-For the descriptions detailed below, the `XYZ` substring is a placeholder that can be interpreted as `224`, `256`, `384`, or `512`.
+For the descriptions detailed below, the `XYZ` substring is a placeholder that can be interpreted as `224`, `256`, `384`, `512`, `512_224`, or `512_256`.
 
 ### `shaXYZ* shaXYZ_init()`
 
