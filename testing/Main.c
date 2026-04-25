@@ -116,7 +116,7 @@ int sha256_test(){
             if(hex_expected_hash[i] != hex_output_hash[i]){
                 printf("!!! ERROR !!!\n");
                 printf("Input data       : %s\n", input_string);
-                printf("Hash bytte index : %ld\n", i);
+                printf("Hash byte index :  %ld\n", i);
                 printf("Output hash      : %x\n", hex_output_hash[i]);
                 printf("Expected hash    : %x\n", hex_expected_hash[i]);
                 printf("!!! ERROR !!!\n");
@@ -130,7 +130,7 @@ int sha256_test(){
         free(hex_output_hash);
         free(output_hash);
         counter++;
-        printf("PASSED #%ld\n", counter);
+        printf("SHA-256 PASSED #%ld\n", counter);
     }
 
     // Test 2
@@ -187,7 +187,7 @@ int sha256_test(){
             if(hex_expected_hash[i] != hex_output_hash[i]){
                 printf("!!! ERROR !!!\n");
                 printf("Input data       : %s\n", input_string);
-                printf("Hash bytte index : %ld\n", i);
+                printf("Hash byte index :  %ld\n", i);
                 printf("Output hash      : %x\n", hex_output_hash[i]);
                 printf("Expected hash    : %x\n", hex_expected_hash[i]);
                 printf("!!! ERROR !!!\n");
@@ -201,7 +201,7 @@ int sha256_test(){
         free(hex_output_hash);
         free(output_hash);
         counter++;
-        printf("PASSED #%ld\n", counter);
+        printf("SHA-256 PASSED #%ld\n", counter);
     }
 
 // Test 3
@@ -258,7 +258,7 @@ int sha256_test(){
             if(hex_expected_hash[i] != hex_output_hash[i]){
                 printf("!!! ERROR !!!\n");
                 printf("Input data       : %s\n", input_string);
-                printf("Hash bytte index : %ld\n", i);
+                printf("Hash byte index :  %ld\n", i);
                 printf("Output hash      : %x\n", hex_output_hash[i]);
                 printf("Expected hash    : %x\n", hex_expected_hash[i]);
                 printf("!!! ERROR !!!\n");
@@ -272,7 +272,7 @@ int sha256_test(){
         free(hex_output_hash);
         free(output_hash);
         counter++;
-        printf("PASSED #%ld\n", counter);
+        printf("SHA-256 PASSED #%ld\n", counter);
     }
 
 // Test 4
@@ -329,7 +329,7 @@ int sha256_test(){
             if(hex_expected_hash[i] != hex_output_hash[i]){
                 printf("!!! ERROR !!!\n");
                 printf("Input data       : %s\n", input_string);
-                printf("Hash bytte index : %ld\n", i);
+                printf("Hash byte index :  %ld\n", i);
                 printf("Output hash      : %x\n", hex_output_hash[i]);
                 printf("Expected hash    : %x\n", hex_expected_hash[i]);
                 printf("!!! ERROR !!!\n");
@@ -343,7 +343,7 @@ int sha256_test(){
         free(hex_output_hash);
         free(output_hash);
         counter++;
-        printf("PASSED #%ld\n", counter);
+        printf("SHA-256 PASSED #%ld\n", counter);
     }
 
     // Test 5
@@ -400,7 +400,7 @@ int sha256_test(){
             if(hex_expected_hash[i] != hex_output_hash[i]){
                 printf("!!! ERROR !!!\n");
                 printf("Input data       : %s\n", input_string);
-                printf("Hash bytte index : %ld\n", i);
+                printf("Hash byte index :  %ld\n", i);
                 printf("Output hash      : %x\n", hex_output_hash[i]);
                 printf("Expected hash    : %x\n", hex_expected_hash[i]);
                 printf("!!! ERROR !!!\n");
@@ -414,7 +414,7 @@ int sha256_test(){
         free(hex_output_hash);
         free(output_hash);
         counter++;
-        printf("PASSED #%ld\n", counter);
+        printf("SHA-256 PASSED #%ld\n", counter);
     }
 
     // Test 6
@@ -485,7 +485,7 @@ int sha256_test(){
             if(hex_expected_hash[i] != hex_output_hash[i]){
                 printf("!!! ERROR !!!\n");
                 printf("Input data       : %s\n", input_string);
-                printf("Hash bytte index : %ld\n", i);
+                printf("Hash byte index :  %ld\n", i);
                 printf("Output hash      : %x\n", hex_output_hash[i]);
                 printf("Expected hash    : %x\n", hex_expected_hash[i]);
                 printf("!!! ERROR !!!\n");
@@ -499,7 +499,7 @@ int sha256_test(){
         free(hex_output_hash);
         free(output_hash);
         counter++;
-        printf("PASSED #%ld\n", counter);
+        printf("SHA-256 PASSED #%ld\n", counter);
     }
     return 0;
 }
@@ -563,7 +563,7 @@ int sha224_test(){
             if(hex_expected_hash[i] != hex_output_hash[i]){
                 printf("!!! ERROR !!!\n");
                 printf("Input data       : %s\n", input_string);
-                printf("Hash bytte index : %ld\n", i);
+                printf("Hash byte index :  %ld\n", i);
                 printf("Output hash      : %x\n", hex_output_hash[i]);
                 printf("Expected hash    : %x\n", hex_expected_hash[i]);
                 printf("!!! ERROR !!!\n");
@@ -577,7 +577,7 @@ int sha224_test(){
         free(hex_output_hash);
         free(output_hash);
         counter++;
-        printf("PASSED #%ld\n", counter);
+        printf("SHA-224 PASSED #%ld\n", counter);
     }
 
     // Test 2
@@ -634,7 +634,7 @@ int sha224_test(){
             if(hex_expected_hash[i] != hex_output_hash[i]){
                 printf("!!! ERROR !!!\n");
                 printf("Input data       : %s\n", input_string);
-                printf("Hash bytte index : %ld\n", i);
+                printf("Hash byte index :  %ld\n", i);
                 printf("Output hash      : %x\n", hex_output_hash[i]);
                 printf("Expected hash    : %x\n", hex_expected_hash[i]);
                 printf("!!! ERROR !!!\n");
@@ -648,7 +648,7 @@ int sha224_test(){
         free(hex_output_hash);
         free(output_hash);
         counter++;
-        printf("PASSED #%ld\n", counter);
+        printf("SHA-224 PASSED #%ld\n", counter);
     }
 
     // Test 3
@@ -705,7 +705,7 @@ int sha224_test(){
             if(hex_expected_hash[i] != hex_output_hash[i]){
                 printf("!!! ERROR !!!\n");
                 printf("Input data       : %s\n", input_string);
-                printf("Hash bytte index : %ld\n", i);
+                printf("Hash byte index :  %ld\n", i);
                 printf("Output hash      : %x\n", hex_output_hash[i]);
                 printf("Expected hash    : %x\n", hex_expected_hash[i]);
                 printf("!!! ERROR !!!\n");
@@ -719,7 +719,7 @@ int sha224_test(){
         free(hex_output_hash);
         free(output_hash);
         counter++;
-        printf("PASSED #%ld\n", counter);
+        printf("SHA-224 PASSED #%ld\n", counter);
     }
 
     // Test 4
@@ -776,7 +776,7 @@ int sha224_test(){
             if(hex_expected_hash[i] != hex_output_hash[i]){
                 printf("!!! ERROR !!!\n");
                 printf("Input data       : %s\n", input_string);
-                printf("Hash bytte index : %ld\n", i);
+                printf("Hash byte index :  %ld\n", i);
                 printf("Output hash      : %x\n", hex_output_hash[i]);
                 printf("Expected hash    : %x\n", hex_expected_hash[i]);
                 printf("!!! ERROR !!!\n");
@@ -790,7 +790,7 @@ int sha224_test(){
         free(hex_output_hash);
         free(output_hash);
         counter++;
-        printf("PASSED #%ld\n", counter);
+        printf("SHA-224 PASSED #%ld\n", counter);
     }
 
     // Test 5
@@ -847,7 +847,7 @@ int sha224_test(){
             if(hex_expected_hash[i] != hex_output_hash[i]){
                 printf("!!! ERROR !!!\n");
                 printf("Input data       : %s\n", input_string);
-                printf("Hash bytte index : %ld\n", i);
+                printf("Hash byte index :  %ld\n", i);
                 printf("Output hash      : %x\n", hex_output_hash[i]);
                 printf("Expected hash    : %x\n", hex_expected_hash[i]);
                 printf("!!! ERROR !!!\n");
@@ -861,7 +861,7 @@ int sha224_test(){
         free(hex_output_hash);
         free(output_hash);
         counter++;
-        printf("PASSED #%ld\n", counter);
+        printf("SHA-224 PASSED #%ld\n", counter);
     }
     
     // Test 6
@@ -932,7 +932,7 @@ int sha224_test(){
             if(hex_expected_hash[i] != hex_output_hash[i]){
                 printf("!!! ERROR !!!\n");
                 printf("Input data       : %s\n", input_string);
-                printf("Hash bytte index : %ld\n", i);
+                printf("Hash byte index :  %ld\n", i);
                 printf("Output hash      : %x\n", hex_output_hash[i]);
                 printf("Expected hash    : %x\n", hex_expected_hash[i]);
                 printf("!!! ERROR !!!\n");
@@ -946,7 +946,7 @@ int sha224_test(){
         free(hex_output_hash);
         free(output_hash);
         counter++;
-        printf("PASSED #%ld\n", counter);
+        printf("SHA-224 PASSED #%ld\n", counter);
     }
     return 0;
 }
@@ -1010,7 +1010,7 @@ int sha512_test(){
             if(hex_expected_hash[i] != hex_output_hash[i]){
                 printf("!!! ERROR !!!\n");
                 printf("Input data       : %s\n", input_string);
-                printf("Hash bytte index : %ld\n", i);
+                printf("Hash byte index :  %ld\n", i);
                 printf("Output hash      : %x\n", hex_output_hash[i]);
                 printf("Expected hash    : %x\n", hex_expected_hash[i]);
                 printf("!!! ERROR !!!\n");
@@ -1024,7 +1024,7 @@ int sha512_test(){
         free(hex_output_hash);
         free(output_hash);
         counter++;
-        printf("PASSED #%ld\n", counter);
+        printf("SHA-512 PASSED #%ld\n", counter);
     }
     
     // Test 2
@@ -1081,7 +1081,7 @@ int sha512_test(){
             if(hex_expected_hash[i] != hex_output_hash[i]){
                 printf("!!! ERROR !!!\n");
                 printf("Input data       : %s\n", input_string);
-                printf("Hash bytte index : %ld\n", i);
+                printf("Hash byte index :  %ld\n", i);
                 printf("Output hash      : %x\n", hex_output_hash[i]);
                 printf("Expected hash    : %x\n", hex_expected_hash[i]);
                 printf("!!! ERROR !!!\n");
@@ -1095,7 +1095,7 @@ int sha512_test(){
         free(hex_output_hash);
         free(output_hash);
         counter++;
-        printf("PASSED #%ld\n", counter);
+        printf("SHA-512 PASSED #%ld\n", counter);
     }
     
     // Test 3
@@ -1152,7 +1152,7 @@ int sha512_test(){
             if(hex_expected_hash[i] != hex_output_hash[i]){
                 printf("!!! ERROR !!!\n");
                 printf("Input data       : %s\n", input_string);
-                printf("Hash bytte index : %ld\n", i);
+                printf("Hash byte index :  %ld\n", i);
                 printf("Output hash      : %x\n", hex_output_hash[i]);
                 printf("Expected hash    : %x\n", hex_expected_hash[i]);
                 printf("!!! ERROR !!!\n");
@@ -1166,7 +1166,7 @@ int sha512_test(){
         free(hex_output_hash);
         free(output_hash);
         counter++;
-        printf("PASSED #%ld\n", counter);
+        printf("SHA-512 PASSED #%ld\n", counter);
     }
     
     // Test 4
@@ -1223,7 +1223,7 @@ int sha512_test(){
             if(hex_expected_hash[i] != hex_output_hash[i]){
                 printf("!!! ERROR !!!\n");
                 printf("Input data       : %s\n", input_string);
-                printf("Hash bytte index : %ld\n", i);
+                printf("Hash byte index :  %ld\n", i);
                 printf("Output hash      : %x\n", hex_output_hash[i]);
                 printf("Expected hash    : %x\n", hex_expected_hash[i]);
                 printf("!!! ERROR !!!\n");
@@ -1237,7 +1237,7 @@ int sha512_test(){
         free(hex_output_hash);
         free(output_hash);
         counter++;
-        printf("PASSED #%ld\n", counter);
+        printf("SHA-512 PASSED #%ld\n", counter);
     }
     
     // Test 5
@@ -1295,7 +1295,7 @@ int sha512_test(){
             if(hex_expected_hash[i] != hex_output_hash[i]){
                 printf("!!! ERROR !!!\n");
                 printf("Input data       : %s\n", input_string);
-                printf("Hash bytte index : %ld\n", i);
+                printf("Hash byte index :  %ld\n", i);
                 printf("Output hash      : %x\n", hex_output_hash[i]);
                 printf("Expected hash    : %x\n", hex_expected_hash[i]);
                 printf("!!! ERROR !!!\n");
@@ -1309,7 +1309,7 @@ int sha512_test(){
         free(hex_output_hash);
         free(output_hash);
         counter++;
-        printf("PASSED #%ld\n", counter);
+        printf("SHA-512 PASSED #%ld\n", counter);
     }
     
     // Test 6
@@ -1381,7 +1381,7 @@ int sha512_test(){
             if(hex_expected_hash[i] != hex_output_hash[i]){
                 printf("!!! ERROR !!!\n");
                 printf("Input data       : %s\n", input_string);
-                printf("Hash bytte index : %ld\n", i);
+                printf("Hash byte index :  %ld\n", i);
                 printf("Output hash      : %x\n", hex_output_hash[i]);
                 printf("Expected hash    : %x\n", hex_expected_hash[i]);
                 printf("!!! ERROR !!!\n");
@@ -1395,7 +1395,7 @@ int sha512_test(){
         free(hex_output_hash);
         free(output_hash);
         counter++;
-        printf("PASSED #%ld\n", counter);
+        printf("SHA-512 PASSED #%ld\n", counter);
     }
     return 0;
 }
@@ -1459,7 +1459,7 @@ int sha384_test(){
             if(hex_expected_hash[i] != hex_output_hash[i]){
                 printf("!!! ERROR !!!\n");
                 printf("Input data       : %s\n", input_string);
-                printf("Hash bytte index : %ld\n", i);
+                printf("Hash byte index :  %ld\n", i);
                 printf("Output hash      : %x\n", hex_output_hash[i]);
                 printf("Expected hash    : %x\n", hex_expected_hash[i]);
                 printf("!!! ERROR !!!\n");
@@ -1473,7 +1473,7 @@ int sha384_test(){
         free(hex_output_hash);
         free(output_hash);
         counter++;
-        printf("PASSED #%ld\n", counter);
+        printf("SHA-384 PASSED #%ld\n", counter);
     }
 
     // Test 2
@@ -1530,7 +1530,7 @@ int sha384_test(){
             if(hex_expected_hash[i] != hex_output_hash[i]){
                 printf("!!! ERROR !!!\n");
                 printf("Input data       : %s\n", input_string);
-                printf("Hash bytte index : %ld\n", i);
+                printf("Hash byte index :  %ld\n", i);
                 printf("Output hash      : %x\n", hex_output_hash[i]);
                 printf("Expected hash    : %x\n", hex_expected_hash[i]);
                 printf("!!! ERROR !!!\n");
@@ -1544,7 +1544,7 @@ int sha384_test(){
         free(hex_output_hash);
         free(output_hash);
         counter++;
-        printf("PASSED #%ld\n", counter);
+        printf("SHA-384 PASSED #%ld\n", counter);
     }
 
     // Test 3
@@ -1601,7 +1601,7 @@ int sha384_test(){
             if(hex_expected_hash[i] != hex_output_hash[i]){
                 printf("!!! ERROR !!!\n");
                 printf("Input data       : %s\n", input_string);
-                printf("Hash bytte index : %ld\n", i);
+                printf("Hash byte index :  %ld\n", i);
                 printf("Output hash      : %x\n", hex_output_hash[i]);
                 printf("Expected hash    : %x\n", hex_expected_hash[i]);
                 printf("!!! ERROR !!!\n");
@@ -1615,7 +1615,7 @@ int sha384_test(){
         free(hex_output_hash);
         free(output_hash);
         counter++;
-        printf("PASSED #%ld\n", counter);
+        printf("SHA-384 PASSED #%ld\n", counter);
     }
 
     // Test 4
@@ -1672,7 +1672,7 @@ int sha384_test(){
             if(hex_expected_hash[i] != hex_output_hash[i]){
                 printf("!!! ERROR !!!\n");
                 printf("Input data       : %s\n", input_string);
-                printf("Hash bytte index : %ld\n", i);
+                printf("Hash byte index :  %ld\n", i);
                 printf("Output hash      : %x\n", hex_output_hash[i]);
                 printf("Expected hash    : %x\n", hex_expected_hash[i]);
                 printf("!!! ERROR !!!\n");
@@ -1686,7 +1686,7 @@ int sha384_test(){
         free(hex_output_hash);
         free(output_hash);
         counter++;
-        printf("PASSED #%ld\n", counter);
+        printf("SHA-384 PASSED #%ld\n", counter);
     }
 
     // Test 5
@@ -1744,7 +1744,7 @@ int sha384_test(){
             if(hex_expected_hash[i] != hex_output_hash[i]){
                 printf("!!! ERROR !!!\n");
                 printf("Input data       : %s\n", input_string);
-                printf("Hash bytte index : %ld\n", i);
+                printf("Hash byte index :  %ld\n", i);
                 printf("Output hash      : %x\n", hex_output_hash[i]);
                 printf("Expected hash    : %x\n", hex_expected_hash[i]);
                 printf("!!! ERROR !!!\n");
@@ -1758,7 +1758,7 @@ int sha384_test(){
         free(hex_output_hash);
         free(output_hash);
         counter++;
-        printf("PASSED #%ld\n", counter);
+        printf("SHA-384 PASSED #%ld\n", counter);
     }
 
     // Test 6
@@ -1830,7 +1830,7 @@ int sha384_test(){
             if(hex_expected_hash[i] != hex_output_hash[i]){
                 printf("!!! ERROR !!!\n");
                 printf("Input data       : %s\n", input_string);
-                printf("Hash bytte index : %ld\n", i);
+                printf("Hash byte index :  %ld\n", i);
                 printf("Output hash      : %x\n", hex_output_hash[i]);
                 printf("Expected hash    : %x\n", hex_expected_hash[i]);
                 printf("!!! ERROR !!!\n");
@@ -1844,7 +1844,7 @@ int sha384_test(){
         free(hex_output_hash);
         free(output_hash);
         counter++;
-        printf("PASSED #%ld\n", counter);
+        printf("SHA-384 PASSED #%ld\n", counter);
     }
     return 0;
 }
@@ -1908,7 +1908,7 @@ int sha512_224_test(){
             if(hex_expected_hash[i] != hex_output_hash[i]){
                 printf("!!! ERROR !!!\n");
                 printf("Input data       : %s\n", input_string);
-                printf("Hash bytte index : %ld\n", i);
+                printf("Hash byte index :  %ld\n", i);
                 printf("Output hash      : %x\n", hex_output_hash[i]);
                 printf("Expected hash    : %x\n", hex_expected_hash[i]);
                 printf("!!! ERROR !!!\n");
@@ -1979,7 +1979,7 @@ int sha512_224_test(){
             if(hex_expected_hash[i] != hex_output_hash[i]){
                 printf("!!! ERROR !!!\n");
                 printf("Input data       : %s\n", input_string);
-                printf("Hash bytte index : %ld\n", i);
+                printf("Hash byte index :  %ld\n", i);
                 printf("Output hash      : %x\n", hex_output_hash[i]);
                 printf("Expected hash    : %x\n", hex_expected_hash[i]);
                 printf("!!! ERROR !!!\n");
@@ -2050,7 +2050,7 @@ int sha512_224_test(){
             if(hex_expected_hash[i] != hex_output_hash[i]){
                 printf("!!! ERROR !!!\n");
                 printf("Input data       : %s\n", input_string);
-                printf("Hash bytte index : %ld\n", i);
+                printf("Hash byte index :  %ld\n", i);
                 printf("Output hash      : %x\n", hex_output_hash[i]);
                 printf("Expected hash    : %x\n", hex_expected_hash[i]);
                 printf("!!! ERROR !!!\n");
@@ -2121,7 +2121,7 @@ int sha512_224_test(){
             if(hex_expected_hash[i] != hex_output_hash[i]){
                 printf("!!! ERROR !!!\n");
                 printf("Input data       : %s\n", input_string);
-                printf("Hash bytte index : %ld\n", i);
+                printf("Hash byte index :  %ld\n", i);
                 printf("Output hash      : %x\n", hex_output_hash[i]);
                 printf("Expected hash    : %x\n", hex_expected_hash[i]);
                 printf("!!! ERROR !!!\n");
@@ -2193,7 +2193,7 @@ int sha512_224_test(){
             if(hex_expected_hash[i] != hex_output_hash[i]){
                 printf("!!! ERROR !!!\n");
                 printf("Input data       : %s\n", input_string);
-                printf("Hash bytte index : %ld\n", i);
+                printf("Hash byte index :  %ld\n", i);
                 printf("Output hash      : %x\n", hex_output_hash[i]);
                 printf("Expected hash    : %x\n", hex_expected_hash[i]);
                 printf("!!! ERROR !!!\n");
@@ -2296,7 +2296,7 @@ int sha512_224_test(){
             if(hex_expected_hash[i] != hex_output_hash[i]){
                 printf("!!! ERROR !!!\n");
                 printf("Input data       : %s\n", input_string);
-                printf("Hash bytte index : %ld\n", i);
+                printf("Hash byte index :  %ld\n", i);
                 printf("Output hash      : %x\n", hex_output_hash[i]);
                 printf("Expected hash    : %x\n", hex_expected_hash[i]);
                 printf("!!! ERROR !!!\n");
@@ -2316,11 +2316,90 @@ int sha512_224_test(){
 }
 
 
+int sha512_256_test(){
+    size_t counter;
+
+    counter = 0;
+    // Test 1
+    {
+        sha512_256* s;
+        char* input_string;
+        char* expected_hash;
+        char* output_hash;
+        uint8_t* hex_input_string;
+        uint8_t* hex_expected_hash;
+        uint8_t* hex_output_hash;
+        size_t input_len;
+        int ret;
+        
+        input_string = "";
+        expected_hash  = "c672b8d1ef56ed28ab87c3622c5114069bdd3ad7b8f9737498d0c01ecef0967a";
+        input_len = strlen(input_string);
+        hex_input_string = (uint8_t*)calloc((input_len / 2), sizeof(uint8_t));
+        char_str_2_hex_str(input_string, input_len, hex_input_string, (input_len / 2), input_len, NO_SKIP, false);
+        hex_expected_hash = (uint8_t*)calloc(SHA512_256_HASH_BYTESIZE, sizeof(uint8_t));
+        char_str_2_hex_str(expected_hash, (SHA512_256_HASH_BYTESIZE * 2), hex_expected_hash, SHA512_256_HASH_BYTESIZE, (SHA512_256_HASH_BYTESIZE * 2), NO_SKIP, false);
+
+        s = sha512_256_init();
+        if(s == NULL){
+            return -1;
+        }
+        
+        ret = sha512_256_chain(s, hex_input_string, (input_len / 2));
+        if(s == NULL){
+            return -1;
+        }
+
+        ret = sha512_256_end(s);
+        if(s == NULL){
+            return -1;
+        }
+        
+        output_hash = (char*)calloc((SHA512_256_HASH_BYTESIZE * 2) + 1, sizeof(char));
+        sha512_256_get_stringified_hash(s, output_hash);
+        
+        if(strcmp(output_hash, expected_hash) != 0){
+            printf("!!! ERROR !!!\n");
+            printf("Input data    : %s\n", input_string);
+            printf("Output hash   : %s\n", output_hash);
+            printf("Expected hash : %s\n", expected_hash);
+            printf("!!! ERROR !!!\n");
+            return -1;
+        }
+
+        hex_output_hash = (uint8_t*)calloc(SHA512_256_HASH_BYTESIZE, sizeof(uint8_t));
+        sha512_256_get_hash(s, hex_output_hash);
+        
+        for(size_t i = 0; i < SHA512_256_HASH_BYTESIZE; i++){
+            if(hex_expected_hash[i] != hex_output_hash[i]){
+                printf("!!! ERROR !!!\n");
+                printf("Input data       : %s\n", input_string);
+                printf("Hash byte index :  %ld\n", i);
+                printf("Output hash      : %x\n", hex_output_hash[i]);
+                printf("Expected hash    : %x\n", hex_expected_hash[i]);
+                printf("!!! ERROR !!!\n");
+                return -1;
+            }
+        }
+
+        sha512_256_delete(s);
+        free(hex_input_string);
+        free(hex_expected_hash);
+        free(hex_output_hash);
+        free(output_hash);
+        counter++;
+        printf("PASSED #%ld\n", counter);
+    }
+    return 0;
+}
+
+
 int main(int argc, char* argv[]){
     sha256_test();
     sha224_test();
     sha512_test();
     sha384_test();
     sha512_224_test();
+    sha512_256_test();
     return 0;
 }
