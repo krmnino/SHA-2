@@ -262,8 +262,12 @@ int sha512_224_get_hash(sha512_224* s, uint8_t* out_buffer){
 
 
 int sha512_224_get_stringified_hash(sha512_224* s, char* out_buffer){
-    uint8_t* curr_hash_ptr;
+    union{
+        uint64_t integer;
+        uint8_t array[sizeof(uint64_t)];
+    } u64_buff;
     size_t out_buffer_idx;
+    bool done;
 
     // Validate input
     if(s == NULL){
@@ -279,10 +283,17 @@ int sha512_224_get_stringified_hash(sha512_224* s, char* out_buffer){
         return -1;    
     }    
 
-    curr_hash_ptr = (uint8_t*)s->hash;
-    for(size_t i = 0; i < SHA512_224_HASH_BYTESIZE; i++){
-        sprintf((char*)&out_buffer[out_buffer_idx], "%02x", curr_hash_ptr[i]);
-        out_buffer_idx += 2;
+    out_buffer_idx = 0;
+    done = false;
+    for(size_t i = 0; i < SHA512_224_HASH_U64WORDS && !done; i++){
+        u64_buff.integer = s->hash[i];
+        for(size_t j = 0; j < sizeof(uint64_t) && !done; j++){
+            sprintf((char*)&out_buffer[out_buffer_idx], "%02x", u64_buff.array[j]);
+            out_buffer_idx += 2;
+            if((out_buffer_idx / 2) >= SHA512_224_HASH_BYTESIZE){
+                done = true;
+            }
+        }
     }
     return 0;
 }
