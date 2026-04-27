@@ -2787,5 +2787,7 @@ int main(int argc, char* argv[]){
     sha224_test();
     sha512_test();
     sha384_test();
+    sha512_224_test();
+    sha512_256_test();
     return 0;
 }
