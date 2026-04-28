@@ -1,5 +1,5 @@
-RD = $(realpath ../res)
 BD = $(realpath ../bin)
+RD = $(realpath ../res)
 SD = $(realpath ../src)
 
 SRC_FILES = sha224.c    	\
