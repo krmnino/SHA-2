@@ -1,4 +1,5 @@
 BD = $(realpath ../bin)
+RD = $(realpath ../res)
 SD = $(realpath ../src)
 
 SRC_FILES = sha224.c    	\
@@ -15,7 +16,6 @@ TST_FILES = Main.c
 TST_OBJ_FILES = $(patsubst %.c,%.o,$(TST_FILES))
 TST_OBJ_PATHS = $(addprefix $(BD)/,$(TST_OBJ_FILES))
 
-
 all: compile link
 
 compile:
@@ -23,7 +23,7 @@ compile:
 	mv *.o $(BD)
 
 link:
-	gcc $(SRC_OBJ_PATHS) $(TST_OBJ_PATHS) -o $(BD)/sha2
+	gcc $(SRC_OBJ_PATHS) $(TST_OBJ_PATHS) -L$(RD) -lRandomizer -lArgParsing -Wl,-rpath,$(RD)  -o $(BD)/sha2
 
 example:
 	gcc -c -g $(SRC_PATHS) SHA2Example.c
