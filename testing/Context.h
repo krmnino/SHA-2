@@ -8,12 +8,6 @@
 #include "../src/sha2.h"
 
 
-//#define SHA224_ARG     0x0000000000000001
-//#define SHA256_ARG     0x0000000000000002
-//#define SHA384_ARG     0x0000000000000004
-//#define SHA512_ARG     0x0000000000000008
-//#define SHA512_224_ARG 0x0000000000000010
-//#define SHA512_256_ARG 0x0000000000000020
 
 typedef enum SHA_Algs SHA_Algs;
 enum SHA_Algs {
@@ -25,14 +19,17 @@ enum SHA_Algs {
     SHA512_256_ALG = 0x0000000000000020,
 };
 #define NUM_ALGORITHMS 6
+#define DEFAULT_ALGORITHMS_ARGVAL 0x000000000000003f
 
 static struct Context{
     ArgParsing_C* ap;
     Randomizer_C* rnd;
     uint64_t algorithms;
     uint64_t n_tests;
+    uint64_t testcase_counter;
     uint32_t seed;
     bool trace;
+    bool infinite_loop;
 } Context;
 
 
