@@ -7,6 +7,7 @@
 #include "../res/ArgParsing_C.h"
 #include "../res/Randomizer_C.h"
 #include "../src/sha2.h"
+#include "SHA224_TV.h"
 
 
 #define _GNU_SOURCE
@@ -25,7 +26,8 @@ enum SHA_Algs {
 #define DEFAULT_ALGORITHMS_ARGVAL 0x000000000000003f
 
 
-static struct Context{
+typedef struct Context Context; 
+struct Context{
     ArgParsing_C* ap;
     Randomizer_C* rnd;
     uint64_t algorithms;
@@ -34,7 +36,10 @@ static struct Context{
     uint32_t seed;
     bool trace;
     bool infinite_loop;
-} Context;
+};
+extern Context ctxt;
 
+
+int sha224_tc();
 
 #endif

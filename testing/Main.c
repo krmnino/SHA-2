@@ -27,12 +27,12 @@ SOFTWARE.
 
 
 volatile sig_atomic_t running = true;
-
+Context ctxt = { 0 };
 
 int process_args(int argc, char* argv[]){
     int ret;
     
-    Context.ap = ArgParsing_C_get_instance();
+    ctxt.ap = ArgParsing_C_get_instance();
 
     // Define table of arguments
     APTableEntry_C arg_table[] = {
@@ -43,23 +43,23 @@ int process_args(int argc, char* argv[]){
     };
 
     // Establish table of arguments, argc, and argv
-    ret = ArgParsing_C_set_arg_table(Context.ap, arg_table, sizeof(arg_table) / sizeof(APTableEntry_C));
+    ret = ArgParsing_C_set_arg_table(ctxt.ap, arg_table, sizeof(arg_table) / sizeof(APTableEntry_C));
     if(ret != 0){
         printf("ERROR: ArgParsing_C_set_arg_table() return code -> %d\n", ret);
         return -1;
     }
-    ArgParsing_C_set_input_args(Context.ap, argc, argv);
+    ArgParsing_C_set_input_args(ctxt.ap, argc, argv);
     
     // Parse the program arguments
-    ret = ArgParsing_C_parse(Context.ap);
+    ret = ArgParsing_C_parse(ctxt.ap);
     if(ret != 0){
         printf("ERROR: ArgParsing_C_parse() return code -> %d\n", ret);
         return -1;
     }
 
-    // Obtain argument values, perform additional validation, and then save them into the Context structure
-    Context.algorithms = ArgParsing_C_get_value_UNSIGNED_INT(Context.ap, "algorithms", false);
-    if((Context.algorithms & (~(uint64_t)DEFAULT_ALGORITHMS_ARGVAL)) != 0 || Context.algorithms == 0x0){
+    // Obtain argument values, perform additional validation, and then save them into the ctxt structure
+    ctxt.algorithms = ArgParsing_C_get_value_UNSIGNED_INT(ctxt.ap, "algorithms", false);
+    if((ctxt.algorithms & (~(uint64_t)DEFAULT_ALGORITHMS_ARGVAL)) != 0 || ctxt.algorithms == 0x0){
         printf("ERROR: -a/--algorithm argument value should not exceed %x.\n", DEFAULT_ALGORITHMS_ARGVAL);
         printf("The following values represent SHA-2 algorithms and can be bit-wise OR'd:\n");
         printf(" SHA-224     = 0x01\n");
@@ -70,15 +70,15 @@ int process_args(int argc, char* argv[]){
         printf(" SHA-512/256 = 0x20\n");
         return -1;
     }
-    Context.seed = (uint32_t)ArgParsing_C_get_value_UNSIGNED_INT(Context.ap, "seed", false);
-    if(Context.seed == 0){
+    ctxt.seed = (uint32_t)ArgParsing_C_get_value_UNSIGNED_INT(ctxt.ap, "seed", false);
+    if(ctxt.seed == 0){
         printf("ERROR: seed value cannot be zero.\n");
     }
-    Context.n_tests = ArgParsing_C_get_value_UNSIGNED_INT(Context.ap, "n_tests", false);
-    if(Context.n_tests == 0){
-        Context.infinite_loop = true;
+    ctxt.n_tests = ArgParsing_C_get_value_UNSIGNED_INT(ctxt.ap, "n_tests", false);
+    if(ctxt.n_tests == 0){
+        ctxt.infinite_loop = true;
     }
-    Context.trace = ArgParsing_C_get_value_FLAG(Context.ap, "trace", false);
+    ctxt.trace = ArgParsing_C_get_value_FLAG(ctxt.ap, "trace", false);
     return 0;
 }
 
@@ -94,8 +94,8 @@ int main(int argc, char* argv[]){
     SHA_Algs picked_alg;
     struct sigaction sa_struct;
 
-    // Clear the Context instance
-    memset((void*)&Context, 0, sizeof(Context));
+    // Clear the ctxt instance
+    memset((void*)&ctxt, 0, sizeof(ctxt));
 
     // Process program arguments
     ret = process_args(argc, argv);
@@ -104,7 +104,7 @@ int main(int argc, char* argv[]){
     }
 
     // Initialize Randomizer
-    Context.rnd = Randomizer_C_init(Context.seed);
+    ctxt.rnd = Randomizer_C_init(ctxt.seed);
 
     // Set up signal handler to stop program
     sa_struct.sa_handler = terminating_handler;
@@ -113,17 +113,18 @@ int main(int argc, char* argv[]){
     sigaction(SIGINT, &sa_struct, NULL);
 
     // Main loop
-    for(size_t i = 0; (i < Context.n_tests || Context.infinite_loop) && running; i++){
+    for(size_t i = 0; (i < ctxt.n_tests || ctxt.infinite_loop) && running; i++){
         // Pick an allowed algorithm
         while(true){
-            shifter = Randomizer_C_gen_integral_range(Context.rnd, 0, (NUM_ALGORITHMS - 1));
-            picked_alg = Context.algorithms & (1 << shifter);
+            shifter = Randomizer_C_gen_integral_range(ctxt.rnd, 0, (NUM_ALGORITHMS - 1));
+            picked_alg = ctxt.algorithms & (1 << shifter);
             if(picked_alg != 0){
                 break;
             }
         }
         switch(picked_alg){
         case SHA224_ALG:
+            sha224_tc();
             printf(">> %ld - picked SHA224\n", i);
             break;
         case SHA256_ALG:
@@ -144,8 +145,11 @@ int main(int argc, char* argv[]){
         default:
             break;
         }
-        Randomizer_C_root_seed_next(Context.rnd);
+        Randomizer_C_root_seed_next(ctxt.rnd);
     }
+
+    // Deallocate Randomizer
+    Randomizer_C_delete(ctxt.rnd);
 
     return 0;
 }
