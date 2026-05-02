@@ -1,12 +1,15 @@
 #ifndef CONTEXT
 #define CONTEXT
 
+#include <signal.h>
 #include <stdint.h>
 #include <string.h>
 #include "../res/ArgParsing_C.h"
 #include "../res/Randomizer_C.h"
 #include "../src/sha2.h"
 
+
+#define _GNU_SOURCE
 
 
 typedef enum SHA_Algs SHA_Algs;
@@ -20,6 +23,7 @@ enum SHA_Algs {
 };
 #define NUM_ALGORITHMS 6
 #define DEFAULT_ALGORITHMS_ARGVAL 0x000000000000003f
+
 
 static struct Context{
     ArgParsing_C* ap;

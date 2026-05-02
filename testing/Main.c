@@ -26,6 +26,9 @@ SOFTWARE.
 #include "Context.h"
 
 
+volatile sig_atomic_t running = true;
+
+
 int process_args(int argc, char* argv[]){
     int ret;
     
@@ -80,10 +83,16 @@ int process_args(int argc, char* argv[]){
 }
 
 
+void terminating_handler(int s){
+    running = false;
+}
+
+
 int main(int argc, char* argv[]){
     int ret;
     uint64_t shifter;
     SHA_Algs picked_alg;
+    struct sigaction sa_struct;
 
     // Clear the Context instance
     memset((void*)&Context, 0, sizeof(Context));
@@ -97,8 +106,14 @@ int main(int argc, char* argv[]){
     // Initialize Randomizer
     Context.rnd = Randomizer_C_init(Context.seed);
 
+    // Set up signal handler to stop program
+    sa_struct.sa_handler = terminating_handler;
+    sigemptyset(&sa_struct.sa_mask);
+    sa_struct.sa_flags = 0;
+    sigaction(SIGINT, &sa_struct, NULL);
+
     // Main loop
-    for(size_t i = 0; i < Context.n_tests; i++){
+    for(size_t i = 0; (i < Context.n_tests || Context.infinite_loop) && running; i++){
         // Pick an allowed algorithm
         while(true){
             shifter = Randomizer_C_gen_integral_range(Context.rnd, 0, (NUM_ALGORITHMS - 1));
