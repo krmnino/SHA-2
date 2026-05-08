@@ -7,6 +7,7 @@
 #include "../res/ArgParsing_C.h"
 #include "../res/Randomizer_C.h"
 #include "../src/sha2.h"
+#include "Utils.h"
 #include "SHA224_TV.h"
 
 
