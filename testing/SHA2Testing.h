@@ -1,5 +1,5 @@
-#ifndef CONTEXT
-#define CONTEXT
+#ifndef SHA2TESTING
+#define SHA2TESTING
 
 #include <signal.h>
 #include <stdint.h>
