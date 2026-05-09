@@ -6,16 +6,12 @@ int hex_str_2_bin_str(char* input_buffer, uint8_t* output_buffer, size_t input_c
 
     // Validate input
     if(input_buffer == NULL){
-        printf("ERROR: Pointer to input buffer is NULL.");
+        printf("ERROR: Pointer to input buffer is NULL.\n");
         return -1;
     }
     if(output_buffer == NULL){
-        printf("ERROR: Pointer to output buffer is NULL.");
+        printf("ERROR: Pointer to output buffer is NULL.\n");
         return -1;
-    }
-    if(input_charlen == 0){
-        printf("ERROR: Input buffer character length value is 0.");
-        return -1;    
     }
 
     for(size_t i = 0; i < input_charlen; i++){
@@ -55,16 +51,12 @@ int bin_str_2_hex_str(uint8_t* input_buffer, char* output_buffer, size_t input_b
 
     // Validate input
     if(input_buffer == NULL){
-        printf("ERROR: Pointer to input buffer is NULL.");
+        printf("ERROR: Pointer to input buffer is NULL.\n");
         return -1;
     }
     if(output_buffer == NULL){
-        printf("ERROR: Pointer to output buffer is NULL.");
+        printf("ERROR: Pointer to output buffer is NULL.\n");
         return -1;
-    }
-    if(input_bytelen == 0){
-        printf("ERROR: Input buffer byte length value is 0.");
-        return -1;    
     }
 
     output_idx = 0;
@@ -132,5 +124,41 @@ int compare_uint8_t_arrays(uint8_t* arr1, uint8_t* arr2, size_t bytelen){
             return 1;
         }
     }
+    return 0;
+}
+
+
+int SHA_Algs_to_string(SHA_Algs algorithm, char* output_buffer){
+    char* src_string;
+
+    // Validate output
+    if(output_buffer == NULL){
+        printf("ERROR: Pointer to output buffer is NULL.\n");
+        return -1;
+    }
+
+    switch (algorithm){
+    case SHA224_ALG:
+        src_string = "SHA-224";
+        break;
+    case SHA256_ALG:
+        src_string = "SHA-256";
+        break;
+    case SHA384_ALG:
+        src_string = "SHA-384";
+        break;
+    case SHA512_ALG:
+        src_string = "SHA-512";
+        break;
+    case SHA512_224_ALG:
+        src_string = "SHA-512/224";
+        break;
+    case SHA512_256_ALG:
+        src_string = "SHA-512/256";
+        break;
+    default:
+        return -1;
+    }
+    strcpy(output_buffer, src_string);
     return 0;
 }

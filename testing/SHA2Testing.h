@@ -14,19 +14,6 @@
 #define _GNU_SOURCE
 
 
-typedef enum SHA_Algs SHA_Algs;
-enum SHA_Algs {
-    SHA224_ALG     = 0x0000000000000001,
-    SHA256_ALG     = 0x0000000000000002,
-    SHA384_ALG     = 0x0000000000000004,
-    SHA512_ALG     = 0x0000000000000008,
-    SHA512_224_ALG = 0x0000000000000010,
-    SHA512_256_ALG = 0x0000000000000020,
-};
-#define NUM_ALGORITHMS 6
-#define DEFAULT_ALGORITHMS_ARGVAL 0x000000000000003f
-
-
 typedef struct Context Context; 
 struct Context{
     ArgParsing_C* ap;
@@ -41,14 +28,6 @@ struct Context{
 extern Context ctxt;
 
 
-typedef enum TCError TCError;
-enum TCError {
-    NO_ERROR                  = 0x0000000000000000,
-    BINARY_HASH_MISMATCH      = 0x0000000000000001,
-    STRINGIFIED_HASH_MISMATCH = 0x0000000000000002,
-};
-
-
 typedef struct Testcase Testcase;
 struct Testcase{
     uint8_t* bin_msg;
@@ -60,6 +39,7 @@ struct Testcase{
     };
     size_t tv_idx;
     size_t msg_bytelen;
+    SHA_Algs algorithm;
     TCError errors;
 };
 
