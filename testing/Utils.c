@@ -76,13 +76,13 @@ int bin_str_2_hex_str(uint8_t* input_buffer, char* output_buffer, size_t input_b
 }
 
 
-int hex_print(uint8_t* buff, size_t data_len, size_t addr_offset){
+int hex_print(uint8_t* input_buffer, size_t data_len, size_t addr_offset){
     char hex_str[3];
     size_t bytes_to_print;
 
     // Validate input
-    if(buff == NULL){
-        printf("ERROR: SourceBucket pointer is NULL.\n");
+    if(input_buffer == NULL){
+        printf("ERROR: Pointer to input buffer is NULL.\n");
         return -1;
     }
 
@@ -101,12 +101,36 @@ int hex_print(uint8_t* buff, size_t data_len, size_t addr_offset){
         }
         for(size_t j = 0; j < bytes_to_print; j++){
             memset(hex_str, 0, sizeof(hex_str));
-            bin_str_2_hex_str((uint8_t*)&buff[i + j], hex_str, 1);
+            bin_str_2_hex_str((uint8_t*)&input_buffer[i + j], hex_str, 1);
             printf("%s", hex_str);
         }
         printf(" ");
     }
     printf("\n");
     
+    return 0;
+}
+
+
+int compare_uint8_t_arrays(uint8_t* arr1, uint8_t* arr2, size_t bytelen){
+    // Validate input
+    if(arr1 == NULL){
+        printf("ERROR: Pointer to input array 1 is NULL.\n");
+        return -1;
+    }
+    if(arr2 == NULL){
+        printf("ERROR: Pointer to input array 2 is NULL.\n");
+        return -1;
+    }
+
+    // Loop through both arrays to figure out which array is lesser than the other, byte-size.
+    for(size_t i = 0; i < bytelen; i++){
+        if(arr1[i] < arr2[i]){
+            return -1;
+        }
+        else if (arr1[i] > arr2[i]){
+            return 1;
+        }
+    }
     return 0;
 }
