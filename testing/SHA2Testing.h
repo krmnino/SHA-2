@@ -55,7 +55,6 @@ struct Testcase{
     uint8_t* bin_res_hash;
     char* str_res_hash;
     uint8_t* bin_exp_hash;
-    char* str_exp_hash;
     union{
         sha224* s224;
     };
