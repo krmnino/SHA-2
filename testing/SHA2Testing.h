@@ -41,6 +41,30 @@ struct Context{
 extern Context ctxt;
 
 
+typedef enum TCError TCError;
+enum TCError {
+    NO_ERROR                  = 0x0000000000000000,
+    BINARY_HASH_MISMATCH      = 0x0000000000000001,
+    STRINGIFIED_HASH_MISMATCH = 0x0000000000000002,
+};
+
+
+typedef struct Testcase Testcase;
+struct Testcase{
+    uint8_t* bin_msg;
+    uint8_t* bin_res_hash;
+    char* str_res_hash;
+    uint8_t* bin_exp_hash;
+    char* str_exp_hash;
+    union{
+        sha224* s224;
+    };
+    size_t tv_idx;
+    size_t msg_bytelen;
+    TCError errors;
+};
+
+
 int sha224_tc();
 
 #endif
