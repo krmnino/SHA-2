@@ -1,3 +1,28 @@
+/*
+MIT License
+
+Copyright (c) 2026 Kurt Manrique-Nino
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+*/
+
+
 #include "Utils.h"
 
 
@@ -155,6 +180,33 @@ int SHA_Algs_to_string(SHA_Algs algorithm, char* output_buffer){
         break;
     case SHA512_256_ALG:
         src_string = "SHA-512/256";
+        break;
+    default:
+        return -1;
+    }
+    strcpy(output_buffer, src_string);
+    return 0;
+}
+
+
+int TCError_to_string(TCError error, char* output_buffer){
+    char* src_string;
+
+    // Validate output
+    if(output_buffer == NULL){
+        printf("ERROR: Pointer to output buffer is NULL.\n");
+        return -1;
+    }
+
+    switch (error){
+    case NO_ERROR:
+        src_string = "NO_ERROR";
+        break;
+    case BINARY_HASH_MISMATCH:
+        src_string = "BINARY_HASH_MISMATCH";
+        break;
+    case STRINGIFIED_HASH_MISMATCH:
+        src_string = "STRINGIFIED_HASH_MISMATCH";
         break;
     default:
         return -1;
