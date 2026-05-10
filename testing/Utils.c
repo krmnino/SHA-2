@@ -156,7 +156,7 @@ int compare_uint8_t_arrays(uint8_t* arr1, uint8_t* arr2, size_t bytelen){
 int SHA_Algs_to_string(SHA_Algs algorithm, char* output_buffer){
     char* src_string;
 
-    // Validate output
+    // Validate input
     if(output_buffer == NULL){
         printf("ERROR: Pointer to output buffer is NULL.\n");
         return -1;
@@ -192,7 +192,7 @@ int SHA_Algs_to_string(SHA_Algs algorithm, char* output_buffer){
 int TCError_to_string(TCError error, char* output_buffer){
     char* src_string;
 
-    // Validate output
+    // Validate input
     if(output_buffer == NULL){
         printf("ERROR: Pointer to output buffer is NULL.\n");
         return -1;
