@@ -23,7 +23,7 @@ SOFTWARE.
 */
 
 
-#include "Context.h"
+#include "SHA2Testing.h"
 
 
 volatile sig_atomic_t running = true;
@@ -113,7 +113,7 @@ int main(int argc, char* argv[]){
     sigaction(SIGINT, &sa_struct, NULL);
 
     // Main loop
-    for(size_t i = 0; (i < ctxt.n_tests || ctxt.infinite_loop) && running; i++){
+    for(ctxt.testcase_counter = 0; (ctxt.testcase_counter < ctxt.n_tests || ctxt.infinite_loop) && running; ctxt.testcase_counter++){
         // Pick an allowed algorithm
         while(true){
             shifter = Randomizer_C_gen_integral_range(ctxt.rnd, 0, (NUM_ALGORITHMS - 1));
@@ -125,22 +125,16 @@ int main(int argc, char* argv[]){
         switch(picked_alg){
         case SHA224_ALG:
             sha224_tc();
-            printf(">> %ld - picked SHA224\n", i);
             break;
         case SHA256_ALG:
-            printf(">> %ld - picked SHA256\n", i);
             break;
         case SHA384_ALG:
-            printf(">> %ld - picked SHA384\n", i);
             break;
         case SHA512_ALG:
-            printf(">> %ld - picked SHA512\n", i);
             break;
         case SHA512_224_ALG:
-            printf(">> %ld - picked SHA512/224\n", i);
             break;
         case SHA512_256_ALG:
-            printf(">> %ld - picked SHA512/256\n", i);
             break;
         default:
             break;
