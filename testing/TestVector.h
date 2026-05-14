@@ -1,3 +1,7 @@
+#ifndef TESTVECT
+#define TESTVECT
+
+
 #include <stdint.h>
 #include <string.h>
 
@@ -8,3 +12,6 @@ struct TestVector{
 	char* hash;
 	char* msg;
 };
+
+
+#endif
