@@ -44,6 +44,11 @@ struct Testcase{
 };
 
 
+Testcase* Testcase_init(SHA_Algs);
+int Testcase_delete(Testcase*);
+
+
 int sha224_tc();
+
 
 #endif

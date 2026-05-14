@@ -14,6 +14,7 @@ SRC_OBJ_FILES = $(patsubst %.c,%.o,$(SRC_FILES))
 SRC_OBJ_PATHS = $(addprefix $(BD)/,$(SRC_OBJ_FILES))
 
 TST_FILES = Main.c			\
+			SHA2Testing.c	\
 			Utils.c			\
 			sha224_tc.c
 TST_PATHS = $(addprefix $(TD)/,$(TST_FILES))			

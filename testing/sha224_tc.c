@@ -27,73 +27,68 @@ SOFTWARE.
 
 
 int sha224_tc(){
-    Testcase tc;
+    Testcase* tc;
     TCError masked_error;
     uint64_t shifter;
     char print_buff[64];
     int ret;
 
-    // Clear testcase structure
-    memset((void*)&tc, 0, sizeof(Testcase));
-
-    // Set initial values
-    tc.errors = NO_ERROR;
-    tc.algorithm = SHA224_ALG;
+    // Allocate and initialize Testcase object
+    tc = Testcase_init(SHA224_ALG);
+    if(tc == NULL){
+        return -1;
+    }
 
     // Pick a random index for the array of testcase vectors
-    tc.tv_idx = Randomizer_C_gen_integral_range(ctxt.rnd, 0, (N_SHA224_TVS - 1));
+    tc->tv_idx = Randomizer_C_gen_integral_range(ctxt.rnd, 0, (N_SHA224_TVS - 1));
     
     // Get the byte length of the test vector message
-    tc.msg_bytelen = SHA224_TVS[tc.tv_idx].bitlen / 8;
+    tc->msg_bytelen = SHA224_TVS[tc->tv_idx].bitlen / 8;
 
     // Allocate buffers for the testcase
-    tc.s224 = sha224_init();
-    tc.bin_msg = (uint8_t*)calloc(tc.msg_bytelen + 1, sizeof(uint8_t));
-    tc.bin_res_hash = (uint8_t*)calloc(SHA224_HASH_BYTESIZE, sizeof(uint8_t));
-    tc.str_res_hash = (char*)calloc((SHA224_HASH_BYTESIZE * 2) + 1, sizeof(char));
-    tc.bin_exp_hash = (uint8_t*)calloc(SHA224_HASH_BYTESIZE, sizeof(uint8_t));
+    tc->bin_msg = (uint8_t*)calloc(tc->msg_bytelen + 1, sizeof(uint8_t));
 
     // Convert test vector string fields to binary
-    ret = hex_str_2_bin_str(SHA224_TVS[tc.tv_idx].msg, tc.bin_msg, tc.msg_bytelen * 2);
+    ret = hex_str_2_bin_str(SHA224_TVS[tc->tv_idx].msg, tc->bin_msg, tc->msg_bytelen * 2);
     if(ret != 0){
         return -1;
     }
-    ret = hex_str_2_bin_str(SHA224_TVS[tc.tv_idx].hash, tc.bin_exp_hash, SHA224_HASH_BYTESIZE * 2);
+    ret = hex_str_2_bin_str(SHA224_TVS[tc->tv_idx].hash, tc->bin_exp_hash, SHA224_HASH_BYTESIZE * 2);
     if(ret != 0){
         return -1;
     }
 
     // Perform the hashing operation
-    sha224_chain(tc.s224, tc.bin_msg, tc.msg_bytelen);
-    sha224_end(tc.s224);
-    sha224_get_hash(tc.s224, tc.bin_res_hash);
-    sha224_get_stringified_hash(tc.s224, tc.str_res_hash);
+    sha224_chain(tc->s224, tc->bin_msg, tc->msg_bytelen);
+    sha224_end(tc->s224);
+    sha224_get_hash(tc->s224, tc->bin_res_hash);
+    sha224_get_stringified_hash(tc->s224, tc->str_res_hash);
     
     // Validate results
-    if(compare_uint8_t_arrays(tc.bin_res_hash, tc.bin_exp_hash, SHA224_HASH_BYTESIZE) != 0){
-        tc.errors = tc.errors | BINARY_HASH_MISMATCH;
+    if(compare_uint8_t_arrays(tc->bin_res_hash, tc->bin_exp_hash, SHA224_HASH_BYTESIZE) != 0){
+        tc->errors = tc->errors | BINARY_HASH_MISMATCH;
     }
-    if(strcmp(tc.str_res_hash, SHA224_TVS[tc.tv_idx].hash) != 0){
-        tc.errors = tc.errors | STRINGIFIED_HASH_MISMATCH;
+    if(strcmp(tc->str_res_hash, SHA224_TVS[tc->tv_idx].hash) != 0){
+        tc->errors = tc->errors | STRINGIFIED_HASH_MISMATCH;
     }
 
     // Print error report
-    if(tc.errors != NO_ERROR | ctxt.trace){
+    if(tc->errors != NO_ERROR | ctxt.trace){
         printf("--------------------- START TESTCASE REPORT ---------------------\n");
         memset((void*)&print_buff, 0, sizeof(print_buff));
-        SHA_Algs_to_string(tc.algorithm, (char*)&print_buff);
+        SHA_Algs_to_string(tc->algorithm, (char*)&print_buff);
         printf("Testcase #%ld\n", ctxt.testcase_counter);
         printf("Seed : 0x%x\n", Randomizer_C_get_root_seed(ctxt.rnd));
         printf("Algorithm : %s\n", print_buff);
         printf("Errors:\n");
-        if(tc.errors == NO_ERROR){
-            TCError_to_string(tc.errors, (char*)&print_buff);
+        if(tc->errors == NO_ERROR){
+            TCError_to_string(tc->errors, (char*)&print_buff);
             printf(" - %s\n", print_buff);
         }
         else{
             shifter = 0x1;
             for(size_t i = 0; i < NUM_ERROR_TYPES; i++){
-                masked_error = tc.errors & shifter;
+                masked_error = tc->errors & shifter;
                 if(masked_error != NO_ERROR){
                     TCError_to_string(masked_error, (char*)&print_buff);
                     printf(" - %s\n", print_buff);
@@ -101,23 +96,23 @@ int sha224_tc(){
                 shifter = shifter << 1;
             }
         }
-        printf("Message size : %ld bytes\n", tc.msg_bytelen);
+        printf("Message size : %ld bytes\n", tc->msg_bytelen);
         printf(">>> Message start\n");
-        ret = hex_print(tc.bin_msg, tc.msg_bytelen, 0x0);
+        ret = hex_print(tc->bin_msg, tc->msg_bytelen, 0x0);
         if(ret != 0){
             return -1;
         }
         printf("<<< Message end\n");
-        printf("Resulting hash : %s\n", tc.str_res_hash);
-        printf("Expected hash  : %s\n", SHA224_TVS[tc.tv_idx].hash);
+        printf("Resulting hash : %s\n", tc->str_res_hash);
+        printf("Expected hash  : %s\n", SHA224_TVS[tc->tv_idx].hash);
         printf("---------------------- END TESTCASE REPORT ----------------------\n");
+
+        // Deallocate Testcase object
+        ret = Testcase_delete(tc);
+        if(ret != 0){
+            return -1;
+        }
     }
-    
-    sha224_delete(tc.s224);
-    free(tc.bin_msg);
-    free(tc.bin_res_hash);
-    free(tc.str_res_hash);
-    free(tc.bin_exp_hash);
 
     return 0;
 }
