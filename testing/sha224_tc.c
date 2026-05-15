@@ -27,39 +27,26 @@ SOFTWARE.
 
 
 int sha224_tc(){
-    Testcase* tc;
     int ret;
 
-    // Allocate and initialize Testcase object
-    tc = Testcase_init(SHA224_ALG);
-    if(tc == NULL){
-        return -1;
-    }
-
     // Perform the hashing operation
-    sha224_chain(tc->s224, tc->bin_msg, tc->msg_bytelen);
-    sha224_end(tc->s224);
-    sha224_get_hash(tc->s224, tc->bin_res_hash);
-    sha224_get_stringified_hash(tc->s224, tc->str_res_hash);
+    sha224_chain(ctxt.tc->s224, ctxt.tc->bin_msg, ctxt.tc->msg_bytelen);
+    sha224_end(ctxt.tc->s224);
+    sha224_get_hash(ctxt.tc->s224, ctxt.tc->bin_res_hash);
+    sha224_get_stringified_hash(ctxt.tc->s224, ctxt.tc->str_res_hash);
     
     // Validate results after execution
-    ret = Testcase_validate(tc);
+    ret = Testcase_validate(ctxt.tc);
     if(ret != 0){
         return -1;
     }
 
     // If trace is enabled, create testcase report
     if(ctxt.trace){
-        ret = Testcase_report(tc);
+        ret = Testcase_report(ctxt.tc);
         if(ret != 0){
             return -1;
         }
-    }
-
-    // Deallocate Testcase object
-    ret = Testcase_delete(tc);
-    if(ret != 0){
-        return -1;
     }
 
     return 0;

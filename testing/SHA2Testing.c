@@ -44,6 +44,7 @@ Testcase* Testcase_init(SHA_Algs input_algorithm){
     }
 
     // Set initial values
+    tc->seed = Randomizer_C_get_root_seed(ctxt.rnd);
     tc->errors = NO_ERROR;
     tc->algorithm = input_algorithm;
 

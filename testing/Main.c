@@ -70,8 +70,8 @@ int process_args(int argc, char* argv[]){
         printf(" SHA-512/256 = 0x20\n");
         return -1;
     }
-    ctxt.seed = (uint32_t)ArgParsing_C_get_value_UNSIGNED_INT(ctxt.ap, "seed", false);
-    if(ctxt.seed == 0){
+    ctxt.init_seed = (uint32_t)ArgParsing_C_get_value_UNSIGNED_INT(ctxt.ap, "seed", false);
+    if(ctxt.init_seed == 0){
         printf("ERROR: seed value cannot be zero.\n");
     }
     ctxt.n_tests = ArgParsing_C_get_value_UNSIGNED_INT(ctxt.ap, "n_tests", false);
@@ -104,7 +104,7 @@ int main(int argc, char* argv[]){
     }
 
     // Initialize Randomizer
-    ctxt.rnd = Randomizer_C_init(ctxt.seed);
+    ctxt.rnd = Randomizer_C_init(ctxt.init_seed);
 
     // Set up signal handler to stop program
     sa_struct.sa_handler = terminating_handler;
@@ -122,6 +122,14 @@ int main(int argc, char* argv[]){
                 break;
             }
         }
+
+        // Allocate and initialize Testcase object for picked algorithm
+        ctxt.tc = Testcase_init(picked_alg);
+        if(ctxt.tc == NULL){
+            return -1;
+        }
+
+        // Branch to the appropiate testcase function
         switch(picked_alg){
         case SHA224_ALG:
             sha224_tc();
@@ -139,6 +147,14 @@ int main(int argc, char* argv[]){
         default:
             break;
         }
+
+        // Deallocate Testcase object
+        ret = Testcase_delete(ctxt.tc);
+        if(ret != 0){
+            return -1;
+        }
+
+        // Next seed
         Randomizer_C_root_seed_next(ctxt.rnd);
     }
 
