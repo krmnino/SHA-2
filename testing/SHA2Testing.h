@@ -10,6 +10,11 @@
 #include "Utils.h"
 #include "TestVector.h"
 #include "SHA224_TV.h"
+#include "SHA256_TV.h"
+#include "SHA384_TV.h"
+#include "SHA512_TV.h"
+#include "SHA512_224_TV.h"
+#include "SHA512_256_TV.h"
 
 
 #define _GNU_SOURCE
@@ -38,6 +43,11 @@ struct Testcase{
     TestVector* tv_array;
     union{
         sha224* s224;
+        sha256* s256;
+        sha384* s384;
+        sha512* s512;
+        sha512_224* s512_224;
+        sha512_256* s512_256;
     };
     size_t tv_idx;
     size_t n_tvs;

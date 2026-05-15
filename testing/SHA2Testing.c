@@ -22,6 +22,9 @@ Testcase* Testcase_init(SHA_Algs input_algorithm){
         break;    
     case SHA256_ALG:
         tc->hash_bytelen = SHA256_HASH_BYTESIZE;
+        tc->tv_array = SHA256_TVS;
+        tc->n_tvs = N_SHA256_TVS;
+        tc->s256 = sha256_init();
         break;    
     case SHA384_ALG:
         tc->hash_bytelen = SHA384_HASH_BYTESIZE;
@@ -83,14 +86,19 @@ int Testcase_delete(Testcase* tc){
         sha224_delete(tc->s224);
         break;    
     case SHA256_ALG:
+        sha256_delete(tc->s256);
         break;    
     case SHA384_ALG:
+        sha384_delete(tc->s384);
         break;    
     case SHA512_ALG:
+        sha512_delete(tc->s512);
         break;    
     case SHA512_224_ALG:
+        sha512_224_delete(tc->s512_224);
         break;    
     case SHA512_256_ALG:
+        sha512_256_delete(tc->s512_256);
         break;    
     default:
         break;
