@@ -8,6 +8,7 @@
 #include "../res/Randomizer_C.h"
 #include "../src/sha2.h"
 #include "Utils.h"
+#include "TestVector.h"
 #include "SHA224_TV.h"
 
 
@@ -32,13 +33,16 @@ typedef struct Testcase Testcase;
 struct Testcase{
     uint8_t* bin_msg;
     uint8_t* bin_res_hash;
-    char* str_res_hash;
     uint8_t* bin_exp_hash;
+    char* str_res_hash;
+    TestVector* tv_array;
     union{
         sha224* s224;
     };
     size_t tv_idx;
+    size_t n_tvs;
     size_t msg_bytelen;
+    size_t hash_bytelen;
     SHA_Algs algorithm;
     TCError errors;
 };
@@ -46,6 +50,8 @@ struct Testcase{
 
 Testcase* Testcase_init(SHA_Algs);
 int Testcase_delete(Testcase*);
+int Testcase_validate(Testcase*);
+int Testcase_report(Testcase*);
 
 
 int sha224_tc();
