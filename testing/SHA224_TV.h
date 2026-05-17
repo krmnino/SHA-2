@@ -4039,7 +4039,6 @@ static TestVector SHA224_TVS[] = {
 			"9e09b362030290b96fa722bd7d7af98769125c18c6079956730e9952cb65b7cc1c72d2f95aa7a18415a847d2a9b0288ab531fa55ceba1fe2741e322e44d3e002"
 	},
 };
-static size_t N_SHA224_TVS = sizeof(SHA224_TVS) / sizeof(SHA224_TVS[0]);
 
 
 #endif
