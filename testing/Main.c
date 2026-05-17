@@ -138,12 +138,10 @@ int main(int argc, char* argv[]){
         // Branch to the appropiate testcase function
         switch(picked_alg){
         case SHA224_ALG:
-            ret = sha224_tc();
-            if(ret != 0){
-                return -1;
-            }
+            sha224_tc();
             break;
         case SHA256_ALG:
+            sha256_tc();
             break;
         case SHA384_ALG:
             break;

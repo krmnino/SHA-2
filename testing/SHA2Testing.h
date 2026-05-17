@@ -94,6 +94,7 @@ int Testcase_report(Testcase*);
 
 
 int sha224_tc();
+int sha256_tc();
 
 
 #endif
