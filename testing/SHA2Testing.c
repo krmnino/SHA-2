@@ -1,4 +1,6 @@
 #include "SHA2Testing.h"
+#include "SHA224_TV.h"
+#include "SHA256_TV.h"
 
 
 Testcase* Testcase_init(SHA_Algs input_algorithm){
@@ -109,12 +111,14 @@ int Testcase_delete(Testcase* tc){
     free(tc->bin_res_hash);
     free(tc->str_res_hash);
     free(tc->bin_exp_hash);
-    if(tc->bin_msg != NULL){
-        free(tc->bin_msg);
+    free(tc->bin_msg);
+    if(tc->sub_bin_msg_sizes != NULL){
+        free(tc->sub_bin_msg_sizes);
     }
-
+    
     // Deallocate Testcase object
     free(tc);
+    return 0;
 }
 
 
@@ -132,6 +136,7 @@ int Testcase_validate(Testcase* tc){
     if(strcmp(tc->str_res_hash, SHA224_TVS[tc->tv_idx].hash) != 0){
         tc->errors = tc->errors | STRINGIFIED_HASH_MISMATCH;
     }
+    return 0;
 }
 
 
@@ -153,7 +158,7 @@ int Testcase_report(Testcase* tc){
         memset((void*)&print_buff, 0, sizeof(print_buff));
         SHA_Algs_to_string(tc->algorithm, (char*)&print_buff);
         printf("Testcase #%ld\n", ctxt.testcase_counter);
-        printf("Seed : 0x%x\n", Randomizer_C_get_root_seed(ctxt.rnd));
+        printf("Seed : 0x%x\n", tc->seed);
         printf("Algorithm : %s\n", print_buff);
         printf("Errors:\n");
         if(tc->errors == NO_ERROR){
@@ -178,8 +183,13 @@ int Testcase_report(Testcase* tc){
             return -1;
         }
         printf("<<< Message end\n");
+        if(tc->msg_bytelen != 0){
+            printf(">>> Message sections start\n");
+            printf("<<< Message sections end\n");
+        }
         printf("Resulting hash : %s\n", tc->str_res_hash);
         printf("Expected hash  : %s\n", tc->tv_array[tc->tv_idx].hash);
         printf("---------------------- END TESTCASE REPORT ----------------------\n");
     }
+    return 0;
 }
