@@ -86,11 +86,11 @@ Testcase* Testcase_init(SHA_Algs input_algorithm){
     tc->bin_exp_hash = (uint8_t*)calloc(tc->hash_bytelen, sizeof(uint8_t));
 
     // Convert test vector string fields to binary
-    ret = hex_str_2_bin_str(SHA224_TVS[tc->tv_idx].msg, tc->bin_msg, tc->msg_bytelen * 2);
+    ret = hex_str_2_bin_str(tc->tv_array[tc->tv_idx].msg, tc->bin_msg, tc->msg_bytelen * 2);
     if(ret != 0){
         return NULL;
     }
-    ret = hex_str_2_bin_str(SHA224_TVS[tc->tv_idx].hash, tc->bin_exp_hash, SHA224_HASH_BYTESIZE * 2);
+    ret = hex_str_2_bin_str(tc->tv_array[tc->tv_idx].hash, tc->bin_exp_hash, tc->hash_bytelen * 2);
     if(ret != 0){
         return NULL;
     }
@@ -132,7 +132,7 @@ int Testcase_validate(Testcase* tc){
     if(compare_uint8_t_arrays(tc->bin_res_hash, tc->bin_exp_hash, tc->hash_bytelen) != 0){
         tc->errors = tc->errors | BINARY_HASH_MISMATCH;
     }
-    if(strcmp(tc->str_res_hash, SHA224_TVS[tc->tv_idx].hash) != 0){
+    if(strcmp(tc->str_res_hash, tc->tv_array[tc->tv_idx].hash) != 0){
         tc->errors = tc->errors | STRINGIFIED_HASH_MISMATCH;
     }
     return 0;
