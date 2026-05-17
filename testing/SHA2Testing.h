@@ -75,10 +75,11 @@ struct Context{
     Testcase* error_tcs_head;
     Testcase* error_tcs_curr;
     Testcase* tc;
+    size_t max_errors;
     size_t error_counter;
+    size_t max_testcases;
+    size_t testcase_counter;
     uint64_t algorithms;
-    uint64_t n_tests;
-    uint64_t testcase_counter;
     uint32_t init_seed;
     bool trace;
     bool infinite_loop;

@@ -36,10 +36,11 @@ int process_args(int argc, char* argv[]){
 
     // Define table of arguments
     APTableEntry_C arg_table[] = {
-        { .abbr_form="a", .full_form="algorithms", .initialized=false, .data_type=UNSIGNED_INT, .required=false, .default_value=true , .data.number_u64=DEFAULT_ALGORITHMS_ARGVAL  },
-        { .abbr_form="s", .full_form="seed"      , .initialized=false, .data_type=UNSIGNED_INT, .required=true , .default_value=false, .data={0}  },
-        { .abbr_form="n", .full_form="n_tests"   , .initialized=false, .data_type=UNSIGNED_INT, .required=true , .default_value=false, .data={0}  },
-        { .abbr_form="t", .full_form="trace"     , .initialized=false, .data_type=FLAG        , .required=false, .default_value=false, .data.flag=true  },
+        { .abbr_form="a", .full_form="algorithms"   , .initialized=false, .data_type=UNSIGNED_INT, .required=false, .default_value=true , .data.number_u64=DEFAULT_ALGORITHMS_ARGVAL  },
+        { .abbr_form="s", .full_form="seed"         , .initialized=false, .data_type=UNSIGNED_INT, .required=true , .default_value=false, .data={0}  },
+        { .abbr_form="n", .full_form="max_testcases", .initialized=false, .data_type=UNSIGNED_INT, .required=true , .default_value=false, .data={0}  },
+        { .abbr_form="e", .full_form="max_errors"   , .initialized=false, .data_type=UNSIGNED_INT, .required=true , .default_value=true , .data.number_u64=5  },
+        { .abbr_form="t", .full_form="trace"        , .initialized=false, .data_type=FLAG        , .required=false, .default_value=false, .data.flag=true  },
     };
 
     // Establish table of arguments, argc, and argv
@@ -74,10 +75,11 @@ int process_args(int argc, char* argv[]){
     if(ctxt.init_seed == 0){
         printf("ERROR: seed value cannot be zero.\n");
     }
-    ctxt.n_tests = ArgParsing_C_get_value_UNSIGNED_INT(ctxt.ap, "n_tests", false);
-    if(ctxt.n_tests == 0){
+    ctxt.max_testcases = ArgParsing_C_get_value_UNSIGNED_INT(ctxt.ap, "max_testcases", false);
+    if(ctxt.max_testcases == 0){
         ctxt.infinite_loop = true;
     }
+    ctxt.max_errors = ArgParsing_C_get_value_UNSIGNED_INT(ctxt.ap, "max_errors", false);
     ctxt.trace = ArgParsing_C_get_value_FLAG(ctxt.ap, "trace", false);
     return 0;
 }
@@ -115,7 +117,9 @@ int main(int argc, char* argv[]){
     sigaction(SIGINT, &sa_struct, NULL);
 
     // Main loop
-    for(ctxt.testcase_counter = 0; (ctxt.testcase_counter < ctxt.n_tests || ctxt.infinite_loop) && running; ctxt.testcase_counter++){
+    for(ctxt.testcase_counter = 0; 
+        (ctxt.testcase_counter < ctxt.max_testcases || ctxt.infinite_loop) && ctxt.error_counter < ctxt.max_errors && running;
+        ctxt.testcase_counter++){
         // Pick an allowed algorithm
         while(true){
             shifter = Randomizer_C_gen_integral_range(ctxt.rnd, 0, (NUM_ALGORITHMS - 1));
@@ -134,7 +138,10 @@ int main(int argc, char* argv[]){
         // Branch to the appropiate testcase function
         switch(picked_alg){
         case SHA224_ALG:
-            sha224_tc();
+            ret = sha224_tc();
+            if(ret != 0){
+                return -1;
+            }
             break;
         case SHA256_ALG:
             break;

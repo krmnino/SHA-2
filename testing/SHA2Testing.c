@@ -167,7 +167,9 @@ int Testcase_validate(Testcase* tc){
 
 int Testcase_report(Testcase* tc){
     char print_buff[64];
+    uint8_t* curr_bin_msg;
     uint64_t shifter;
+    size_t offset;
     TCError masked_error;
     int ret;
 
@@ -201,14 +203,22 @@ int Testcase_report(Testcase* tc){
         }
     }
     printf("Message size : %ld bytes\n", tc->msg_bytelen);
-    printf(">>> Message start\n");
+    printf(">>> Full message start\n");
     ret = hex_print(tc->bin_msg, tc->msg_bytelen, 0x0);
     if(ret != 0){
         return -1;
     }
-    printf("<<< Message end\n");
+    printf("<<< Full message end\n");
     if(tc->msg_bytelen != 0){
         printf(">>> Message sections start\n");
+        curr_bin_msg = ctxt.tc->bin_msg;
+        offset = 0;
+        for(size_t i = 0; i < ctxt.tc->sub_bin_msg_idx; i++){
+            printf("Section byte size: %d bytes\n", ctxt.tc->sub_bin_msg_sizes[i]);
+            hex_print(curr_bin_msg, ctxt.tc->sub_bin_msg_sizes[i], offset);
+            curr_bin_msg += ctxt.tc->sub_bin_msg_sizes[i];
+            offset += ctxt.tc->sub_bin_msg_sizes[i];
+        }
         printf("<<< Message sections end\n");
     }
     printf("Resulting hash : %s\n", tc->str_res_hash);
