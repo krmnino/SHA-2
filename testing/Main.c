@@ -160,7 +160,7 @@ int main(int argc, char* argv[]){
                 ctxt.error_tcs_curr->next = ctxt.tc;
                 ctxt.error_tcs_curr = ctxt.tc;
             }
-            ctxt.error_count++;
+            ctxt.error_counter++;
         }
         else{
             // Deallocate Testcase object
@@ -175,8 +175,10 @@ int main(int argc, char* argv[]){
     }
 
     // If there are any errors, loop though them and free the Testcase objects
-    printf("====================== END OF RUN REPORT ======================\n");
-    if(ctxt.error_count != 0){
+    printf("======================= END OF RUN REPORT =======================\n");
+    printf("Number of tests  : %ld\n", ctxt.testcase_counter);
+    printf("Number of errors : %ld\n", ctxt.error_counter);
+    if(ctxt.error_counter != 0){
         curr = ctxt.error_tcs_head;
         while(curr != NULL){
             Testcase_report(curr);
@@ -184,9 +186,6 @@ int main(int argc, char* argv[]){
             Testcase_delete(curr);
             curr = next;
         }
-    }
-    else{
-        printf("No errors found.\n");
     }
 
     // Deallocate Randomizer

@@ -75,7 +75,7 @@ struct Context{
     Testcase* error_tcs_head;
     Testcase* error_tcs_curr;
     Testcase* tc;
-    size_t error_count;
+    size_t error_counter;
     uint64_t algorithms;
     uint64_t n_tests;
     uint64_t testcase_counter;
