@@ -34,7 +34,7 @@ int sha224_tc(){
 
     // Only for messages of length non-zero
     if(ctxt.tc->msg_bytelen != 0){
-        // Allocate and populate array of message sub-sections sizes
+        // Allocate and populate array of message sections sizes
         ctxt.tc->sub_bin_msg_sizes = (uint32_t*)calloc(ctxt.tc->msg_bytelen, sizeof(uint32_t));
         remaining = ctxt.tc->msg_bytelen;
         ctxt.tc->sub_bin_msg_idx = 0;
@@ -46,21 +46,37 @@ int sha224_tc(){
         }
         Randomizer_C_shuffle(ctxt.rnd, (void*)ctxt.tc->sub_bin_msg_sizes, ctxt.tc->sub_bin_msg_idx, sizeof(uint32_t));
 
-        // Provide sub-sections of message to hashing function
+        // Provide sections of message to hashing function
         curr_bin_msg = ctxt.tc->bin_msg;
         for(size_t i = 0; i < ctxt.tc->sub_bin_msg_idx; i++){
-            sha224_chain(ctxt.tc->s224, curr_bin_msg, ctxt.tc->sub_bin_msg_sizes[i]);
+            ret = sha224_chain(ctxt.tc->s224, curr_bin_msg, ctxt.tc->sub_bin_msg_sizes[i]);
+            if(ret != 0){
+                ctxt.tc->errors = ctxt.tc->errors | SHA2_CHAIN_FAIL;
+            }
             curr_bin_msg += ctxt.tc->sub_bin_msg_sizes[i];
         }
     }
     else{
         // Perform the hashing operation
-        sha224_chain(ctxt.tc->s224, ctxt.tc->bin_msg, ctxt.tc->msg_bytelen);
+        ret = sha224_chain(ctxt.tc->s224, ctxt.tc->bin_msg, ctxt.tc->msg_bytelen);
+        if(ret != 0){
+            ctxt.tc->errors = ctxt.tc->errors | SHA2_CHAIN_FAIL;
+        }
     }
 
-    sha224_end(ctxt.tc->s224);
-    sha224_get_hash(ctxt.tc->s224, ctxt.tc->bin_res_hash);
-    sha224_get_stringified_hash(ctxt.tc->s224, ctxt.tc->str_res_hash);
+    // Wrap up hashing of the message
+    ret = sha224_end(ctxt.tc->s224);
+    if(ret != 0){
+        ctxt.tc->errors = ctxt.tc->errors | SHA2_END_FAIL;
+    }
+    ret = sha224_get_hash(ctxt.tc->s224, ctxt.tc->bin_res_hash);
+    if(ret != 0){
+        ctxt.tc->errors = ctxt.tc->errors | SHA2_GET_HASH_FAIL;
+    }
+    ret = sha224_get_stringified_hash(ctxt.tc->s224, ctxt.tc->str_res_hash);
+    if(ret != 0){
+        ctxt.tc->errors = ctxt.tc->errors | SHA2_GET_STRINGIFIED_HASH_FAIL;
+    }
     
     // Validate results after execution
     ret = Testcase_validate(ctxt.tc);
