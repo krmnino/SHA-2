@@ -9,12 +9,6 @@
 #include "../src/sha2.h"
 #include "Utils.h"
 #include "TestVector.h"
-#include "SHA224_TV.h"
-#include "SHA256_TV.h"
-#include "SHA384_TV.h"
-#include "SHA512_TV.h"
-#include "SHA512_224_TV.h"
-#include "SHA512_256_TV.h"
 
 
 #define _GNU_SOURCE
@@ -27,6 +21,7 @@ struct Testcase{
     uint8_t* bin_exp_hash;
     char* str_res_hash;
     TestVector* tv_array;
+    uint32_t* sub_bin_msg_sizes;
     Testcase* next;
     union{
         sha224* s224;
@@ -40,6 +35,7 @@ struct Testcase{
     size_t n_tvs;
     size_t msg_bytelen;
     size_t hash_bytelen;
+    size_t sub_bin_msg_idx;
     SHA_Algs algorithm;
     TCError errors;
     uint32_t seed;
@@ -50,8 +46,10 @@ typedef struct Context Context;
 struct Context{
     ArgParsing_C* ap;
     Randomizer_C* rnd;
-    Testcase* error_tcs;
+    Testcase* error_tcs_head;
+    Testcase* error_tcs_curr;
     Testcase* tc;
+    size_t error_count;
     uint64_t algorithms;
     uint64_t n_tests;
     uint64_t testcase_counter;

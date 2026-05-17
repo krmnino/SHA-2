@@ -72,7 +72,6 @@ int hex_str_2_bin_str(char* input_buffer, uint8_t* output_buffer, size_t input_c
 
 int bin_str_2_hex_str(uint8_t* input_buffer, char* output_buffer, size_t input_bytelen){
     size_t output_idx;
-    char loc_buff[3];
 
     // Validate input
     if(input_buffer == NULL){

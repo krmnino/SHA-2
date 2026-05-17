@@ -24,7 +24,7 @@ TST_OBJ_PATHS = $(addprefix $(BD)/,$(TST_OBJ_FILES))
 all: compile link
 
 compile:
-	gcc -c -g $(SRC_PATHS) $(TST_PATHS)
+	gcc -Wall -c -g $(SRC_PATHS) $(TST_PATHS)
 	mv *.o $(BD)
 
 link:

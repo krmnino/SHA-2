@@ -24,7 +24,6 @@ SOFTWARE.
 
 
 #include "SHA2Testing.h"
-#include "SHA224_TV.h"
 
 
 int sha224_tc(){
