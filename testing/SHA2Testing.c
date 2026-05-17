@@ -128,11 +128,6 @@ int Testcase_validate(Testcase* tc){
         return -1;
     }
 
-    // If SHA2 object failed initializing, no need to look any further
-    if((tc->errors & SHA2_INIT_FAIL) != 0){
-        return 0;
-    }
-
     // Validate results
     if(compare_uint8_t_arrays(tc->bin_res_hash, tc->bin_exp_hash, tc->hash_bytelen) != 0){
         tc->errors = tc->errors | BINARY_HASH_MISMATCH;
