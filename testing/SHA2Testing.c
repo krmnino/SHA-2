@@ -45,13 +45,11 @@ Testcase* Testcase_init(SHA_Algs input_algorithm){
         tc->hash_bytelen = SHA224_HASH_BYTESIZE;
         tc->tv_array = SHA224_TVS;
         tc->n_tvs = sizeof(SHA224_TVS) / sizeof(SHA224_TVS[0]);
-        tc->s224 = sha224_init();
         break;    
     case SHA256_ALG:
         tc->hash_bytelen = SHA256_HASH_BYTESIZE;
         tc->tv_array = SHA256_TVS;
         tc->n_tvs = sizeof(SHA256_TVS) / sizeof(SHA256_TVS[0]);
-        tc->s256 = sha256_init();
         break;    
     case SHA384_ALG:
         tc->hash_bytelen = SHA384_HASH_BYTESIZE;
@@ -108,30 +106,6 @@ int Testcase_delete(Testcase* tc){
         return -1;
     }
 
-    // Deallocate SHA2 object
-    switch (tc->algorithm){
-    case SHA224_ALG:
-        sha224_delete(tc->s224);
-        break;    
-    case SHA256_ALG:
-        sha256_delete(tc->s256);
-        break;    
-    case SHA384_ALG:
-        sha384_delete(tc->s384);
-        break;    
-    case SHA512_ALG:
-        sha512_delete(tc->s512);
-        break;    
-    case SHA512_224_ALG:
-        sha512_224_delete(tc->s512_224);
-        break;    
-    case SHA512_256_ALG:
-        sha512_256_delete(tc->s512_256);
-        break;    
-    default:
-        break;
-    }
-
     // Deallocate buffers
     free(tc->bin_res_hash);
     free(tc->str_res_hash);
@@ -152,6 +126,11 @@ int Testcase_validate(Testcase* tc){
     if(tc == NULL){
         printf("ERROR: Pointer to Testcase instance is NULL.\n");
         return -1;
+    }
+
+    // If SHA2 object failed initializing, no need to look any further
+    if((tc->errors & SHA2_INIT_FAIL) != 0){
+        return 0;
     }
 
     // Validate results

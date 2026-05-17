@@ -32,6 +32,12 @@ int sha224_tc(){
     uint32_t picked_len;
     int ret;
 
+    ctxt.tc->s224 = sha224_init();
+    if(ctxt.tc->s224 == NULL){
+        ctxt.tc->errors = ctxt.tc->errors | SHA2_INIT_FAIL;
+        return -1;
+    }
+
     // Only for messages of length non-zero
     if(ctxt.tc->msg_bytelen != 0){
         // Allocate and populate array of message sections sizes
@@ -76,6 +82,10 @@ int sha224_tc(){
     ret = sha224_get_stringified_hash(ctxt.tc->s224, ctxt.tc->str_res_hash);
     if(ret != 0){
         ctxt.tc->errors = ctxt.tc->errors | SHA2_GET_STRINGIFIED_HASH_FAIL;
+    }
+    ret = sha224_delete(ctxt.tc->s224);
+    if(ret != 0){
+        ctxt.tc->errors = ctxt.tc->errors | SHA2_DELETE_FAIL;
     }
     
     // Validate results after execution
