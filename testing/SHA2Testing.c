@@ -19,13 +19,13 @@ Testcase* Testcase_init(SHA_Algs input_algorithm){
     case SHA224_ALG:
         tc->hash_bytelen = SHA224_HASH_BYTESIZE;
         tc->tv_array = SHA224_TVS;
-        tc->n_tvs = N_SHA224_TVS;
+        tc->n_tvs = sizeof(SHA224_TVS) / sizeof(SHA224_TVS[0]);
         tc->s224 = sha224_init();
         break;    
     case SHA256_ALG:
         tc->hash_bytelen = SHA256_HASH_BYTESIZE;
         tc->tv_array = SHA256_TVS;
-        tc->n_tvs = N_SHA256_TVS;
+        tc->n_tvs = sizeof(SHA256_TVS) / sizeof(SHA256_TVS[0]);
         tc->s256 = sha256_init();
         break;    
     case SHA384_ALG:
@@ -153,43 +153,41 @@ int Testcase_report(Testcase* tc){
     }
 
     // Print testcase report
-    if(tc->errors != NO_ERROR | ctxt.trace){
-        printf("--------------------- START TESTCASE REPORT ---------------------\n");
-        memset((void*)&print_buff, 0, sizeof(print_buff));
-        SHA_Algs_to_string(tc->algorithm, (char*)&print_buff);
-        printf("Testcase #%ld\n", ctxt.testcase_counter);
-        printf("Seed : 0x%x\n", tc->seed);
-        printf("Algorithm : %s\n", print_buff);
-        printf("Errors:\n");
-        if(tc->errors == NO_ERROR){
-            TCError_to_string(tc->errors, (char*)&print_buff);
-            printf(" - %s\n", print_buff);
-        }
-        else{
-            shifter = 0x1;
-            for(size_t i = 0; i < NUM_ERROR_TYPES; i++){
-                masked_error = tc->errors & shifter;
-                if(masked_error != NO_ERROR){
-                    TCError_to_string(masked_error, (char*)&print_buff);
-                    printf(" - %s\n", print_buff);
-                }
-                shifter = shifter << 1;
-            }
-        }
-        printf("Message size : %ld bytes\n", tc->msg_bytelen);
-        printf(">>> Message start\n");
-        ret = hex_print(tc->bin_msg, tc->msg_bytelen, 0x0);
-        if(ret != 0){
-            return -1;
-        }
-        printf("<<< Message end\n");
-        if(tc->msg_bytelen != 0){
-            printf(">>> Message sections start\n");
-            printf("<<< Message sections end\n");
-        }
-        printf("Resulting hash : %s\n", tc->str_res_hash);
-        printf("Expected hash  : %s\n", tc->tv_array[tc->tv_idx].hash);
-        printf("---------------------- END TESTCASE REPORT ----------------------\n");
+    printf("--------------------- START TESTCASE REPORT ---------------------\n");
+    memset((void*)&print_buff, 0, sizeof(print_buff));
+    SHA_Algs_to_string(tc->algorithm, (char*)&print_buff);
+    printf("Testcase #%ld\n", ctxt.testcase_counter);
+    printf("Seed : 0x%x\n", tc->seed);
+    printf("Algorithm : %s\n", print_buff);
+    printf("Errors:\n");
+    if(tc->errors == NO_ERROR){
+        TCError_to_string(tc->errors, (char*)&print_buff);
+        printf(" - %s\n", print_buff);
     }
+    else{
+        shifter = 0x1;
+        for(size_t i = 0; i < NUM_ERROR_TYPES; i++){
+            masked_error = tc->errors & shifter;
+            if(masked_error != NO_ERROR){
+                TCError_to_string(masked_error, (char*)&print_buff);
+                printf(" - %s\n", print_buff);
+            }
+            shifter = shifter << 1;
+        }
+    }
+    printf("Message size : %ld bytes\n", tc->msg_bytelen);
+    printf(">>> Message start\n");
+    ret = hex_print(tc->bin_msg, tc->msg_bytelen, 0x0);
+    if(ret != 0){
+        return -1;
+    }
+    printf("<<< Message end\n");
+    if(tc->msg_bytelen != 0){
+        printf(">>> Message sections start\n");
+        printf("<<< Message sections end\n");
+    }
+    printf("Resulting hash : %s\n", tc->str_res_hash);
+    printf("Expected hash  : %s\n", tc->tv_array[tc->tv_idx].hash);
+    printf("---------------------- END TESTCASE REPORT ----------------------\n");
     return 0;
 }
