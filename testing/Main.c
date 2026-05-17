@@ -89,10 +89,12 @@ void terminating_handler(int s){
 
 
 int main(int argc, char* argv[]){
-    int ret;
+    struct sigaction sa_struct;
+    Testcase* curr;
+    Testcase* next;
     uint64_t shifter;
     SHA_Algs picked_alg;
-    struct sigaction sa_struct;
+    int ret;
 
     // Clear the ctxt instance
     memset((void*)&ctxt, 0, sizeof(ctxt));
@@ -148,14 +150,43 @@ int main(int argc, char* argv[]){
             break;
         }
 
-        // Deallocate Testcase object
-        ret = Testcase_delete(ctxt.tc);
-        if(ret != 0){
-            return -1;
+        // Check if current Testcase encountered an error
+        if(ctxt.tc->errors != NO_ERROR){
+            if(ctxt.error_tcs_head == NULL){
+                ctxt.error_tcs_head = ctxt.tc;
+                ctxt.error_tcs_curr = ctxt.error_tcs_head;
+            }
+            else{
+                ctxt.error_tcs_curr->next = ctxt.tc;
+                ctxt.error_tcs_curr = ctxt.tc;
+            }
+            ctxt.error_count++;
+        }
+        else{
+            // Deallocate Testcase object
+            ret = Testcase_delete(ctxt.tc);
+            if(ret != 0){
+                return -1;
+            }
         }
 
         // Next seed
         Randomizer_C_root_seed_next(ctxt.rnd);
+    }
+
+    // If there are any errors, loop though them and free the Testcase objects
+    printf("====================== END OF RUN REPORT ======================\n");
+    if(ctxt.error_count != 0){
+        curr = ctxt.error_tcs_head;
+        while(curr != NULL){
+            Testcase_report(curr);
+            next = curr->next;
+            Testcase_delete(curr);
+            curr = next;
+        }
+    }
+    else{
+        printf("No errors found.\n");
     }
 
     // Deallocate Randomizer
