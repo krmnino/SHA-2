@@ -146,6 +146,7 @@ int main(int argc, char* argv[]){
         case SHA384_ALG:
             break;
         case SHA512_ALG:
+            sha512_tc();
             break;
         case SHA512_224_ALG:
             break;
