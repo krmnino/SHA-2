@@ -144,6 +144,7 @@ int main(int argc, char* argv[]){
             sha256_tc();
             break;
         case SHA384_ALG:
+            sha384_tc();
             break;
         case SHA512_ALG:
             sha512_tc();

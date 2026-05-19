@@ -26,6 +26,7 @@ SOFTWARE.
 #include "SHA2Testing.h"
 #include "SHA224_TV.h"
 #include "SHA256_TV.h"
+#include "SHA384_TV.h"
 #include "SHA512_TV.h"
 
 
@@ -54,6 +55,8 @@ Testcase* Testcase_init(SHA_Algs input_algorithm){
         break;    
     case SHA384_ALG:
         tc->hash_bytelen = SHA384_HASH_BYTESIZE;
+        tc->tv_array = SHA384_TVS;
+        tc->n_tvs = sizeof(SHA384_TVS) / sizeof(SHA384_TVS[0]);
         break;    
     case SHA512_ALG:
         tc->hash_bytelen = SHA512_HASH_BYTESIZE;
