@@ -154,6 +154,8 @@ int main(int argc, char* argv[]){
             ctxt.sha512_counter++;
             break;
         case SHA512_224_ALG:
+            sha512_224_tc();
+            ctxt.sha512_224_counter++;
             break;
         case SHA512_256_ALG:
             break;

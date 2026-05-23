@@ -19,7 +19,8 @@ TST_FILES = Main.c			\
 			sha224_tc.c		\
 			sha256_tc.c		\
 			sha384_tc.c		\
-			sha512_tc.c
+			sha512_tc.c		\
+			sha512_224_tc.c		
 TST_PATHS = $(addprefix $(TD)/,$(TST_FILES))			
 TST_OBJ_FILES = $(patsubst %.c,%.o,$(TST_FILES))
 TST_OBJ_PATHS = $(addprefix $(BD)/,$(TST_OBJ_FILES))
