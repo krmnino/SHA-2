@@ -39,7 +39,7 @@ int process_args(int argc, char* argv[]){
         { .abbr_form="a", .full_form="algorithms"   , .initialized=false, .data_type=UNSIGNED_INT, .required=false, .default_value=true , .data.number_u64=DEFAULT_ALGORITHMS_ARGVAL  },
         { .abbr_form="s", .full_form="seed"         , .initialized=false, .data_type=UNSIGNED_INT, .required=true , .default_value=false, .data={0}  },
         { .abbr_form="n", .full_form="max_testcases", .initialized=false, .data_type=UNSIGNED_INT, .required=true , .default_value=false, .data={0}  },
-        { .abbr_form="e", .full_form="max_errors"   , .initialized=false, .data_type=UNSIGNED_INT, .required=true , .default_value=true , .data.number_u64=5  },
+        { .abbr_form="e", .full_form="max_errors"   , .initialized=false, .data_type=UNSIGNED_INT, .required=false, .default_value=true , .data.number_u64=5  },
         { .abbr_form="t", .full_form="trace"        , .initialized=false, .data_type=FLAG        , .required=false, .default_value=false, .data.flag=true  },
     };
 
@@ -139,15 +139,19 @@ int main(int argc, char* argv[]){
         switch(picked_alg){
         case SHA224_ALG:
             sha224_tc();
+            ctxt.sha224_counter++;
             break;
         case SHA256_ALG:
             sha256_tc();
+            ctxt.sha256_counter++;
             break;
         case SHA384_ALG:
             sha384_tc();
+            ctxt.sha384_counter++;
             break;
         case SHA512_ALG:
             sha512_tc();
+            ctxt.sha512_counter++;
             break;
         case SHA512_224_ALG:
             break;
@@ -182,9 +186,6 @@ int main(int argc, char* argv[]){
     }
 
     // If there are any errors, loop though them and free the Testcase objects
-    printf("======================= END OF RUN REPORT =======================\n");
-    printf("Number of tests  : %ld\n", ctxt.testcase_counter);
-    printf("Number of errors : %ld\n", ctxt.error_counter);
     if(ctxt.error_counter != 0){
         curr = ctxt.error_tcs_head;
         while(curr != NULL){
@@ -194,6 +195,16 @@ int main(int argc, char* argv[]){
             curr = next;
         }
     }
+    printf("======================= END OF RUN REPORT =======================\n");
+    printf("Number of tests  : %ld\n", ctxt.testcase_counter);
+    printf("Number of errors : %ld\n", ctxt.error_counter);
+    printf("Algorithm specific counters:\n");
+    printf("- Generated SHA-224     : %ld\n", ctxt.sha224_counter);
+    printf("- Generated SHA-256     : %ld\n", ctxt.sha256_counter);
+    printf("- Generated SHA-384     : %ld\n", ctxt.sha384_counter);
+    printf("- Generated SHA-512     : %ld\n", ctxt.sha512_counter);
+    printf("- Generated SHA-512/224 : %ld\n", ctxt.sha512_224_counter);
+    printf("- Generated SHA-512/256 : %ld\n", ctxt.sha512_256_counter);
 
     // Deallocate Randomizer
     Randomizer_C_delete(ctxt.rnd);

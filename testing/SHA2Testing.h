@@ -79,6 +79,12 @@ struct Context{
     size_t error_counter;
     size_t max_testcases;
     size_t testcase_counter;
+    size_t sha224_counter;
+    size_t sha256_counter;
+    size_t sha384_counter;
+    size_t sha512_counter;
+    size_t sha512_224_counter;
+    size_t sha512_256_counter;
     uint64_t algorithms;
     uint32_t init_seed;
     bool trace;
