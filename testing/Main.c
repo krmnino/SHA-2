@@ -38,9 +38,9 @@ int process_args(int argc, char* argv[]){
     APTableEntry_C arg_table[] = {
         { .abbr_form="a", .full_form="algorithms"   , .initialized=false, .data_type=UNSIGNED_INT, .required=false, .default_value=true , .data.number_u64=DEFAULT_ALGORITHMS_ARGVAL  },
         { .abbr_form="s", .full_form="seed"         , .initialized=false, .data_type=UNSIGNED_INT, .required=true , .default_value=false, .data={0}  },
-        { .abbr_form="n", .full_form="max_testcases", .initialized=false, .data_type=UNSIGNED_INT, .required=true , .default_value=false, .data={0}  },
-        { .abbr_form="e", .full_form="max_errors"   , .initialized=false, .data_type=UNSIGNED_INT, .required=false, .default_value=true , .data.number_u64=5  },
-        { .abbr_form="t", .full_form="trace"        , .initialized=false, .data_type=FLAG        , .required=false, .default_value=false, .data.flag=true  },
+        { .abbr_form="" , .full_form="max_testcases", .initialized=false, .data_type=UNSIGNED_INT, .required=false, .default_value=true , .data.number_u64=0  },
+        { .abbr_form="" , .full_form="max_errors"   , .initialized=false, .data_type=UNSIGNED_INT, .required=false, .default_value=true , .data.number_u64=5  },
+        { .abbr_form="t", .full_form="trace"        , .initialized=false, .data_type=FLAG        , .required=false, .default_value=true , .data.flag=false  },
     };
 
     // Establish table of arguments, argc, and argv
