@@ -93,6 +93,15 @@ For the descriptions detailed below, the `XYZ` substring is a placeholder that c
 
 ## Changelog
 
+### v1.1
+
+- Implementation of pseudo-random testcase generation.
+  - Using testcase vectors provided by [NIST](https://csrc.nist.gov/projects/cryptographic-algorithm-validation-program/secure-hashing).
+  - Create partitions of a test vector binary message to then be fed to a hashing algorithm.
+  - Compare resulting hash value with expected hash value from the test vector.
+- Providing usage examples in `testing/SHA2Example.c`.
+- Miscellaneous bug fixes.
+
 ### v1.0
 
 - Initial release.
