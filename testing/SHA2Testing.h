@@ -104,6 +104,7 @@ int sha256_tc();
 int sha384_tc();
 int sha512_tc();
 int sha512_224_tc();
+int sha512_256_tc();
 
 
 #endif

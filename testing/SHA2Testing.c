@@ -29,6 +29,7 @@ SOFTWARE.
 #include "SHA384_TV.h"
 #include "SHA512_TV.h"
 #include "SHA512_224_TV.h"
+#include "SHA512_256_TV.h"
 
 
 Testcase* Testcase_init(SHA_Algs input_algorithm){
@@ -71,6 +72,8 @@ Testcase* Testcase_init(SHA_Algs input_algorithm){
         break;    
     case SHA512_256_ALG:
         tc->hash_bytelen = SHA512_256_HASH_BYTESIZE;
+        tc->tv_array = SHA512_256_TVS;
+        tc->n_tvs = sizeof(SHA512_256_TVS) / sizeof(SHA512_256_TVS[0]);
         break;    
     default:
         printf("ERROR: The algorithm type provided is invalid: %lx.\n", (uint64_t)input_algorithm);
