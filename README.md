@@ -15,7 +15,7 @@ The publication FIPS 180-4 can be found [here](https://nvlpubs.nist.gov/nistpubs
 ## Repository Structure
 
 - `src`: contains all the source files, Makefile, and bash script required to build the `libSHA2.so` file.
-- `testing`: test driver program to validate operation of the SHA-2 library and `SHA2Example.c` as usage example for each algorithm of the SHA-2 family
+- `testing`: test driver program to validate operation of the SHA-2 library and `SHA2Example.c` as usage example for each algorithm of the SHA-2 family.
 
 ## Requirements and Dependencies
 
