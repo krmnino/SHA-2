@@ -106,7 +106,6 @@ Testcase* Testcase_init(SHA_Algs input_algorithm){
     if(ret != 0){
         return NULL;
     }
-
     return tc;
 }
 

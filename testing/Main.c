@@ -184,7 +184,6 @@ int main(int argc, char* argv[]){
                 return -1;
             }
         }
-
         // Next seed
         Randomizer_C_root_seed_next(ctxt.rnd);
     }

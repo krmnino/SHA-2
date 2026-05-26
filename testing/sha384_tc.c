@@ -32,6 +32,7 @@ int sha384_tc(){
     uint32_t picked_len;
     int ret;
 
+    // Intialize SHA-384 object
     ctxt.tc->s384 = sha384_init();
     if(ctxt.tc->s384 == NULL){
         ctxt.tc->errors = ctxt.tc->errors | SHA2_INIT_FAIL;
@@ -101,6 +102,5 @@ int sha384_tc(){
             return -1;
         }
     }
-
     return 0;
 }

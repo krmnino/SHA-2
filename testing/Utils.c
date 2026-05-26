@@ -219,6 +219,12 @@ int TCError_to_string(TCError error, char* output_buffer){
     case SHA2_GET_STRINGIFIED_HASH_FAIL:
         src_string = "SHA2_GET_STRINGIFIED_HASH_FAIL";
         break;
+    case SHA2_INIT_FAIL:
+        src_string = "SHA2_INIT_FAIL";
+        break;
+    case SHA2_DELETE_FAIL:
+        src_string = "SHA2_DELETE_FAIL";
+        break;
     default:
         return -1;
     }

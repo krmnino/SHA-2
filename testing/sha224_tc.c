@@ -32,6 +32,7 @@ int sha224_tc(){
     uint32_t picked_len;
     int ret;
 
+    // Intialize SHA-224 object
     ctxt.tc->s224 = sha224_init();
     if(ctxt.tc->s224 == NULL){
         ctxt.tc->errors = ctxt.tc->errors | SHA2_INIT_FAIL;
@@ -101,6 +102,5 @@ int sha224_tc(){
             return -1;
         }
     }
-
     return 0;
 }

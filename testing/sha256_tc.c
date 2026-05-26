@@ -32,6 +32,7 @@ int sha256_tc(){
     uint32_t picked_len;
     int ret;
 
+    // Intialize SHA-256 object and check
     ctxt.tc->s256 = sha256_init();
     if(ctxt.tc->s256 == NULL){
         ctxt.tc->errors = ctxt.tc->errors | SHA2_INIT_FAIL;

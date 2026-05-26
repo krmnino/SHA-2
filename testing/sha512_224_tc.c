@@ -32,6 +32,7 @@ int sha512_224_tc(){
     uint32_t picked_len;
     int ret;
 
+    // Intialize SHA-512/224 object
     ctxt.tc->s512_224 = sha512_224_init();
     if(ctxt.tc->s512_224 == NULL){
         ctxt.tc->errors = ctxt.tc->errors | SHA2_INIT_FAIL;
@@ -101,6 +102,5 @@ int sha512_224_tc(){
             return -1;
         }
     }
-
     return 0;
 }
