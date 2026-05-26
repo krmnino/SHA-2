@@ -261,7 +261,7 @@ int sha384_get_hash(sha384* s, uint8_t* out_buffer){
     }
     
     out_buffer_idx = 0;
-    for(size_t i = 0; i < (SHA384_HASH_U64WORDS - 1); i++){
+    for(size_t i = 0; i < (SHA384_HASH_U64WORDS - 2); i++){
         u32_buff.integer = s->hash[i];
         for(size_t j = 0; j < sizeof(uint64_t); j++){
             out_buffer[out_buffer_idx] = u32_buff.array[j];

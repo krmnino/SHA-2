@@ -15,7 +15,7 @@ The publication FIPS 180-4 can be found [here](https://nvlpubs.nist.gov/nistpubs
 ## Repository Structure
 
 - `src`: contains all the source files, Makefile, and bash script required to build the `libSHA2.so` file.
-- `testing`: test driver program to validate operation of the SHA-2 library.
+- `testing`: test driver program to validate operation of the SHA-2 library and `SHA2Example.c` as usage example for each algorithm of the SHA-2 family
 
 ## Requirements and Dependencies
 
@@ -92,6 +92,15 @@ For the descriptions detailed below, the `XYZ` substring is a placeholder that c
 
 
 ## Changelog
+
+### v1.1
+
+- Implementation of pseudo-random testcase generation.
+  - Using testcase vectors provided by [NIST](https://csrc.nist.gov/projects/cryptographic-algorithm-validation-program/secure-hashing).
+  - Create partitions of a test vector binary message to then be fed to a hashing algorithm.
+  - Compare resulting hash value with expected hash value from the test vector.
+- Providing usage examples in `testing/SHA2Example.c`.
+- Miscellaneous bug fixes.
 
 ### v1.0
 

@@ -2,3 +2,4 @@ bin
 res
 src/.vscode
 testing/.vscode
+testing/*.dat
