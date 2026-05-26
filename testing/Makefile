@@ -36,7 +36,7 @@ link:
 	gcc $(SRC_OBJ_PATHS) $(TST_OBJ_PATHS) -L$(RD) -lRandomizer -lArgParsing -Wl,-rpath,$(RD)  -o $(BD)/sha2
 
 example:
-	gcc -c -g $(SRC_PATHS) SHA2Example.c
+	gcc -Wall -c -g $(SRC_PATHS) SHA2Example.c
 	mv *.o $(BD)
 	gcc $(SRC_OBJ_PATHS) $(BD)/SHA2Example.o -o $(BD)/sha2_example
 

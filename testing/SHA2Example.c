@@ -6,9 +6,7 @@ int sha224_test(){
     char* input_message;
     char* str_output_hash;
     uint8_t* hex_output_hash;
-    size_t j;
     int ret;
-    char conv_byte[3];
     
     input_message = "This is hashed with SHA-224.";
 
@@ -33,7 +31,7 @@ int sha224_test(){
         return -1;
     }
     
-    hex_output_hash = (char*)calloc(SHA224_HASH_BYTESIZE, sizeof(uint8_t));
+    hex_output_hash = (uint8_t*)calloc(SHA224_HASH_BYTESIZE, sizeof(uint8_t));
     ret = sha224_get_hash(s, hex_output_hash);
     if(ret != 0){
         return -1;
@@ -64,9 +62,7 @@ int sha256_test(){
     char* input_message;
     char* str_output_hash;
     uint8_t* hex_output_hash;
-    size_t j;
     int ret;
-    char conv_byte[3];
     
     input_message = "This is hashed with SHA-256.";
 
@@ -91,7 +87,7 @@ int sha256_test(){
         return -1;
     }
     
-    hex_output_hash = (char*)calloc(SHA256_HASH_BYTESIZE, sizeof(uint8_t));
+    hex_output_hash = (uint8_t*)calloc(SHA256_HASH_BYTESIZE, sizeof(uint8_t));
     ret = sha256_get_hash(s, hex_output_hash);
     if(ret != 0){
         return -1;
@@ -122,9 +118,7 @@ int sha384_test(){
     char* input_message;
     char* str_output_hash;
     uint8_t* hex_output_hash;
-    size_t j;
     int ret;
-    char conv_byte[3];
     
     input_message = "This is hashed with SHA-384.";
 
@@ -149,7 +143,7 @@ int sha384_test(){
         return -1;
     }
     
-    hex_output_hash = (char*)calloc(SHA384_HASH_BYTESIZE, sizeof(uint8_t));
+    hex_output_hash = (uint8_t*)calloc(SHA384_HASH_BYTESIZE, sizeof(uint8_t));
     ret = sha384_get_hash(s, hex_output_hash);
     if(ret != 0){
         return -1;
